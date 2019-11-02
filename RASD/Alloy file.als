@@ -47,8 +47,7 @@ sig Area {
 sig Violation {
 	coords: one GPScoord,
 	time: one Int,
-} {//time misured in seconds, 86400 seconds in one day, refreshed each week
-	time>=0 and time<7
+}{time>=0 and time<7
 }
 
 sig ExpiredTicket extends Violation{}
@@ -58,7 +57,7 @@ sig UnauthorizedParking extends Violation{}
 sig Segnalation {
 	maker: one User,
 	vehicle: one Vehicle,
-    infraction: one Violation,
+    violation: one Violation,
 	photo: one Photo,
     takenCareOf: one Boolean
 }
@@ -118,6 +117,8 @@ fact areaProperties{
 
 fact discardSegnalationsAlreadyTakenCareOf{
     all s1: Segnalation | no s2: Segnalation | s2 != s1 and (s1.takenCareOf in True) and
-                            s1.vehicle.plate = s2.vehicle.plate /*vicinity condition*/
-                             /*time condition*/
+                            s1.vehicle.plate = s2.vehicle.plate 
+                            and s1.violation.coords.longitude-s2.violation.coords.longitude<1 and s1.violation.coords.longitude-s2.violation.coords.longitude>-1
+                            and s1.violation.coords.latitude-s2.violation.coords.latitude<1 and s1.violation.coords.latitude-s2.violation.coords.latitude>-1 and
+                            s1.violation.time-s2.violation.time<2 and s1.violation.time-s2.violation.time>-2
 }
