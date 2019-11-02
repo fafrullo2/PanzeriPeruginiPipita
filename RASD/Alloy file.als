@@ -50,14 +50,17 @@ sig Violation {
 }{time>=0 and time<7
 }
 
-sig ExpiredTicket extends Violation{}
+sig ViolationType{}
 
-sig UnauthorizedParking extends Violation{}
+sig ExpiredTicket extends ViolationType{}
+
+sig UnauthorizedParking extends ViolationType{}
 
 sig Segnalation {
 	maker: one User,
 	vehicle: one Vehicle,
     violation: one Violation,
+    violationType: ViolationType,
 	photo: one Photo,
     takenCareOf: one Boolean
 }
@@ -71,7 +74,7 @@ sig MunicipalAuthority extends Authority{}
 sig Policeman extends Authority{}
 
 sig Ticket{
-    compilation:  Segnalation -> one Policeman
+    filing:  Segnalation -> one Policeman
 }
 
 //TODO infraction->violation
@@ -113,12 +116,18 @@ fact areaProperties{
     all a: Area| #a.segnalations>=0 and a.dangerLevel=#a.segnalations
 }
 
-
-
 fact discardSegnalationsAlreadyTakenCareOf{
     all s1: Segnalation | no s2: Segnalation | s2 != s1 and (s1.takenCareOf in True) and
                             s1.vehicle.plate = s2.vehicle.plate 
                             and s1.violation.coords.longitude-s2.violation.coords.longitude<1 and s1.violation.coords.longitude-s2.violation.coords.longitude>-1
                             and s1.violation.coords.latitude-s2.violation.coords.latitude<1 and s1.violation.coords.latitude-s2.violation.coords.latitude>-1 and
                             s1.violation.time-s2.violation.time<2 and s1.violation.time-s2.violation.time>-2
+                            and s1.violationType=s2.violationType
 }
+
+fact ticketWritten{
+    (all s1: Segnalation| s1.takenCareOf=True iff s1 in (Ticket.filing).Policeman)
+    and 
+    (all disj s1, s2: Segnalation| s1.takenCareOf=True /**/ )
+}
+
