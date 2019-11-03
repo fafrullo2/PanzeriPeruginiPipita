@@ -29,7 +29,6 @@ sig GPScoord{
 	longitude: one Int
 }
 
-
 sig Intervention{}
 
 sig Area {
@@ -52,12 +51,12 @@ sig UnauthorizedParking extends ViolationType{}
 
 sig Segnalation {
 	maker: one User,
-	vehicle: one Vehicle,
+	vehicle: one Vehicle,  //contains the plate recognised from the photo
     positionAndTime: one PositionAndTime,
-    violationType: ViolationType,
+    violationType: one ViolationType,
 	photo: one Photo,
     takenCareOf: one Boolean,
-    writtenPlate: one Plate
+    writtenPlate: one Plate //plate signaled by the user who made the segnalation
 }
 
 fun getCoords[s:Segnalation]: GPScoord{
@@ -73,9 +72,9 @@ abstract sig Authority {
 }
 
 sig MunicipalAuthority extends Authority{
-    trackedUsers: some User,
-    trackedAreas: some Area,
-    trackedVehicles: some Vehicle
+    trackedUsers: set User,
+    trackedAreas: set Area,
+    trackedVehicles: set Vehicle
 }
 
 sig Policeman extends Authority{}
@@ -91,17 +90,18 @@ sig Ticket{
 //facts
 //======================================================================================
 
-
+//definition of boolean true and false
 fact booleanValues{
     #True=1 and #False=1 and #Boolean=2 and 
     (all b: Boolean |b = True or b = False) and 
     (no b: Boolean | b in True and b in False) 
 }
 
+//there are not 2 segnalations with the same photo
 fact uniquePhoto{
     all  p1: Photo | no disj s1, s2 : Segnalation | s1.photo=p1 and s2.photo=p1  
 }
-
+//all the photos are part of segnalations
 fact noLonePhoto{
     all p1:Photo | p1 in Segnalation.photo
 }
@@ -149,9 +149,11 @@ fact violationTypeCardinality{
 fact allSegnalationsInAnArea{
     all s: Segnalation | s in Area.segnalationsInside
 }
-
+//Note that in reality it would be segnalations within a certain range of coordinates and time of the first one; but for analysis 
+//simplicity I have chosen to use equality 
 fact eitherAllTakenCareOrNone{
-    all s1, s2: Segnalation | (getCoords[s1]=getCoords[s2] and getTime[s1]=getTime[s2] and s1.writtenPlate=s2.writtenPlate and s1.violationType=s2.violationType) implies (s1.takenCareOf=s2.takenCareOf)
+    all s1, s2: Segnalation | (getCoords[s1]=getCoords[s2] and getTime[s1]=getTime[s2] and s1.writtenPlate=s2.writtenPlate 
+    and s1.violationType=s2.violationType) implies (s1.takenCareOf=s2.takenCareOf)
 }
 
 
@@ -199,7 +201,8 @@ assert everySegnalationHasOneAndOnlyPlate{
 //G4
 assert everySegnalationHasTimeAndPlace{
     all s1: Segnalation | 
-    #s1.positionAndTime=1 and #s1.positionAndTime.coords=1 and #s1.positionAndTime.time=1 and #s1.positionAndTime.coords.latitude=1 and #s1.positionAndTime.coords.longitude=1
+    #s1.positionAndTime=1 and #s1.positionAndTime.coords=1 and #s1.positionAndTime.time=1 and 
+    #s1.positionAndTime.coords.latitude=1 and #s1.positionAndTime.coords.longitude=1
 }
 //GA1.2
 assert interventionsSuggested{
