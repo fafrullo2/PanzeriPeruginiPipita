@@ -217,14 +217,16 @@ assert ticketToVehicleOwner{
 
 
 pred world1{
-    #Vehicle>0
-    #Segnalation<=3
+    #Vehicle=2
+    #Segnalation=3
     #Ticket>0
-    #PositionAndTime>0
-    #Person>0
+    #PositionAndTime>3
+    #Person>2
     #Policeman>0
     #Area>0
     #MunicipalAuthority>0
+    #User>2
+    
 }
 
 run world1 for 6
