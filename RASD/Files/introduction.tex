@@ -1,24 +1,62 @@
-This document has been prepared to help you approaching Latex as a formatting tool for your Travlendar+ deliverables. This document suggests you a possible style and format for your deliverables and contains information about basic formatting commands in Latex. A good guide to Latex is available here \href{https://tobi.oetiker.ch/lshort/lshort.pdf}{https://tobi.oetiker.ch/lshort/lshort.pdf}, but you can find many other good references on the web. 
-
-Writing in Latex means writing textual files having a \texttt{.tex} extension and exploiting the Latex markup commands for formatting purposes. Your files then need to be compiled using the Latex compiler. Similarly to programming languages, you can find many editors that help you writing and compiling your latex code. Here \href{https://beebom.com/best-latex-editors/}{https://beebom.com/best-latex-editors/} you have a short oviewview of some of them. Feel free to choose the one you like.  
-
-Include a subsection for each of the following items\footnote{By the way, what follows is the structure of an itemized list in Latex.}:
+\subsection{Purpose}
+The purpose of this project is to study the requirements and provide a specification about SafeStreets, a crowd-sourced application that permits users to notify authorities about traffic violations. \newline\par
+This document represents the requirements analysis and specification document of SafeStreets, where purposes, goals, requirements and assumptions of the applications will be defined to provide a support for the stakeholders. \newline\par
+SafeStreets allows users to send pictures of traffic violations with every useful metadata about it (date, time, position, type of violation, etc…) to authorities. \newline\par
+In addition, the application provides users and authorities with tools to mine the data collected, for example highlighting the streets where parking violations happen frequently, or the most unsafe areas. \newline\par
+SafeStreets also has the possibility to cross its own data with information about accidents coming from the municipality (if the municipality offers this information as an open service) to indentify unsafe areas with more precision and suggest possible interventions. \newline\par
+Finally, if the local police offers a service that takes data and pictures from SafeStreets to generate traffic tickets, the application must ensure the veracity of the information and use data about issued tickets to build statistics (effectiveness of the service, most dangerous vehicles etc…). 
+\subsubsection{Goals}
 \begin{itemize}
-\item
-Purpose: here we include the goals of the project
-\item
-Scope: here we include an analysis of the world and of the shared phenomena
-\item
-Definitions, Acronyms, Abbreviations
-\item
-Revision history
-\item
-Reference Documents 
-\item
-Document Structure
+	\item (G1)	Allow users to send pictures and informations about 	traffic violations. \newline
+	\item (G2)	Allow users and authorities to mine information collected by the application. \newline
+	\item (G3)	The system must recognise (from pictures) and store license plates. \newline
+	\item (G4)	The system must be able to retrieve the geographical position where the violation occurred. \newline
+	\item (GA1.1)	The system must be able to cross the data collected with information about the accidents coming from the municipality. \newline
+	\item (GA1.2)	The system must be able to suggest possible interventions to decrease the risk of violations in unsafe areas. \newline
+	\item (GA2.1)	Allow the local police to retrieve data about violations to generate traffic tickets. \newline
+	\item (GA2.2)	The system must be able to ensure the veracity of the information sent by the users. \newline
+	\item (GA2.3)	The system must track wether the police has taken care of a certain violation. \newline
+	\item (GA2.4)	Traffic tickets must be issued to the person that owns the vehicle that committed the violation. \newline
+	\item (GA2.5)	The system must be able to build statistics from the information about issued tickets. 
 \end{itemize}
-Below you see how to define the header for a subsection.
+
 \subsection{Scope}
-... Here you see a subsubsection
-\subsubsection{World Phenomena}
-%what you write here is a comment that is not shown in the final text
+In a metropolitan city like Milan, one of the biggest problems is the overflowing stream of vehicles in the streets that comes and goes from universities, stations, work etc…  \newline\par
+This is the perfect context in which an application like SafeStreets should be developed.  \newline\par
+The application is thought for a world in which most of the people always brings along a smart device like a smartphone, able to take photographs and with a stable connection to the internet.  \newline\par
+SafeStreets will allow every person of a city to collaborate to make streets safer and help police and municipality to identify areas where violations happen more often.  \newline\par
+Data collected by the service, can be later mined by both users and authorities; this can be useful for users, in order to avoid dangerous streets or really messy car parks, and for authorities in order to strengthen controls in the most unsafe areas or to plan possible interventions.  \newline\par
+In a world where everyone owns a smart device, it is really easy to modify images so, to avoid fake data sent by the users, SafeStreets will also implement several countermeasures to check the veracity of every piece of information. 
+\subsection{Definitions, acronyms and abbreviations }
+\subsubsection{Definitions}
+\begin{itemize}
+	\item User: the customer of the application that exploit the service to send pictures and informations about traffic violations 
+	\item Municipality: the government of a city; it can mine data from SafeStreets to obtain information about traffic violations and statistics.
+	\item Authorities: comprehend the municipality and the local police. 
+	\item Traffic ticket: a fee issued by the local police to people that own a vehicle that committed traffic violation 
+	\item Traffic violation: occurs when drivers violate laws that regulate vehicle traffic on streets or parking. 
+\end{itemize}
+\subsubsection{Acronyms}
+\begin{itemize}
+	\item RASD: Requirement Analysis and Specification Document \end{itemize}
+\subsubsection{Abbreviations}
+\begin{itemize}
+	\item(Gn): n-Goal 
+	\item(G1.n): n-Goal for advanced function 1 
+	\item(G2.n): n-Goal for advanced function 2 
+	\item(Dn): n-Domain assumption 
+	\item(Rn): n-Requirement 
+\end{itemize}
+\subsection{Revision history}
+\subsection{Reference documents}
+\begin{itemize}
+	\item Specification document: “SafeStreets Mandatory Project Assignment” 
+\end{itemize}
+\subsection{Document structure}
+\begin{itemize}
+	\item Chapter 1: an introduction to SafeStreets; it describes the purpose and the goals that the application aims to reach. It defines also the scope of the application, that includes the analysis of the world and of the shared phenomena. 
+	\item Chapter 2: provides an overall description of the system functionalities. It contains the various charts and diagram describing the domain, the most important requirements, the needs of the users, the various stakeholders and various constraints and assumptions. 
+	\item Chapter 3: provide a more specific study about the requirements of the applications describing the various interfaces needed (user, software and hardware), functional requirements with associated use cases and use case/sequence diagrams, performance requirements, design constraints and various software attributes (reliability, availability etc…). 
+	\item Chapter 4: provides a formal analysis of the application using Alloy. Here will be shown the alloy model of the most critical aspects, various comments to show how the project has been modelled and the world obtained by running the model itself. 
+	\item Chapter 5: information about the effort spent by every member of the team on the project. 
+\end{itemize}
