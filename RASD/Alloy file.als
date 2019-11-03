@@ -1,4 +1,3 @@
-
 abstract sig Boolean{}
 
 sig True extends Boolean{}
@@ -20,31 +19,26 @@ sig Vehicle {
     plate: one Plate
 }
 
-sig User{}
+sig User{
+    person: one Person,
+    areaOfInterest: some Area
+}
 
 sig GPScoord{
 	latitude: one Int,
 	longitude: one Int
 }
 
-sig GPSline{
-	start: one GPScoord,
-    end: one GPScoord
-}{start!=end}
 
-sig Perimeter {
-    first: one GPSline,
-    last: one GPSline,
-    side: some GPSline
-}{#side>0  }
+sig Intervention{}
 
 sig Area {
-    perimeter: one Perimeter,
 	segnalationsInside: some Segnalation,
-	dangerLevel: one Int
+	dangerLevel: one Int,
+    interventions: some Intervention
 }
 
-sig Violation {
+sig PositionAndTime {
 	coords: one GPScoord,
 	time: one Int,
 }{time>=0 and time<7
@@ -59,7 +53,7 @@ sig UnauthorizedParking extends ViolationType{}
 sig Segnalation {
 	maker: one User,
 	vehicle: one Vehicle,
-    violation: one Violation,
+    positionAndTime: one PositionAndTime,
     violationType: ViolationType,
 	photo: one Photo,
     takenCareOf: one Boolean,
@@ -67,18 +61,22 @@ sig Segnalation {
 }
 
 fun getCoords[s:Segnalation]: GPScoord{
-    s.violation.coords
+    s.positionAndTime.coords
 }
 
 fun getTime[s:Segnalation]: Int{
-    s.violation.time
+    s.positionAndTime.time
 }
 
 abstract sig Authority {
     person: one Person
 }
 
-sig MunicipalAuthority extends Authority{}
+sig MunicipalAuthority extends Authority{
+    trackedUsers: some User,
+    trackedAreas: some Area,
+    trackedVehicles: some Vehicle
+}
 
 sig Policeman extends Authority{}
 
@@ -90,7 +88,7 @@ sig Ticket{
 
 
 //======================================================================================
-//facts and functions
+//facts
 //======================================================================================
 
 
@@ -108,7 +106,6 @@ fact noLonePhoto{
     all p1:Photo | p1 in Segnalation.photo
 }
 
-
 fact noSameCF{
     no disj p1, p2: Person | p1.cf=p2.cf
 }
@@ -118,7 +115,10 @@ fact noSamePlate{
 }
 
 fact noDoubleJob{
-    no a: Authority | a in MunicipalAuthority and a in Policeman
+    no p: Person| p in MunicipalAuthority.person and p in Policeman.person
+    no disj p1, p2:Policeman | p1.person=p2.person
+    no disj ma1, ma2: MunicipalAuthority| ma1.person=ma2.person
+    no disj u1, u2: User| u1.person=u2.person
 }
 
 fact cityLimits{
@@ -129,24 +129,6 @@ fact noDoubleCoordinates{
     all c1: GPScoord | no c2: GPScoord | c1 != c2 and c1.longitude=c2.longitude and c1.latitude= c2.latitude
 }
 
-fact noDOubleLines{
-    all l1, l2: GPSline | l1=l2 iff((l1.start=l2.start and l1.end=l2.end)or(l1.start=l2.end and l1.end=l2.start))
-}
-
-
-fact perimeterProperties{
-    (all p:Perimeter| p.first.start=p.last.end) 
-    and 
-    (all p:Perimeter| some l1:GPSline | 
-    l1 in p.side and p.first.end=l1.start)
-    and 
-    (all p: Perimeter | some l2: GPSline |
-    l2 in p.side and p.last.start=l2.end) 
-    and
-    (all p:Perimeter| no l1: GPSline | p.first=l1 and l1 in p.side)
-    and
-    (all p:Perimeter| no l1: GPSline | p.last=l1 and l1 in p.side)
-}
 
 fact areaProperties{
     all a: Area| #a.segnalationsInside>=0 and a.dangerLevel=#a.segnalationsInside
@@ -172,12 +154,6 @@ fact eitherAllTakenCareOrNone{
     all s1, s2: Segnalation | (getCoords[s1]=getCoords[s2] and getTime[s1]=getTime[s2] and s1.writtenPlate=s2.writtenPlate and s1.violationType=s2.violationType) implies (s1.takenCareOf=s2.takenCareOf)
 }
 
-
-
-fact allTakenCareOf{
-
-
-}
 
 fact sameVehicle{
     all disj s1, s2 : Segnalation | all t: Ticket |
@@ -209,7 +185,11 @@ assert eachSegnalationHasOneAndOnlyPhoto{
     #s1.photo=1 and #s2.photo=1 and s1.photo != s2.photo
     and #Photo=#Segnalation
 }
-
+//G2
+assert dataMining{
+    all u: User| all ma: MunicipalAuthority|
+    #u.areaOfInterest>=0 and #ma.trackedAreas>=0 and #ma.trackedUsers>=0 and #ma.trackedVehicles>=0
+}
 //G3
 assert everySegnalationHasOneAndOnlyPlate{
     all disj s1, s2: Segnalation|
@@ -219,28 +199,38 @@ assert everySegnalationHasOneAndOnlyPlate{
 //G4
 assert everySegnalationHasTimeAndPlace{
     all s1: Segnalation | 
-    #s1.violation=1 and #s1.violation.coords=1 and #s1.violation.time=1 and #s1.violation.coords.latitude=1 and #s1.violation.coords.longitude=1
+    #s1.positionAndTime=1 and #s1.positionAndTime.coords=1 and #s1.positionAndTime.time=1 and #s1.positionAndTime.coords.latitude=1 and #s1.positionAndTime.coords.longitude=1
 }
-
-//G2.4
+//GA1.2
+assert interventionsSuggested{
+    all a: Area| #a.interventions>=0
+}
+//GA2.4
 assert ticketToVehicleOwner{
     all v:Vehicle | all s: Segnalation | all t: Ticket|
     (s in t.segnalations and v = s.vehicle) implies t.issuedTo=v.ownedby
 }
 
-check eachSegnalationHasOneAndOnlyPhoto for 6
-check everySegnalationHasOneAndOnlyPlate for 6
-check everySegnalationHasTimeAndPlace for 6
-check ticketToVehicleOwner for 6
+
+
+
+
+
 pred world1{
-    #Vehicle=3
-    #Segnalation=3
-    #Ticket=2
-    #Violation=2
-    #Person>2
-
-    
-
+    #Vehicle>0
+    #Segnalation<=3
+    #Ticket>0
+    #PositionAndTime>0
+    #Person>0
+    #Policeman>0
+    #Area>0
+    #MunicipalAuthority>0
 }
 
-run world1 for 10
+run world1 for 6
+check eachSegnalationHasOneAndOnlyPhoto for 6
+check dataMining for 6
+check everySegnalationHasOneAndOnlyPlate for 6
+check everySegnalationHasTimeAndPlace for 6
+check interventionsSuggested for 6
+check ticketToVehicleOwner for 6
