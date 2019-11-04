@@ -49,23 +49,27 @@ sig ExpiredTicket extends ViolationType{}
 
 sig UnauthorizedParking extends ViolationType{}
 
-sig Report {
-	maker: one User,
-	vehicle: one Vehicle,  //contains the plate recognised from the photo
+sig Violation{
+    vehicle: one Vehicle,  //contains the plate recognised from the photo
     positionAndTime: one PositionAndTime,
     violationType: one ViolationType,
-	photo: one Photo,
-    takenCareOf: one Boolean,
-    writtenPlate: one Plate, //plate signaled by the user who made the segnalation
+    photo: one Photo,
+    writtenPlate: one Plate //plate input from user
+}
+
+sig Report {
+	maker: one User,
+	takenCareOf: one Boolean,
+    violation: one Violation,
     dispatchedOfficer: lone Policeman
 }
 
 fun getCoords[s:Report]: GPScoord{
-    s.positionAndTime.coords
+    s.violation.positionAndTime.coords
 }
 
 fun getTime[s:Report]: Int{
-    s.positionAndTime.time
+    s.violation.positionAndTime.time
 }
 
 abstract sig Authority {
@@ -100,11 +104,11 @@ fact booleanValues{
 
 //there are not 2 segnalations with the same photo
 fact uniquePhoto{
-    all  p1: Photo | no disj s1, s2 : Report | s1.photo=p1 and s2.photo=p1  
+    all  p1: Photo | no disj s1, s2 : Violation | s1.photo=p1 and s2.photo=p1  
 }
 //all the photos are part of segnalations
 fact noLonePhoto{
-    all p1:Photo | p1 in Report.photo
+    all p1:Photo | p1 in Violation.photo
 }
 
 fact noSameCF{
@@ -136,15 +140,23 @@ fact areaProperties{
 }
 
 fact noMissmatchingPlates{
-    all s: Report| s.vehicle.plate=s.writtenPlate
+    all v: Violation| v.vehicle.plate=v.writtenPlate
 }
 
 fact allPlates{
-    #Report.writtenPlate=#Vehicle
+    #Violation.writtenPlate=#Vehicle
 }
 
 fact violationTypeCardinality{
     #ViolationType=2 and #ExpiredTicket=1 and #UnauthorizedParking=1
+}
+
+fact noViolationWithSamePhoto{
+    all disj v1, v2: Violation| v1.photo=v2.photo
+}
+
+fact noReportsDuplicate{
+    all disj r1, r2: Report| r1.violation=r2.violation
 }
 
 fact allSegnalationsInAnArea{
@@ -153,14 +165,14 @@ fact allSegnalationsInAnArea{
 //Note that in reality it would be segnalations within a certain range of coordinates and time of the first one; but for analysis 
 //simplicity I have chosen to use equality 
 fact eitherAllTakenCareOrNone{
-    all s1, s2: Report | (getCoords[s1]=getCoords[s2] and getTime[s1]=getTime[s2] and s1.writtenPlate=s2.writtenPlate 
-    and s1.violationType=s2.violationType) implies (s1.takenCareOf=s2.takenCareOf and s1.dispatchedOfficer=s2.dispatchedOfficer)
+    all s1, s2: Report | (getCoords[s1]=getCoords[s2] and getTime[s1]=getTime[s2] and s1.violation.writtenPlate=s2.violation.writtenPlate 
+    and s1.violation.violationType=s2.violation.violationType) implies (s1.takenCareOf=s2.takenCareOf and s1.dispatchedOfficer=s2.dispatchedOfficer)
 }
 
 
 fact sameVehicle{
     all disj s1, s2 : Report | all t: Ticket |
-    (s1 in t.report and s2 in t.report) implies s1.vehicle=s2.vehicle
+    (s1 in t.report and s2 in t.report) implies s1.violation.vehicle=s2.violation.vehicle
 
 }
 
@@ -169,7 +181,7 @@ fact takenCareOfRule{
     s in Ticket.report implies s.takenCareOf=True
 }
 fact rightPersonBilled{
-    all t: Ticket| t.issuedTo=t.report.vehicle.ownedby
+    all t: Ticket| t.issuedTo=t.report.violation.vehicle.ownedby
 }
 
 fact noDoubleBilling{
@@ -194,7 +206,7 @@ fact ifTakenCareThenOfficerDispatched{
 
 //G1
 assert eachSegnalationHasOneAndOnlyPhoto{
-    all disj s1, s2: Report| 
+    all disj s1, s2: Violation| 
     #s1.photo=1 and #s2.photo=1 and s1.photo != s2.photo
     and #Photo=#Report
 }
@@ -205,13 +217,13 @@ assert dataMining{
 }
 //G3
 assert everySegnalationHasOneAndOnlyPlate{
-    all disj s1, s2: Report|
+    all disj s1, s2: Violation|
     s1.writtenPlate=s2.writtenPlate iff s1.vehicle=s2.vehicle
 }
 
 //G4
 assert everySegnalationHasTimeAndPlace{
-    all s1: Report | 
+    all s1: Violation | 
     #s1.positionAndTime=1 and #s1.positionAndTime.coords=1 and #s1.positionAndTime.time=1 and 
     #s1.positionAndTime.coords.latitude=1 and #s1.positionAndTime.coords.longitude=1
 }
@@ -222,7 +234,7 @@ assert interventionsSuggested{
 //GA2.4
 assert ticketToVehicleOwner{
     all v:Vehicle | all s: Report | all t: Ticket|
-    (s in t.report and v = s.vehicle) implies t.issuedTo=v.ownedby
+    (s in t.report and v = s.violation.vehicle) implies t.issuedTo=v.ownedby
 }
 
 
@@ -231,15 +243,17 @@ assert ticketToVehicleOwner{
 
 
 pred world1{
-    #Vehicle=2
-    #Report=3
+    #Vehicle=1
+    #Report=1
     #Ticket>0
     #PositionAndTime>3
-    #Person>2
+    #Person>4
     #Policeman>0
     #Area>0
     #MunicipalAuthority>0
     #User>2
+
+    no p: Person| p in Policeman.person and p in User.person
     
 }
 
