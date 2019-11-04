@@ -138,6 +138,122 @@ no disj p1, p2: Policeman| p1.person=p2.person\\
 no disj ma1, ma2: MunicipalAuthority | ma1.person= ma2.person\\
 no disj u1, u2: User| u1.person=u2.person\\
 \}\\
-
- 
-
+\textcolor{blue}{fact}
+\textcolor{mycolor}{cityLimits} \{\\
+all gps: GPScoord | gps.latitude>0 and gps.longitude>0 and\\
+gps.latitude<7 and gps.longitude<7\\
+\}\\
+\textcolor{blue}{fact}
+\textcolor{mycolor}{noDoubeCoordinates} \{\\
+all c1: GPScoord | no c2: GPScoord | c1 != c2 and\\ c1.longitude=c2.longitude and c1.latitude= c2.latitude\\
+\}\\
+\textcolor{blue}{fact}
+\textcolor{mycolor}{areaProperties} \{\\
+all a: Area| \#a.segnalationsInside>=0 and\\ \a.dangerLevel=\#a.segnalationsInside\\
+\}\\
+\textcolor{blue}{fact}
+\textcolor{mycolor}{noMissmatchingPlates} \{\\
+all s: Segnalation| s.vehicle.plate=s.writtenPlate\\
+\}\\
+\textcolor{blue}{fact}
+\textcolor{mycolor}{allPlates} \{\\
+\#Segnalation.writtenPlate=\#Vehicle\\
+\}\\
+\textcolor{blue}{fact}
+\textcolor{mycolor}{violationTypeCardinality} \{\\
+\#ViolationType=2 and \#ExpiredTicket=1 and \#UnauthorizedParking=1\\
+\}\\
+\textcolor{blue}{fact}
+\textcolor{mycolor}{allSegnalationsInAnArea} \{\\
+all s: Segnalation | s in Area.segnalationsInside\\
+\}\\
+\textcolor{blue}{fact}
+\textcolor{mycolor}{eitherAllTakenCareOrNone} \{\\
+all s1, s2: Segnalation | (getCoords[s1]=getCoords[s2] and\\ getTime[s1]=getTime[s2] and s1.writtenPlate=s2.writtenPlate \\
+and s1.violationType=s2.violationType) implies\\ (s1.takenCareOf=s2.takenCareOf)\\
+\}\\
+\textcolor{blue}{fact}
+\textcolor{mycolor}{sameVehicle} \{\\
+all disj s1, s2 : Segnalation | all t: Ticket |\\
+(s1 in t.segnalations and s2 in t.segnalations) implies s1.vehicle=s2.vehicle\\
+\}\\
+\textcolor{blue}{fact}
+\textcolor{mycolor}{takenCareOfRule} \{\\
+all s: Segnalation |
+s in Ticket.segnalations iff s.takenCareOf=True\\
+\}\\
+\textcolor{blue}{fact}
+\textcolor{mycolor}{rightPersonBilled} \{\\
+all t: Ticket| t.issuedTo=t.segnalations.vehicle.ownedby\\
+\}\\
+\textcolor{blue}{fact}
+\textcolor{mycolor}{noDoubleBilling} \{\\
+all t1: Ticket| all s: Segnalation|
+s in t1.segnalations implies no t2:Ticket| t2 != t1 and s in t2.segnalations\\
+\}\\
+\\
+ASSERTIONS\\
+G1\\
+\textcolor{blue}{assert}
+\textcolor{mycolor}{eachSegnalationHasOneAndOnlyPhoto} \{\\
+all disj s1, s2: Segnalation|\\ 
+\#s1.photo=1 and \#s2.photo=1 and s1.photo != s2.photo
+and \#Photo=\#Segnalation\\
+\}\\
+G2\\
+\textcolor{blue}{assert}
+\textcolor{mycolor}{dataMining} \{\\
+all u: User| all ma: MunicipalAuthority|\\
+\#u.areaOfInterest>=0 and \#ma.trackedAreas>=0 and\\ \#ma.trackedUsers>=0 and \#ma.trackedVehicles>=0\\
+\}\\
+G3\\
+\textcolor{blue}{assert}
+\textcolor{mycolor}{everySegnalationHasOneAndOnlyPlate} \{\\
+    all disj s1, s2: Segnalation|\\
+s1.writtenPlate=s2.writtenPlate iff s1.vehicle=s2.vehicle\\
+\}\\
+G4\\
+\textcolor{blue}{assert}
+\textcolor{mycolor}{everySegnalationHasTimeAndPlace} \{\\
+\#s1.positionAndTime=1 and \#s1.positionAndTime.coords=1 and \#s1.positionAndTime.time=1 and\\ 
+\#s1.positionAndTime.coords.latitude=1 and \#s1.positionAndTime.coords.longitude=1\\
+\}\\
+GA1.2\\
+\textcolor{blue}{assert}
+\textcolor{mycolor}{interventionsSuggested} \{\\
+all a: Area| \#a.interventions>=0\\
+\}\\
+GA2.4\\
+\textcolor{blue}{assert}
+\textcolor{mycolor}{ticketToVehicleOwner} \{\\
+all v:Vehicle | all s: Segnalation | all t: Ticket|\\
+(s in t.segnalations and v = s.vehicle) implies t.issuedTo=v.ownedby\\
+\}\\
+\\
+WORLD\\
+\textcolor{blue}{pred}
+\textcolor{mycolor}{world1} \{\\
+\#Vehicle=2\\
+\#Segnalation=3\\
+\#Ticket>0\\
+\#PositionAndTime>3\\
+\#Person>2\\
+\#Policeman>0\\
+\#Area>0\\
+\#MunicipalAuthority>0\\
+\#User>2\\
+\}\\
+\\
+\textcolor{blue}{run} world1 for 6\\
+\textcolor{blue}{check}
+\textcolor{mycolor}{eachSegnalationHasOneAndOnlyPhoto} for 6\\
+\textcolor{blue}{check}
+\textcolor{mycolor}{dataMining} for 6\\
+\textcolor{blue}{check}
+\textcolor{mycolor}{everySegnalationHasOneAndOnlyPlate} for 6\\
+\textcolor{blue}{check}
+\textcolor{mycolor}{everySegnalationHasTimeAndPlace} for 6\\
+\textcolor{blue}{check}
+\textcolor{mycolor}{intervetionsSuggested} for 6\\
+\textcolor{blue}{check}
+\textcolor{mycolor}{ticketToVehicleOwner} for 6\\
