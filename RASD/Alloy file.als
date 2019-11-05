@@ -32,10 +32,10 @@ sig GPScoord{
 sig Intervention{}
 
 sig Area {
-	reportsInside: some Report,
+	reportsInside: set Report,
 	dangerLevel: one Int,
-    interventions: some Intervention
-}
+    interventions: set Intervention
+}{#interventions>0 implies #reportsInside>0}
 
 sig PositionAndTime {
 	coords: one GPScoord,
@@ -104,7 +104,7 @@ fact booleanValues{
 
 //there are not 2 segnalations with the same photo
 fact uniquePhoto{
-    all  p1: Photo | no disj s1, s2 : Violation | s1.photo=p1 and s2.photo=p1  
+    no disj s1, s2 : Violation | s1.photo=s2.photo  
 }
 //all the photos are part of segnalations
 fact noLonePhoto{
@@ -152,11 +152,11 @@ fact violationTypeCardinality{
 }
 
 fact noViolationWithSamePhoto{
-    all disj v1, v2: Violation| v1.photo=v2.photo
+    no disj v1, v2: Violation| v1.photo=v2.photo
 }
 
 fact noReportsDuplicate{
-    all disj r1, r2: Report| r1.violation=r2.violation
+    all disj r1, r2: Report| r1.violation!=r2.violation
 }
 
 fact allSegnalationsInAnArea{
@@ -165,8 +165,9 @@ fact allSegnalationsInAnArea{
 //Note that in reality it would be segnalations within a certain range of coordinates and time of the first one; but for analysis 
 //simplicity I have chosen to use equality 
 fact eitherAllTakenCareOrNone{
-    all s1, s2: Report | (getCoords[s1]=getCoords[s2] and getTime[s1]=getTime[s2] and s1.violation.writtenPlate=s2.violation.writtenPlate 
-    and s1.violation.violationType=s2.violation.violationType) implies (s1.takenCareOf=s2.takenCareOf and s1.dispatchedOfficer=s2.dispatchedOfficer)
+    all disj s1, s2: Report | (getCoords[s1]=getCoords[s2] and getTime[s1]=getTime[s2] and s1.violation.writtenPlate=s2.violation.writtenPlate 
+    and s1.violation.violationType=s2.violation.violationType) implies (s1.takenCareOf=s2.takenCareOf and s1.dispatchedOfficer=s2.dispatchedOfficer and
+    all t1: Ticket| s1 in t1.report implies no t2: Ticket| s2 in t2.report)
 }
 
 
@@ -185,8 +186,7 @@ fact rightPersonBilled{
 }
 
 fact noDoubleBilling{
-    all t1: Ticket| all s: Report|
-    s in t1.report implies no t2:Ticket| t2 != t1 and s in t2.report
+    all disj t1, t2: Ticket| t1.report!=t2.report
 }
 
 fact dispatchedOfficerWritesTheTicket{
@@ -208,7 +208,7 @@ fact ifTakenCareThenOfficerDispatched{
 assert eachSegnalationHasOneAndOnlyPhoto{
     all disj s1, s2: Violation| 
     #s1.photo=1 and #s2.photo=1 and s1.photo != s2.photo
-    and #Photo=#Report
+    and #Photo=#Violation
 }
 //G2
 assert dataMining{
@@ -242,16 +242,16 @@ assert ticketToVehicleOwner{
 
 
 
+
 pred world1{
-    #Vehicle=1
-    #Report=1
-    #Ticket>0
-    #PositionAndTime>3
-    #Person>4
-    #Policeman>0
-    #Area>0
-    #MunicipalAuthority>0
-    #User>2
+    #Vehicle=2
+    #Report=2
+    #Violation=3
+    #Policeman=1
+    #User=1
+    #MunicipalAuthority=1
+    #Person=3
+    #Area=1
 
     no p: Person| p in Policeman.person and p in User.person
     
