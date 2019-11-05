@@ -246,6 +246,7 @@ assert ticketToVehicleOwner{
 pred world1{
     #Vehicle=2
     #Report=2
+    #Ticket=1
     #Violation=3
     #Policeman=1
     #User=1

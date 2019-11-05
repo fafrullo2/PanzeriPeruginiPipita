@@ -1,7 +1,8 @@
 \colorlet{mycolor}{green!10!orange!90!}
+
 This section contains the project analysis done using Alloy. The .als file can be found inside the RASD directory \\
 \\
-\subsection{SIGNATURES}
+\subsection{Signatures}
 \textcolor{blue}{sig}
 \textcolor{green}{Boolean}\{\} \\
 \textcolor{blue}{sig}
@@ -99,7 +100,7 @@ policeman: \textcolor{blue}{one} Policeman,\\
 issuedTo: \textcolor{blue}{one} Person\\
 \}\\
 \\
-\subsection{FUNCTIONS}
+\subsection{Functions}
 \textcolor{blue}{fun}
 \textcolor{mycolor}{getCoords} [s:Segnalation]:GPScoord\{\\
 s.violation.positionAndTime.coords\\
@@ -109,7 +110,7 @@ s.violation.positionAndTime.coords\\
 s.violation.positionAndTime.time\\
 \}\\
 \\
-\subsection{FACTS}
+\subsection{Facts}
 \textcolor{blue}{fact}
 \textcolor{mycolor}{booleanValue}\{\\
 \#True=1 and \#False=1 and \#Boolean=2 and \\
@@ -213,57 +214,59 @@ all t: Ticket| t.policeman=t.report.dispatchedOfficer\\
 all r: Report| r.takenCareOf implies \#r.dispatchedOfficer=1 
 \}\\
 \\
-\subsection{ASSERTIONS}
-G1\\
+\subsection{Assertions}
+\subsubsection{G1}
 \textcolor{blue}{assert}
 \textcolor{mycolor}{eachSegnalationHasOneAndOnlyPhoto} \{\\
 all disj s1, s2: Violation|\\ 
 \#s1.photo=1 and \#s2.photo=1 and s1.photo != s2.photo
 and \#Photo=\#Report\\
 \}\\
-G2\\
+\subsubsection{G2}
 \textcolor{blue}{assert}
 \textcolor{mycolor}{dataMining} \{\\
 all u: User| all ma: MunicipalAuthority|\\
 \#u.areaOfInterest>=0 and \#ma.trackedAreas>=0 and\\ \#ma.trackedUsers>=0 and \#ma.trackedVehicles>=0\\
 \}\\
-G3\\
+\subsubsection{G3}
 \textcolor{blue}{assert}
 \textcolor{mycolor}{everySegnalationHasOneAndOnlyPlate} \{\\
     all disj s1, s2: Violation|\\
 s1.writtenPlate=s2.writtenPlate iff s1.vehicle=s2.vehicle\\
 \}\\
-G4\\
+\subsubsection{G4}
 \textcolor{blue}{assert}
 \textcolor{mycolor}{everySegnalationHasTimeAndPlace} \{\\
 all s1: Violation|\\
 \#s1.positionAndTime=1 and \#s1.positionAndTime.coords=1 and \#s1.positionAndTime.time=1 and\\ 
 \#s1.positionAndTime.coords.latitude=1 and \#s1.positionAndTime.coords.longitude=1\\
 \}\\
-GA1.2\\
+\subsubsection{GA1.2}
 \textcolor{blue}{assert}
 \textcolor{mycolor}{interventionsSuggested} \{\\
 all a: Area| \#a.interventions>=0\\
 \}\\
-GA2.4\\
+\subsubsection{GA2.4}
 \textcolor{blue}{assert}
 \textcolor{mycolor}{ticketToVehicleOwner} \{\\
 all v:Vehicle | all s: Report | all t: Ticket|\\
 (s in t.segnalations and v = s.violation.vehicle) implies t.issuedTo=v.ownedby\\
 \}\\
 \\
-\subsection{WORLD}
+\subsection{World}
 \textcolor{blue}{pred}
 \textcolor{mycolor}{world1} \{\\
-\#Vehicle=1\\
-\#Report=3\\
-\#Ticket>0\\
-\#PositionAndTime>3\\
-\#Person>4\\
-\#Policeman>0\\
-\#Area>0\\
-\#MunicipalAuthority>0\\
-\#User>2\\
+\#Vehicle=2
+\#Report=2
+\#Ticket=1
+\#Violation=3
+\#Policeman=1
+\#User=1
+\#MunicipalAuthority=1
+\#Person=3
+\#Area=1\\
+
+no p: Person| p in Policeman.person and p in User.person\\
 \}\\
 \\
 \textcolor{blue}{run} world1 for 6\\
@@ -279,3 +282,15 @@ all v:Vehicle | all s: Report | all t: Ticket|\\
 \textcolor{mycolor}{intervetionsSuggested} for 6\\
 \textcolor{blue}{check}
 \textcolor{mycolor}{ticketToVehicleOwner} for 6\\
+\newpage
+\subsection{Results}
+\subsubsection{Checks on assertions}
+\begin{figure}[h]
+	\includegraphics[scale=0.75]{Images/Assert}
+\end{figure}
+\subsubsection{World generated}
+See next page.
+\newpage
+\begin{figure}[h]
+	\includegraphics[angle=90, scale=0.45, height=\textheight]{Images/world}
+\end{figure}
