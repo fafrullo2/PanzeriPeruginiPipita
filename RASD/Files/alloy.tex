@@ -1,7 +1,17 @@
 \colorlet{mycolor}{green!10!orange!90!}
 
 This section contains the project analysis done using Alloy. The .als file can be found inside the RASD directory \\
-\\
+\subsection{Introduction}
+In the alloy model the focus is mainly on the modelization of the most important entities in SS and the relations between them:
+\begin{itemize}
+	\item user-submitted violations
+	\item data access rights
+	\item rules regarding multiple reports about the same violation
+	\item rules regarding the police intervention and traffic tickets
+	\item rules regarding areas and interventions  
+\end{itemize}
+On the other hand, the interactions between databases, the rules regarding the definitions of areas and the rules regarding assigning violations to centain areas have not been modeled.\\
+Also, please note that, even though city authorities actually are SS users, in the model they are treated as separate entities in order to make the model simplier to define and analyze.\\
 \subsection{Signatures}
 \textcolor{blue}{sig}
 \textcolor{green}{Boolean}\{\} \\
@@ -71,7 +81,7 @@ violationType: \textcolor{blue}{one} ViolationType,\\
 photo: \textcolor{blue}{one} Photo,\\
 writtenPlate: \textcolor{blue}{one} Plate\\
 \}\ \\
-Note: vehicle represents the information retrived from the photo by the system, crossed with the database of car owners; on the other hand writtenPlate is the plate that the user that made the segnalation reports\\
+Note: vehicle represents the information retrived from the photo by the system, crossed with the database of car owners; on the other hand writtenPlate is the plate that the user that made the report has written in the form\\
 \textcolor{blue}{sig}
 \textcolor{green}{Report}\{\\
 maker: \textcolor{blue}{one} User,\\
@@ -256,14 +266,14 @@ all v:Vehicle | all s: Report | all t: Ticket|\\
 \subsection{World}
 \textcolor{blue}{pred}
 \textcolor{mycolor}{world1} \{\\
-\#Vehicle=2
-\#Report=2
-\#Ticket=1
-\#Violation=3
-\#Policeman=1
-\#User=1
-\#MunicipalAuthority=1
-\#Person=3
+\#Vehicle=2\\
+\#Report=2\\
+\#Ticket=1\\
+\#Violation=3\\
+\#Policeman=1\\
+\#User=1\\
+\#MunicipalAuthority=1\\
+\#Person=3\\
 \#Area=1\\
 
 no p: Person| p in Policeman.person and p in User.person\\
