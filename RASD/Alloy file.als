@@ -6,16 +6,16 @@ sig False extends Boolean{}
 
 sig Photo{}
 
-sig CF{}
+sig SSN{}
 
 sig Person{
-    cf: one CF
+    ssn: one SSN
 }
 
 sig Plate{}
 
 sig Vehicle {
-	ownedby: one Person,
+	ownedby: lone Person,
     plate: one Plate
 }
 
@@ -111,8 +111,8 @@ fact noLonePhoto{
     all p1:Photo | p1 in Violation.photo
 }
 
-fact noSameCF{
-    no disj p1, p2: Person | p1.cf=p2.cf
+fact noSameSSN{
+    no disj p1, p2: Person | p1.ssn=p2.ssn
 }
 
 fact noSamePlate{
@@ -197,6 +197,10 @@ fact dispatchedOfficerWritesTheTicket{
 fact ifTakenCareThenOfficerDispatched{
     all r: Report|
     r.takenCareOf = True implies #r.dispatchedOfficer=1
+}
+
+fact noMunicipalDBNoTickets{
+    #Ticket>0 implies all v: Vehicle| #v.ownedby=1
 }
 
 
