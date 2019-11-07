@@ -6,11 +6,7 @@ sig False extends Boolean{}
 
 sig Photo{}
 
-sig SSN{}
-
-sig Person{
-    ssn: one SSN
-}
+sig Person{}
 
 sig Plate{}
 
@@ -111,9 +107,7 @@ fact noLonePhoto{
     all p1:Photo | p1 in Violation.photo
 }
 
-fact noSameSSN{
-    no disj p1, p2: Person | p1.ssn=p2.ssn
-}
+
 
 fact noSamePlate{
     no disj vei1, vei2: Vehicle | vei1.plate=vei2.plate

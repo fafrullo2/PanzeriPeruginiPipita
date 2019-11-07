@@ -27,10 +27,7 @@ Please also note that, even though Authorities actually are users, this part has
 \textcolor{blue}{sig}
 \textcolor{green}{Photo}\{\} \\
 \textcolor{blue}{sig}
-\textcolor{green}{CF}\{\} \\
-\textcolor{blue}{sig}
 \textcolor{green}{Person}\{ \\
-cf: \textcolor{blue}{one} CF\\
 \} \\
 \textcolor{blue}{sig}
 \textcolor{green}{Plate}\{\} \\
@@ -137,9 +134,6 @@ all p1: Photo | no disj s1, s2 : Violation | s1.photo=p1 and s2.photo=p1\\
 all p1:Photo | p1 in Violation.photo\\
 \}\\
 \textcolor{blue}{fact}
-\textcolor{mycolor}{noSameSSN} \{\\
-no disj p1, p2: Person | p1.ssn=p2.ssn\\
-\}\\
 \textcolor{blue}{fact}
 \textcolor{mycolor}{noSamePlate} \{\\
 no disj vei1, vei2: Vehicle | vei1.plate=vei2.plate\\
