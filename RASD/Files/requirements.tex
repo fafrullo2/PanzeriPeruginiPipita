@@ -35,7 +35,7 @@ SS will need to be able to sustain a heavy workload of database transaction: the
 	\item \textbf{Regular users:} the number of data streams will vary greatly depending on the number of users and the size of the city immplementing SS. As a safety measure, supposing to implement SS in a city roughly se same size as Milano, the number of expected data streams could exceed 100'000 daily, considering both reads and writes
 	\item \textbf{Authorities: } given the relative small number of municipal and police employees, a good extimate in a city the size of Milano could be around 2000 data streams daily on average, insignificant when compared to the other users' streams  
 \end{itemize}
-\subsection{Most common transactions}
+\subsubsection{Most common transactions}
 An important element that impacts on the system performances is what will the most common transaction be. Given SS's nature, most of the transactions will be writes. This aspect should be taken in consideration while developing the system to be delivered.\\
 \\
 In conclusion, it's evident that SS must be able to scale seamlessly and in an utomated fashion, without human intervention
