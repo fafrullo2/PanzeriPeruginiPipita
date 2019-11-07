@@ -18,6 +18,26 @@
 	\subsubsection{Sequence Diagrams}
 	\subsubsection{Mapping on Requirements}
 \subsection{Performance Requirements}
+\subsubsection{Response time}
+Server side SS is a data intensive application. Big volumes of data  will be written and read at the same time. Given the nature of the application itself, fast responses are essential in order to make the policemen do their job properly. On the data analytics side, instead, the responses can be slower.\\
+
+\textbf{List of the response times:}
+\begin{itemize}
+\item report forwarded to application DB: 500 ms, medium priority
+\item response to policeman query on DB: 500ms, medium priority
+\item responses to policemen actions insertion in DB: 200 ms, high priority
+\item responses to regular users queries on data: 500 ms, low priority
+\item responses to municipal authorities data-mining actions: 1 min, low priority
+\end{itemize}
+\subsubsection{Workload management}
+SS will need to be able to sustain a heavy workload of database transaction: there will be a lot of simultaneous read and write operations. The workload required will differ depending on the differnt types of users.
+\begin{itemize}
+	\item \textbf{Regular users:} the number of data streams will vary greatly depending on the number of users and the size of the city immplementing SS. As a safety measure, supposing to implement SS in a city roughly se same size as Milano, the number of expected data streams could exceed 100'000 daily, considering both reads and writes
+	\item \textbf{Authorities: } given the relative small number of municipal and police employees, a good extimate in a city the size of Milano could be around 2000 data streams daily on average, insignificant when compared to the other users' streams  
+\end{itemize}
+In conclusion, it's evident that SS must be able to scale seamlessly and in an utomated fashion, without human intervention
+
+
 \subsection{Design Constraints}
 	\subsubsection{Standard Compliace}
 	\subsubsection{Hardware Limitations}
