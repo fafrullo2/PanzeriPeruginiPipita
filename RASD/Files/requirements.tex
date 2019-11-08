@@ -1,22 +1,117 @@
-\subsection{External    interface    requirements} 
+\subsection{External    interface    requirements}
+ 
 	\subsubsection{User Intefaces}
 	\subsubsection{Software Interfaces}
-\subsection{Functional Requirements}
-\textbf{(G0) Allow users to signal traffic violations}
-\textbf{(G1) Allow users to include pictures in violation reports}
-\textbf{(G4) The system must be able to retrieve the geographical position of a violation and add it to the report}
-\textbf{(G3) The system must recognise (from pictures) license plates}
-\textbf{(G5) The system must store user made reports}
-\textbf{(G2) Allow users and authorities to mine information collected by the application}
-\textbf{(GA1.1) The system must be able to cross the data collected with information about the accidents coming from the municipality.} 
-\textbf{(GA1.2) The system must be able to suggest possible interventions to decrease the risk of violations in unsafe areas.}
-\textbf{(GA2.1) Allow the local police to retrieve data about violation to generate traffic tickets}
-\textbf{(GA2.2) The system must be able to ensure the veracity of the information sent by the users}
-\textbf{(GA2.3) The system must track whether the police has taken care of a certain violation}
-\textbf{(GA2.4) Traffic tickets must be issued to the person that owns the vehicle that committed the violation}
-\textbf{(GA2.5) The system must be able to build statistics from the information about issued tickets} 
-
 	
+\subsection{Functional Requirements}
+\bigskip
+
+\begin{enumerate} [label = G\arabic* - ]
+
+\item \textbf{Allow users to signal traffic violations}
+	\begin{itemize}
+	\item (R1) SS user client must provide a registration interface.
+	\item (R2) SS must assign a unique ID to each registered user.
+	\item (R3) SS user client must provide a violation report function.
+	\item (R4) SS should verify each report is sent from an existent ID.
+	\end{itemize}
+	\bigskip
+	
+\item \textbf{Allow users to include pictures in violation reports}
+	\begin{itemize}
+	\item (R5) Application must have permission and access to the device camera.
+	\item (R6) Pictures should be taken through camera inside the application to ensure protection against manipulations.
+	\end{itemize}
+	\bigskip
+	
+\item \textbf{The system must be able to retrieve the geographical position of a violation and add it to the report}
+	\begin{itemize}
+	\item (R7) Application must have permission and ability to access to GPS service offered by the smartphone device.
+	\end{itemize}
+	\bigskip
+	
+\item \textbf{The system must recognise (from pictures) license plates}
+	\begin{itemize}
+	\item (R8) The system should implement an image recognition algorithm.
+	\item (R9) The system should ask the user to manually insert the license plate number of the offender car pictured in the provided photo for data integrity purposes.
+	\end{itemize}
+	\bigskip
+
+\item \textbf{The system must store user made reports}
+	\begin{itemize}
+	\item (R10) SS must have a consistent database.
+	\item (R11) Every report received has to be saved in SS database.
+	\item (R12) SS must ensure that data cannot be tampered with.
+	\end{itemize}
+	\bigskip
+	
+\item \textbf{Allow users and authorities to mine information collected by the application}
+	\begin{itemize}
+	\item (R13) SS should provide an authoriteies dedicated client.
+	\item (R14) SS authority client should provide a registration function.
+	\item (R15) SS should provide the APIs and the tools to allow mining information by 3rd party.
+	\item (R16) SS should implement an automated tool for data analysis and display.
+	\end{itemize}
+	\bigskip
+	\end{enumerate}
+	
+\begin{enumerate} [label = GA 1.\arabic* - ]
+
+\item \textbf{The system must be able to cross the data collected with information about the accidents coming from the municipality} 
+	\begin{itemize}
+	\item (R17) The involved municipality should provide incidents data of his metropolitan area.
+	\item (R18) Data access interfaces should be provided by municipality or defined by SS designers in collaboration with people from the municipality.
+	\item (R19) The system should have already collected a suitable amount of data.
+	\end{itemize}
+	\bigskip
+	
+\item\textbf{The system must be able to suggest possible interventions to decrease the risk of violations in unsafe areas}
+	\begin{itemize}
+	\item (R16) SS should implement an automated tool for data analysis and display.
+	\end{itemize}
+	\bigskip
+\end{enumerate}
+
+\begin{enumerate} [label = GA 2.\arabic* - ]
+	
+\item \textbf{Allow the local police to retrieve data about violation to generate traffic tickets}
+	\begin{itemize}
+	\item (R20) SS should provide a dedicated client to police officers.
+	\end{itemize}
+	\bigskip
+	
+\item \textbf{The system must be able to ensure the veracity of the information sent by the users}
+	\begin{itemize}
+	\item (R2) SS must assign a unique ID to each registered user.
+	\item (R3) SS should verify each report is sent from an existent ID.
+	\item (R21) SS should include anti-flooding protection mechanism (e.g. timer for each ID).
+	\item (R6) Pictures should be taken through camera inside the application to ensure protection against manipulations.
+	\item (R22) Report forward to DB should exploit a secure and encrypted channel.
+	\end{itemize}
+	\bigskip
+
+\item \textbf{The system must track whether the police has taken care of a certain violation}
+	\begin{itemize}
+	\item(R23) SS policeman client should offer a function to signal that a traffic ticket (related to a previous) has been generated.
+	\item(R24) SS stores in its DB traffic ticket emission alongside the corresponding report.
+	\end{itemize}
+	\bigskip
+	
+\item \textbf{Traffic tickets must be issued to the person that owns the vehicle that committed the violation}
+	\begin{itemize}
+	\item(R25) The system must ensure that the traffic ticket emission signalling (policemen client) is available only for taken care reports.
+	\item(R26) SS will ask the officer the license plate number and will accept to signal ticket emission only if the inserted number match the one contained in the report.
+	\end{itemize}
+	\bigskip
+	
+\item \textbf{The system must be able to build statistics from the information about issued tickets}
+	\begin{itemize}
+	\item(R16) SS should implement an automated tool for data analysis and display.
+	\end{itemize}
+	\bigskip
+	
+	\end{enumerate}
+
 	\subsubsection{Scenarios}
 	\begin{enumerate}
 	\item \textbf{Bad Parking}: Bob is a commuter and every morning needs to reach the train station by car: the daily struggle to park his car in the surroundings is even worsened by parking violations. One morning, coming across another car occupying two parking slots, Bob decides to start contributing to SafeStreet service and its violation map: he downloads and installs SS app, accepts to grant Camera and GPS authorizations to it and fills a brief form for the registration. Once logged in, he uses the dedicated report feature. He takes a picture of the violation, inserts manually the license plate number and, after the application completes the verification of the inserted data, he sends the violation report, which also includes the GPS location and the current time.
