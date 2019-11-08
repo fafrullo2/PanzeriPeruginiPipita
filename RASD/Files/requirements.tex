@@ -286,18 +286,25 @@ SS will need to be able to sustain a heavy workload of database transaction: the
 	\item \textbf{Regular users:} the number of data streams will vary greatly depending on the number of users and the size of the city immplementing SS. As a safety measure, supposing to implement SS in a city roughly se same size as Milano, the number of expected data streams could exceed 100'000 daily, considering both reads and writes
 	\item \textbf{Authorities: } given the relative small number of municipal and police employees, a good extimate in a city the size of Milano could be around 2000 data streams daily on average, insignificant when compared to the other users' streams  
 \end{itemize}
-In conclusion, it's evident that SS must be able to scale seamlessly and in an utomated fashion, without human intervention
+In conclusion, it's evident that SS must be able to scale seamlessly and in an automated fashion, without human intervention
 
 
 \subsection{Design Constraints}
-	\subsubsection{Standard Compliace}
+	\subsubsection{Standard Compliance}
+	The system to be delivered must comply with EU's GDPR (General Data Protection Regulation) and will follow any of its variations in the time to come
 	\subsubsection{Hardware Limitations}
+	SS will have really different hardware limitations client side and server side:
+	\begin{itemize}
+		\item \textbf{Client side} - the only limitation is a working smartphone 
+		\item \textbf{Server side} - SS will need to save huge amounts of data, thus needing huge amounts of reliable storage
+	\end{itemize}
+	 
 \subsection{Software System Attributes}
 	\subsubsection{Reliability}
 	Given the data-mining orientation of the application, a great number of data must be gathered in order to ensure that the statistic analysis on the afromentioned data is actually meaningful. Therefore, the system must be reliable in delivering un-compromised data to the database and reliably store them.\\
 	It is also necessary for the system to accurately update dispatched officers and what reports have been taken care of, in order to avoid an erroneous usage of municipal police manpower and time, whose are usually pretty low to begin with.
 	\subsubsection{Avaibility}
-	Once again, in order to gather enough information to produce meaningful statistical analysis, the system must be able to gather as much data as possible. In order for this to happen the system must have a high availability.
+	Once again, in order to gather enough information to produce meaningful statistical analysis, the system must be able to gather as much data as possible. In order for this to happen the system must have a high availability, in the order of .9999
 	\subsubsection{Security}
 	Given that SS deals with a high volume of sensible data, such as pinpointing a user to a certain place at a certain time or having a list of various tickets emitted by the police, it is of the utmost importance for it to have a robust security apparatus. As a starter, all comunications between client and server must be encrypted (an asymmetric encryption mechanism with hash check should be enough); the same goes for the stored data. Other measures to be taken in order to avoid data leaks are the usual ones: don't use obvious names for tables and columns, filter all the user input, use adeguate csp to avoid code injections, use anti CSRF tokens and so on.\\
 	Please note that a leak could have disastrous consequences both on reputation and economic level, therefore security's importance cannot be understated and has to be considered one of the top priorities. 
