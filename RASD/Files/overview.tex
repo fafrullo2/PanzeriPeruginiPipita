@@ -56,16 +56,16 @@ In this section we analyse the main functions of SafeStreets:
 	The system must be able to automatically decide wether a report must be discarded or kept in memory. \\
 	The reasons for reports to be discarded are basically two: the report is fake (or not appropriate) or the same violation has already been reported (same photo for two different violations). 
 	
-	\item user management: \\ \\
+	\item User management: \\ \\
 	The system includes two different clients for the login of the different type of users. \\
 	One is used by basic users that can send reports and discover the unsafe areas of the city, the other is used by registered authorities to mine data about reports or possible interventions to reduce violations. \\
 	
-	\item possible intervention suggestions: \\ \\
+	\item Possible intervention suggestions: \\ \\
 	SafeStreets must be able to automatically suggest possible interventions to avoid traffic violations in the most unsafe areas. \\
 	The suggestions will be more accurate the more reports are sent from the same area. \\
 	For example, if the applications receives a lot of reports about cars parked on the bike lane, there might be need of a barrier between the street and the lane.
 	
-	\item information crossing: \\ \\
+	\item Information crossing: \\ \\
 	The system must be able to cross its data with informations about car accidents coming from the municipality. \\
 	This functionality can be useful to identify the most dangerous areas or to accurately suggest interventions.  
 \end{itemize}
@@ -75,7 +75,7 @@ Here is a list of the actors of the application:
 \begin{itemize}
 	\item Basic users: Every authenticated user that is able to send violation reports and mine the application data to know the most unsafe areas. 
 	\item Local police users: Users with a police service number able to access data about reports sent by the basic users. 
-	\item municipalities: authorised users from the municipality of a city able to mine more detailed data such as the possible interventions suggested by SafeStreets. 
+	\item Municipalities: authorised users from the municipality of a city able to mine more detailed data such as the possible interventions suggested by SafeStreets. 
 \end{itemize}
 
 \subsection{Assumptions, dependencies and constraints }
