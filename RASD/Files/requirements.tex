@@ -152,7 +152,14 @@ In conclusion, it's evident that SS must be able to scale seamlessly and in an u
 	\subsubsection{Hardware Limitations}
 \subsection{Software System Attributes}
 	\subsubsection{Reliability}
+	Given the data-mining orientation of the application, a great number of data must be gathered in order to ensure that the statistic analysis on the afromentioned data is actually meaningful. Therefore, the system must be reliable in delivering un-compromised data to the database and reliably store them.\\
+	It is also necessary for the system to accurately update dispatched officers and what reports have been taken care of, in order to avoid an erroneous usage of municipal police manpower and time, whose are usually pretty low to begin with.
 	\subsubsection{Avaibility}
+	Once again, in order to gather enough information to produce meaningful statistical analysis, the system must be able to gather as much data as possible. In order for this to happen the system must have a high availability.
 	\subsubsection{Security}
+	Given that SS deals with a high volume of sensible data, such as pinpointing a user to a certain place at a certain time or having a list of various tickets emitted by the police, it is of the utmost importance for it to have a robust security apparatus. As a starter, all comunications between client and server must be encrypted (an asymmetric encryption mechanism with hash check should be enough); the same goes for the stored data. Other measures to be taken in order to avoid data leaks are the usual ones: don't use obvious names for tables and columns, filter all the user input, use adeguate csp to avoid code injections, use anti CSRF tokens and so on.\\
+	Please note that a leak could have disastrous consequences both on reputation and economic level, therefore security's importance cannot be understated and has to be considered one of the top priorities. 
 	\subsubsection{Mantainability}
+	The greatest challenge in the maintanability field lays in the correct application of the "divide et impera" principle: if the application's modules have been defined and developed correctly then mantaining each module will be feasible with little cost in time and effort.
 	\subsubsection{Portability}
+	Portability is a relatively easy problem to solve. As a matter of fact, given that the users will access SS via a smartphone client, it will be enough to develop clients for Andorid and IOS and keep it updated to keep up with new os version releases. 
