@@ -8,20 +8,37 @@ In order to differentiate functionalities for the various types of users, the ap
 Basic users needs to insert personal informations (eg. SSN) during the sign-in process to reduce the number of false reports. \newline
 Authorities, on the other hand, must insert authentication data (eg. Police service number) during the sign-in process to ensure that the data won’t be accessed by not authorised people. \newline
 Depending on the kind authority, SafeStreets offers different levels of data visibility.
+
 \newpage
 
 \subsubsection{Class Diagram}
-The high-level class diagram provides a model of the application domain, containing the most important classes that will be necessary to build the system. 
+The high-level class diagram provides a model of the application domain, containing the most important classes that will be necessary to build the system. \\ \\ \\ \\ \\ \\ \\ \\
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=\textwidth]{Images/ClassDiagram.png}
 	\caption{\label{fig:metamodel2}Class diagram}
 \end{figure}
 
+\newpage
+
 \subsubsection{Statecharts}
 Now we will analyse the most critical aspects of the application workflow, modelling their behaviours using state diagrams.
-\\ \\
-Me: *inserts the image of the state diagrams* 
+%Me: *inserts the image of the state diagrams* 
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=\textwidth]{Images/ReportChart.png}
+	\caption{\label{fig:metamodel2}Sending a report}
+\end{figure}
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.7]{Images/InterventionChart.png}
+	\caption{\label{fig:metamodel2}System suggesting possible interventions}
+\end{figure}
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=\textwidth]{Images/PoliceChart.png}
+	\caption{\label{fig:metamodel2}Local police taking care of reports}
+\end{figure}
 
 \subsection{Product Functions}
 In this section we analyse the main functions of SafeStreets: 
@@ -41,14 +58,14 @@ In this section we analyse the main functions of SafeStreets:
 	
 	\item user management: \\ \\
 	The system includes two different clients for the login of the different type of users. \\
-	One is used by basic users that can send reports and discover the unsafe areas of the city, the other is used by registered authorities to mine data about reports or possible interventions to reduce violations. 
+	One is used by basic users that can send reports and discover the unsafe areas of the city, the other is used by registered authorities to mine data about reports or possible interventions to reduce violations. \\
 	
-	\item possible intervention suggestions \\ \\
+	\item possible intervention suggestions: \\ \\
 	SafeStreets must be able to automatically suggest possible interventions to avoid traffic violations in the most unsafe areas. \\
 	The suggestions will be more accurate the more reports are sent from the same area. \\
-	For example, if the applications receives a lot of reports about cars parked on the bike lane, there might be need of a barrier between the street and the lane. 
+	For example, if the applications receives a lot of reports about cars parked on the bike lane, there might be need of a barrier between the street and the lane.
 	
-	\item information crossing \\ \\
+	\item information crossing: \\ \\
 	The system must be able to cross its data with informations about car accidents coming from the municipality. \\
 	This functionality can be useful to identify the most dangerous areas or to accurately suggest interventions.  
 \end{itemize}
