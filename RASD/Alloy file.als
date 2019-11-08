@@ -1,6 +1,6 @@
 sig Person{}
 sig UsrId{}
-sig User{
+abstract sig User{
     person: one Person,
     usrId: one UsrId
 }
@@ -79,6 +79,10 @@ fact multipleReportsForOneInfraction{
      and r1.violation.writtenPlate=r2.violation.writtenPlate and r1.violation.vehicle=r2.violation.vehicle
      iff (r1.dispatchedOfficer=r2.dispatchedOfficer and r1.officerWhoTookAction=r2.officerWhoTookAction 
      and r1.author!=r2.author)
+}
+
+fact noViolationWithoutReport{
+    all v: Violation| v in Report.violation
 }
 
 fact onlyConsiderReportsUndispatchedFor{
@@ -178,7 +182,8 @@ pred world{
     #Violation>=2
     #User>2
     #ExpiredParking=1
-    #UnlawfulParking=1  
+    #UnlawfulParking=1
+    #MunicipalAuthority>0  
 }
 
 
