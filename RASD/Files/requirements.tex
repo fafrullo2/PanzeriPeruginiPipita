@@ -264,7 +264,7 @@
 				\begin{enumerate}[label=\alph*)]
 					\item The institution logs in the SS website
 					\item The institution navigates to the "Suggested Intervention" sections
-					\item In the interface displayed the institution searches the are of interest for possible intervention suggestions
+					\item In the interface displayed the institution searches the areas of interest for possible intervention suggestions
 					\end{enumerate}\\ \hline
 		Output Conditions &    		The institution can access to intervention suggestions for the selected area\\ \hline
 		Exceptions        		&       	
@@ -287,14 +287,13 @@
 		Event Flow        		&          
 				\begin{enumerate}[label=\alph*)]
 					\item The police officer taps on the notification (selects a violation report).
-					\item The app displays the violation characteristics and two option: "On my Way", to take over the violaton report; "Back to Reports", to come back to violations map.
+					\item The app shows the report and two option: "On my Way", to take over the violaton report; "Back to Reports", to come back to violations map.
 					\item The police officer selects "On my way" option.
 					\item The police officer reaches the location indicated in the violation reports.
 					\item The police officer verifies if the signaled violation has truly occurred and in this case emits a traffic ticket.
-					\item The police officer opens SS app and concludes the intervention by specifying its outcome, through the option available: "Ticket emitted" or "Violation not verified". 
+					\item The police officer concludes intervention specifying its outcome in SS app, through the options displayed: "Ticket emitted" or "Violation not verified". 
 					\end{enumerate}\\ \hline
-		Output Conditions &    		In case of verified violation, a ticket emission is stored with the corresponding violation.\newline
-													If the report hasn't been verified, the violation record is removed from SS systems.\\ \hline
+		Output Conditions &    		In case of verified violation, a ticket emission is stored with the corresponding violation. Otherwise, the violation record is removed from SS systems.\\ \hline
 		Exceptions        		&       	
 				\begin{enumerate}[label=\alph*)]
 					\item A colleague takes over the violation before the policeman selects "On my way" option. An error message stating that the violation is already under analisys is displayed.
