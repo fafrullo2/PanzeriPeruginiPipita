@@ -234,59 +234,73 @@
 		\begin{table}[h!]
 		\begin{tabular}{|l|p{12,5cm}|}
 		\hline
-		Actors            			&       	\\ \hline
-		Goals             			&         	\\ \hline
-		Entry Conditions  	&  		\\ \hline
+		Actors            			&       	Institution/authority\\ \hline
+		Goals             			&         	G6\\ \hline
+		Entry Conditions  	&  		Institution is registered to SS service and desires to access to data it collects\\ \hline
 		Event Flow        		&          
 				\begin{enumerate}[label=\alph*)]
-					\item
-					\item
-					\item
+					\item The institution specifies a proper query for the data required.
+					\item The system verifies if the query author is an registered acknowledge.
 					\end{enumerate}\\ \hline
-		Output Conditions &    		\\ \hline
-		Exceptions        		&       	\\ \hline
+		Output Conditions &    		Requested data is provided to the institution. \\ \hline
+		Exceptions        		&
+		       	\begin{enumerate}[label=\alph*)]
+		       		\item The query is not well formatted. An error is reported and the transaction is aborted.
+		       		\item The query author is not recognized. An error is reported and the request is not fullfilled. 
+		       	\end{enumerate}\\ \hline
 	\end{tabular}
 	\end{table}
+	
+		\clearpage
 	
 	\item \textbf{Providing Institution Intervention Suggestions}
 		\begin{table}[h!]
 		\begin{tabular}{|l|p{12,5cm}|}
 		\hline
-		Actors            			&       	\\ \hline
-		Goals             			&         	\\ \hline
-		Entry Conditions  	&  		\\ \hline
+		Actors            			&       	Institution/Authority\\ \hline
+		Goals             			&         	GA1.2\\ \hline
+		Entry Conditions  	&  		Institution is registetred to SS service and desires to access to "Suggested Intervention" advanced feature\\ \hline
 		Event Flow        		&          
 				\begin{enumerate}[label=\alph*)]
-					\item
-					\item
-					\item
+					\item The institution logs in the SS website
+					\item The institution navigates to the "Suggested Intervention" sections
+					\item In the interface displayed the institution searches the are of interest for possible intervention suggestions
 					\end{enumerate}\\ \hline
-		Output Conditions &    		\\ \hline
-		Exceptions        		&       	\\ \hline
+		Output Conditions &    		The institution can access to intervention suggestions for the selected area\\ \hline
+		Exceptions        		&       	
+				\begin{enumerate}[label=\alph*)]
+					\item The institution fails to login in the website page. An error message asking to reinsert credential is displayed.
+					\item In the selected area there are no suggested intervention. An error message explaining the absense of possible intervention is reported.
+				\end{enumerate}\\ \hline
 	\end{tabular}
 	\end{table}
 	
-	\clearpage
-	
-	\item \textbf{Policeman Takes Care of a Report}
+	\item \textbf{Police Officer Takes Care of a Report}
 		\begin{table}[h!]
 		\begin{tabular}{|l|p{12,5cm}|}
 		\hline
-		Actors            			&       	\\ \hline
-		Goals             			&         	\\ \hline
-		Entry Conditions  	&  		\\ \hline
+		Actors            			&       	Police Officer\\ \hline
+		Goals             			&         	GA2.1, GA2.3\\ \hline
+		Entry Conditions  	&  		The police officer receives a notification on her/his SS mobile client and decides to take action\newline
+													\centerline{OR}\newline
+													The police officers finds in the SS client dedicated section an available violation report and decides to take care of it \\ \hline
 		Event Flow        		&          
-				\begin{enumerate}[label=(\alph*)]
-					\item
-					\item
-					\item
+				\begin{enumerate}[label=\alph*)]
+					\item The police officer taps on the notification (selects a violation report).
+					\item The app displays the violation characteristics and two option: "On my Way", to take over the violaton report; "Back to Reports", to come back to violations map.
+					\item The police officer selects "On my way" option.
+					\item The police officer reaches the location indicated in the violation reports.
+					\item The police officer verifies if the signaled violation has truly occurred and in this case emits a traffic ticket.
+					\item The police officer opens SS app and concludes the intervention by specifying its outcome, through the option available: "Ticket emitted" or "Violation not verified". 
 					\end{enumerate}\\ \hline
-		Output Conditions &    		\\ \hline
-		Exceptions        		&       	\\ \hline
+		Output Conditions &    		In case of verified violation, a ticket emission is stored with the corresponding violation.\newline
+													If the report hasn't been verified, the violation record is removed from SS systems.\\ \hline
+		Exceptions        		&       	
+				\begin{enumerate}[label=\alph*)]
+					\item A colleague takes over the violation before the policeman selects "On my way" option. An error message stating that the violation is already under analisys is displayed.
+				\end{enumerate}\\ \hline
 	\end{tabular}
 	\end{table}
-	
-	
 	
 	
 	\end{enumerate}
