@@ -40,12 +40,14 @@
 	Hardware interfaces are mainly required for the acquisition of the data composing a violation report.
 	In particular these represent the necessary interfaces for SS service:
 		\begin{itemize}
-			\item Smartphone Sensor:\newline
+			\item Smartphone Sensors:\newline
 						The access is provided by the APIs and drivers offered by the mobile OS. Those APIs grant the possibility to easly exploit camera and GPS, crucial sensors inside SS user client.
 			\item Internet Connection:\newline
 						Internet access is vital for the applications since it is entirely based on the comunication between user client and a remote server. So the user client is designed to be installed on a smartphone, assuming that every device will feature an internet module accessible through OS APIs.\newline
 						Internet connection is also exploited to retrieve timestamps of each violation and to increase the GPS location accurancy.
 	\end{itemize}
+	
+\clearpage
 
 	\subsubsection{Software Interfaces}
 	Software interfaces required by SS user client are represented by the APIs offered by the mobile OS for the management of the aformentioned hardware modules. In particular, access permission and OS level APIS are required for:
