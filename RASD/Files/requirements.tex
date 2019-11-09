@@ -136,7 +136,7 @@
 		Goals             			&         G1\\ \hline
 		Entry Conditions  	&  		User opens the mobile app for the first time\\ \hline
 		Event Flow        		&          
-				\begin{enumerate}[label=(\alph*)]
+				\begin{enumerate}[label=\alph*)]
 					\item The user accepts to grant SS permission to access camera and GPS.
 					\item SS user interface shows a menu with Log In and Sign Up options.
 					\item The user taps on Sign Up opening the registration form.
@@ -146,15 +146,17 @@
 				\end{enumerate}\\ \hline
 		Output Conditions &    		The user completes the registration and can access SS features.	\\ \hline
 		Exceptions        		&       	
-				\begin{enumerate}[label=(\alph*)]
+				\begin{enumerate}[label=\alph*)]
 					\item The user does not accept required permissions. In this case the app will close.
-					\item The user is already registered. An error message asking to reinsert the data is displayed.
-					\item Mandatory fields are left empty or filled with invalid entries. An error message asking to reinsert the data is displayed.
-					\item The user does not accept privacy policy. An error message asking to accept the policy is displayed.
+					\item The user is already registered. An error message is displayed asking to reinsert the data is displayed.
+					\item Mandatory fields are left empty or filled with invalid entries. An error message is displayed asking to reinsert the data is displayed.
+					\item The user does not accept privacy policy. An error message is displayed asking to accept the policy is displayed.
 					\item Verification link expires before user confirms registration. In this case the account is deleted from SS system.
 				\end{enumerate}\\ \hline
 	\end{tabular}
 	\end{table}
+	
+	\clearpage
 	
 	\item \textbf{Institution Registration}
 		\begin{table}[h!]
@@ -164,20 +166,20 @@
 		Goals             			&         	G6, GA2.1\\ \hline
 		Entry Conditions  	&  		No entry condition\\ \hline
 		Event Flow        		&          
-				\begin{enumerate}[label=(\alph*)]
-					\item The institution connects to SS website
-					\item In the website institution dedicated area, the authority finds a mandatory registration form. Among the data must be provided a certificate for institution acknowledgement
-					\item The institution fills all the mandatory fields and accepts privacy policy
+				\begin{enumerate}[label=\alph*)]
+					\item The institution connects to SS website.
+					\item In the website institution dedicated area, the authority finds a mandatory registration form. A certificate for institution acknowledgement must be provided as part of the form.
+					\item The institution fills all the mandatory fields and accepts privacy policy.
 					\end{enumerate}\\ \hline
-		Output Conditions &    		Registration successfull: the institution can access advanced SS features\\ \hline
+		Output Conditions &    		Registration successfull: the institution can access advanced SS features.\\ \hline
 		Exceptions        		&
-				\begin{enumerate}[label=(\alph*)]
-					\item The institution is already registered
-					\item Mandatory fileds are incomplete
-					\item Certificate is missing
-					\item The institution does not accept Privacy policy
+				\begin{enumerate}[label=\alph*)]
+					\item The institution is already registered.
+					\item Mandatory fileds are incomplete.
+					\item Certificate is missing.
+					\item The institution does not accept Privacy policy.
 				\end{enumerate}
-				All exceptions raise an error asking to complete the remaining operations \\ \hline
+				All exceptions raise an error asking to complete the unfulfilled operations. \\ \hline
 	\end{tabular}
 	\end{table}
 	
@@ -189,40 +191,42 @@
 		Goals             			&         G1, G2, G3, G4, G5	\\ \hline
 		Entry Conditions  	&  		User is registered, logged in the mobile app and wants to signal a violation\\ \hline
 		Event Flow        		&          
-				\begin{enumerate}[label=(\alph*)]
+				\begin{enumerate}[label=\alph*)]
 					\item The user opens SS app and taps on the "Signal a Violation" option.
 					\item The user selects one of the possible violations presented in graphic menu.
-					\item The app asks the user to attach a photo of the violation, picturing the vehicle involved with license visible, and to manually insert license plate number of the vehicle.
+					\item The app asks the user to attach a photo of the violation, picturing the vehicle involved with license plate visible, and to manually insert license plate number of the vehicle.
 					\item The user takes a photo of the violation within SS app and insert license plate number of the vehicle.
-					\item The app localy verifies if license plate pictured and manually inserted match and readies the violation report. 
+					\item The app localy verifies if the license plate pictured and the manually inserted one match and readies the violation report. 
 					\item The app shows a menu displaying a " Send Report" and a "Cancell" options.
-					\item The user tap on "Send Report" to send the violation report to SS systems.
+					\item The user tap on "Send Report" in order to send the violation report to SS systems.
 					\end{enumerate}\\ \hline
-		Output Conditions &    		SS mobile client sends the report to SS server. The report can now be stored in SS DB.\\ \hline
+		Output Conditions &    		The report is sent to SS server and it is stored in a suitable database.\\ \hline
 		Exceptions        		&       	
-				\begin{enumerate}[label=(\alph*)]
-					\item License plate number recognized by the app and manually inserted do not match. In this case, an error message is raised and SS asks the user to retake the photo.
+				\begin{enumerate}[label=\alph*)]
+					\item License plate number recognized by the app and the one manually inserted do not match. In this case, an error message is raised and SS asks the user to retake the photo.
 				\end{enumerate}\\ \hline
 	\end{tabular}
 	\end{table}
 	
-	\clearpage
-	
-	\item \textbf{Providing Violations Information to Users}
+	\item \textbf{Providing Useful Information to Users}
 		\begin{table}[h!]
 		\begin{tabular}{|l|p{12,5cm}|}
 		\hline
 		Actors            			&       	User\\ \hline
-		Goals             			&         G6\\ \hline
+		Goals             			&         G6, GA2.5\\ \hline
 		Entry Conditions  	&  		User is registered, logged in the mobile app and wants to consult violation information\\ \hline
 		Event Flow        		&          
-				\begin{enumerate}[label=(\alph*)]
-					\item The user opens SS app and taps on the "Violations Map" option
-					\item
-					\item
-					\end{enumerate}\\ \hline
-		Output Conditions &    		\\ \hline
-		Exceptions        		&       	\\ \hline
+				\begin{enumerate}[label=\alph*)]
+					\item The user opens SS app and taps on the "Statistics" option.
+					\item The user selects the prefered function in the menu displayed (e.g. violations maps, traffic tickets statistics). \newline
+								Note: functions availability may vary depending on the service offered by the city municipality.
+				\end{enumerate}\\ \hline
+		Output Conditions &    		The user acess to the requested service.\\ \hline		
+				
+		Exceptions        		&       	
+				\begin{enumerate}[label=\alph*)]
+					\item The user requests a service not available in his city. An error message explaining the reasons of the function absence is displayed.
+				\end{enumerate}\\ \hline
 	\end{tabular}
 	\end{table}
 	
@@ -234,7 +238,7 @@
 		Goals             			&         	\\ \hline
 		Entry Conditions  	&  		\\ \hline
 		Event Flow        		&          
-				\begin{enumerate}[label=(\alph*)]
+				\begin{enumerate}[label=\alph*)]
 					\item
 					\item
 					\item
@@ -252,7 +256,7 @@
 		Goals             			&         	\\ \hline
 		Entry Conditions  	&  		\\ \hline
 		Event Flow        		&          
-				\begin{enumerate}[label=(\alph*)]
+				\begin{enumerate}[label=\alph*)]
 					\item
 					\item
 					\item
@@ -283,62 +287,7 @@
 	\end{table}
 	
 	
-	\item \textbf{} 
-		\begin{table}[h!]
-		\begin{tabular}{|l|p{12,5cm}|}
-		\hline
-		Actors            			&       	\\ \hline
-		Goals             			&         	\\ \hline
-		Entry Conditions  	&  		\\ \hline
-		Event Flow        		&          
-				\begin{enumerate}[label=(\alph*)]
-					\item
-					\item
-					\item
-					\end{enumerate}\\ \hline
-		Output Conditions &    		\\ \hline
-		Exceptions        		&       	\\ \hline
-	\end{tabular}
-	\end{table}
 	
-
-	
-	\item \textbf{}
-		\begin{table}[h!]
-		\begin{tabular}{|l|p{12,5cm}|}
-		\hline
-		Actors            			&       	\\ \hline
-		Goals             			&         	\\ \hline
-		Entry Conditions  	&  		\\ \hline
-		Event Flow        		&          
-				\begin{enumerate}[label=(\alph*)]
-					\item
-					\item
-					\item
-					\end{enumerate}\\ \hline
-		Output Conditions &    		\\ \hline
-		Exceptions        		&       	\\ \hline
-	\end{tabular}
-	\end{table}
-	
-	
-	\item \textbf{}
-		\begin{table}[h!]
-		\begin{tabular}{|l|p{12,5cm}|}
-		\hline
-		Actors            			&       	\\ \hline
-		Goals             			&         	\\ \hline
-		Entry Conditions  	&  		\\ \hline
-		Event Flow        		&          
-				\begin{enumerate}[label=(\alph*)]
-					\item
-					\item
-					\item
-					\end{enumerate}\\ \hline
-		Output Conditions &    		\\ \hline
-		Exceptions        		&       	\\ \hline
-	\end{tabular}
-	\end{table}
 	
 	\end{enumerate}
 	
@@ -365,8 +314,8 @@ Server side SS is a data intensive application. Big volumes of data  will be wri
 \subsubsection{Workload management}
 SS will need to be able to sustain a heavy workload of database transaction: there will be a lot of simultaneous read and write operations. The workload required will differ depending on the differnt types of users.
 \begin{itemize}
-	\item \textbf{Regular users:} the number of data streams will vary greatly depending on the number of users and the size of the city immplementing SS. As a safety measure, supposing to implement SS in a city roughly se same size as Milano, the number of expected data streams could exceed 100'000 daily, considering both reads and writes
-	\item \textbf{Authorities: } given the relative small number of municipal and police employees, a good extimate in a city the size of Milano could be around 2000 data streams daily on average, insignificant when compared to the other users' streams  
+	\item \textbf{Regular Users:} the number of data streams will vary greatly depending on the number of users and the size of the city immplementing SS. As a safety measure, supposing to implement SS in a city roughly se same size as Milano, the number of expected data streams could exceed 100'000 daily, considering both reads and writes
+	\item \textbf{Police Officers: } given the relative small number of municipal and police employees, a good extimate in a city the size of Milano could be around 2000 data streams daily on average, insignificant when compared to the other users' streams  
 \end{itemize}
 In conclusion, it's evident that SS must be able to scale seamlessly and in an automated fashion, without human intervention
 
@@ -383,7 +332,7 @@ In conclusion, it's evident that SS must be able to scale seamlessly and in an a
 	 
 \subsection{Software System Attributes}
 	\subsubsection{Reliability}
-	Given the data-mining orientation of the application, a great number of data must be gathered in order to ensure that the statistic analysis on the afromentioned data is actually meaningful. Therefore, the system must be reliable in delivering un-compromised data to the database and reliably store them.\\
+	Given the data-mining orientation of the application, a huge amount of data must be gathered in order to ensure that the statistic analysis on the aformentioned data is actually meaningful. Therefore, the system must be reliable in delivering un-compromised data to the database and reliably store them.\\
 	It is also necessary for the system to accurately update dispatched officers and what reports have been taken care of, in order to avoid an erroneous usage of municipal police manpower and time, whose are usually pretty low to begin with.
 	\subsubsection{Avaibility}
 	Once again, in order to gather enough information to produce meaningful statistical analysis, the system must be able to gather as much data as possible. In order for this to happen the system must have a high availability, in the order of .9999
