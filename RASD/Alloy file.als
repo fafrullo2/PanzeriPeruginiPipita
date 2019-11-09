@@ -1,7 +1,6 @@
-sig Person{}
+
 sig UsrId{}
 abstract sig User{
-    person: one Person,
     usrId: one UsrId
 }
 sig RegularUser extends User{
@@ -14,7 +13,7 @@ sig Policeman extends Authority{
 sig MunicipalAuthority extends Authority{
     trackedAreas: set Area,
     trackedUsers: set RegularUser,
-    trackedVehicles: set Vehicle
+    trackedPlates: set Plate
 }
 sig Position{}
 sig Time{}
@@ -22,11 +21,6 @@ abstract sig ViolationType{}
 sig ExpiredParking extends ViolationType{}
 sig UnlawfulParking extends ViolationType{}
 sig Plate{}
-//result of runnig the photo through the plate recognition algorythm and crossing data with municipality DB
-sig Vehicle{ 
-    plate: one Plate,
-    owner: lone Person //depends on wether the app has access to this data or not
-} 
 sig Photo{}
 sig Intervention{}
 sig Violation{
@@ -34,7 +28,7 @@ sig Violation{
     time: one Time,
     position: one Position,
     photo: one Photo,
-    vehicle: one Vehicle,
+    recognisedPlate: one Plate,//plate from photo
     writtenPlate: one Plate
 }
 sig Report{
@@ -46,7 +40,7 @@ sig Report{
 sig Ticket{
     report: one Report,
     policeOfficer: one Policeman,
-    recipient: one Vehicle
+    recipient: one Plate
 }
 sig Area{
     reports: set Report,
@@ -55,15 +49,12 @@ sig Area{
 
 //facts
 fact noSameOrDoubleID{
-    no disj u1, u2: User |u1.usrId=u2.usrId or u1.person=u2.person 
+    no disj u1, u2: User |u1.usrId=u2.usrId  
 }
 
-fact noSamePlate{
-    no disj v1, v2: Vehicle| v1.plate=v2.plate
-}
 
 fact needSamePlate{
-    all v: Violation| v.vehicle.plate=v.writtenPlate
+    all v: Violation| v.recognisedPlate=v.writtenPlate
 }
 
 fact noDoublePhoto{
@@ -76,13 +67,25 @@ fact noDoublePhoto{
 fact multipleReportsForOneInfraction{
     all disj r1, r2: Report| r1.violation.time=r2.violation.time and 
     r1.violation.violationType=r2.violation.violationType and r1.violation.position=r2.violation.position
-     and r1.violation.writtenPlate=r2.violation.writtenPlate and r1.violation.vehicle=r2.violation.vehicle
+     and r1.violation.writtenPlate=r2.violation.writtenPlate and r1.violation.recognisedPlate=r2.violation.recognisedPlate
      iff (r1.dispatchedOfficer=r2.dispatchedOfficer and r1.officerWhoTookAction=r2.officerWhoTookAction 
      and r1.author!=r2.author)
 }
 
+fact platesOnlyFromReports{
+    all p: Plate| p in Report.violation.recognisedPlate
+}
+
+fact photosOnlyFromReports{
+    all p: Photo| p in Report.violation.photo
+}
+
 fact noViolationWithoutReport{
     all v: Violation| v in Report.violation
+}
+
+fact allPsitionsFromReports{
+    all p: Position| p in Report.violation.position
 }
 
 fact onlyConsiderReportsUndispatchedFor{
@@ -111,7 +114,7 @@ fact reportFromOfficer{
 }
 
 fact rightPersonBilled{
-    all t: Ticket| t.recipient=t.report.violation.vehicle
+    all t: Ticket| t.recipient=t.report.violation.recognisedPlate
 }
 
 fact interventionsInArea{
@@ -122,9 +125,12 @@ fact baseCityArea{
     all r:Report| r in Area.reports
 }
 
+fact allInterventionsAboutSomeArea{
+    all i: Intervention| i in Area.interventions
+}
 
 fact onlyVehiclesInTheDB{
-    all m: MunicipalAuthority| m.trackedVehicles in Violation.vehicle
+    all m: MunicipalAuthority| m.trackedPlates in Violation.recognisedPlate
 }
 
 
@@ -136,11 +142,11 @@ assert allReportsHaveOnePhoto{
 //G2
 assert allowDataMining{
     all ru: RegularUser| all ma: MunicipalAuthority|
-    #ru.trackedAreas>=0 and #ma.trackedAreas>=0 and #ma.trackedUsers>=0 and #ma.trackedVehicles>=0
+    #ru.trackedAreas>=0 and #ma.trackedAreas>=0 and #ma.trackedUsers>=0 and #ma.trackedPlates>=0
 }
 //G3
 assert plateRecognition{
-    all r: Report| r.violation.writtenPlate=r.violation.vehicle.plate
+    all r: Report| r.violation.writtenPlate=r.violation.recognisedPlate
 }
 //G4
 assert locationPinpointing{
@@ -161,7 +167,7 @@ assert takenCareOf{
 }
 //GA2.4
 assert noSuchTicket{
-    no t: Ticket| t.recipient!=t.report.violation.vehicle
+    no t: Ticket| t.recipient!=t.report.violation.recognisedPlate
 }
 
 
@@ -175,15 +181,16 @@ check takenCareOf for 6
 check noSuchTicket for 6
 
 pred world{
-    #Vehicle>1
+    #Plate>1
     #Report>=2
     #Ticket>=1
-    #Policeman=1
+    #Policeman>=1
     #Violation>=2
     #User>2
     #ExpiredParking=1
     #UnlawfulParking=1
     #MunicipalAuthority>0  
+    one r:Report| one a: Area| #a.interventions>0 and  r.author not in Policeman and #r.dispatchedOfficer=1
 }
 
 
