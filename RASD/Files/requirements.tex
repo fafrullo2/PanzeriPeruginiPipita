@@ -35,9 +35,34 @@
     	\includegraphics[width=\textwidth]{Images/MunicipalAuthority_client_Mockup}
     	\caption{Mockup of the municipal authority client}
     \end{figure}
+    
 	\subsubsection{Hardware Interface}
+	Hardware interfaces are mainly required for the acquisition of the data composing a violation report.
+	In particular these represent the necessary interfaces for SS service:
+		\begin{itemize}
+			\item Smartphone Sensor:\newline
+						The access is provided by the APIs and drivers offered by the mobile OS. Those APIs grant the possibility to easly exploit camera and GPS, crucial sensors inside SS user client.
+			\item Internet Connection:\newline
+						Internet access is vital for the applications since it is entirely based on the comunication between user client and a remote server. So the user client is designed to be installed on a smartphone, assuming that every device will feature an internet module accessible through OS APIs.\newline
+						Internet connection is also exploited to retrieve timestamps of each violation and to increase the GPS location accurancy.
+	\end{itemize}
+
 	\subsubsection{Software Interfaces}
-	\subsubsection{Comunication Interface}
+	Software interfaces required by SS user client are represented by the APIs offered by the mobile OS for the management of the aformentioned hardware modules. In particular, access permission and OS level APIS are required for:
+\begin{itemize} 
+		\item Camera
+		\item GPS
+		\item Storage
+		\item Internet Connection (full stack)
+	\end{itemize}
+		Considering the server endpoint of SS service the development of an high performance DataBase is reguarded as a main concern for the application scope.
+	Finally considering the involvement of third parties for the development of advanced feature of this application, is worth noting that the interfaces with external services will be defined in collaboration with representatives of the third parties involved.
+	 
+	\subsubsection{Comunication Interfaces}
+	 The unique (but fundamental) communication interface required for the scope of this application is the internet connection, as pointed out in the previous sections. The system should provide a device agnostic  connection with adeguated performance.\newline
+	In order to provide access to  third parties for stored data (mainly for mining purposes), dedicated APIs will be developed and maintained.
+	
+	\clearpage
 	
 \subsection{Functional Requirements}
 \bigskip
