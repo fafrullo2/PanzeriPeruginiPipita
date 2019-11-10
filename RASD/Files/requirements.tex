@@ -494,7 +494,7 @@ Server side SS is a data intensive application. Big volumes of data  will be wri
 SS will need to be able to sustain a heavy workload of database transaction: there will be a lot of simultaneous read and write operations. The workload required will differ depending on the differnt types of users.
 \begin{itemize}
 	\item \textbf{Regular Users:} the number of data streams will vary greatly depending on the number of users and the size of the city immplementing SS. As a safety measure, supposing to implement SS in a city roughly se same size as Milano, the number of expected data streams could exceed 100'000 daily, considering both reads and writes
-	\item \textbf{Police Officers: } given the relative small number of municipal and police employees, a good extimate in a city the size of Milano could be around 2000 data streams daily on average, insignificant when compared to the other users' streams  
+	\item \textbf{Authorities: } given the relative small number of municipal and police employees, a good extimate in a city the size of Milano could be around 5000 data streams daily on average, insignificant when compared to the other users' streams  
 \end{itemize}
 In conclusion, it's evident that SS must be able to scale seamlessly and in an automated fashion, without human intervention
 
