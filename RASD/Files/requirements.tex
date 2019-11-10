@@ -385,22 +385,53 @@
 	\begin{tabular}{|l|l|l|}
 	\hline
 	\textbf{Goals}					& \textbf{Requirements}	& \textbf{Use Cases}\\ \hline
- 	\multirow{2}{*}{G1}		&  &  \\\cline{2-3}
- 											& &\\ \hline
- 	G2		&  &  \\ \hline
- 	G3		&  &  \\ \hline
- 	G4		&  &  \\ \hline
- 	G5		&  &  \\ \hline
- 	G6		&  &  \\ \hline
-	GA1.1	&  &  \\ \hline
- 	GA1.2	&  &  \\ \hline
- 	GA2.1	&  &  \\ \hline
- 	GA2.1	&  &  \\ \hline
- 	GA2.3	&  &  \\ \hline
- 	GA2.4	&  &  \\ \hline
- 	GA2.5	&  &  \\ \hline
+ 	\multirow{4}{*}{G1}		&   	R1 								&  1\\\cline{2-3}
+ 											& 		R2								&	 1\\\cline{2-3}
+ 											&   	R3 								&  3\\\cline{2-3}
+ 											&   	R4 								&  3\\\cline{2-3} \hline
+ 											
+ 	\multirow{2}{*}{G2}		&   	R5 								&  3\\\cline{2-3}
+ 											&   	R6 								&  3\\\cline{2-3} \hline
+ 											
+ 	\multirow{1}{*}{G3}		&   	R7 								&  3\\\cline{2-3}\hline
+ 	
+ 	\multirow{2}{*}{G4}		&   	R8 								&  3\\\cline{2-3}
+ 											&   	R9 								&  3\\\cline{2-3} \hline
+ 											
+ 	\multirow{3}{*}{G5}		&   	R10 								&  3\\\cline{2-3}
+ 											&   	R11 								&  3\\\cline{2-3}
+ 											&   	R12 								&  3\\\cline{2-3}\hline
+ 											
+ 	\multirow{4}{*}{G6}		&   	R13 								&  2\\\cline{2-3}
+ 											&   	R14 								&  2\\\cline{2-3}
+ 											&   	R15 								&  5\\\cline{2-3}
+ 											&   	R16 								&  5\\\cline{2-3}\hline
+ 											
+	\multirow{3}{*}{GA1.1}	&   	R17 								&  6\\\cline{2-3}
+											&   	R18 								&  6\\\cline{2-3}
+											&   	R19 								&  6\\\cline{2-3} \hline
+											
+ 	\multirow{1}{*}{GA1.2}	&   	R16 								&  6\\\cline{2-3} \hline
+ 	
+ 	\multirow{1}{*}{GA2.1}	&   	R20 								&  7\\\cline{2-3} \hline
+ 	
+ 	\multirow{5}{*}{GA2.2}	&   	R2 								&  \\\cline{2-3} 
+ 											& 		R3 								&  \\\cline{2-3} 
+ 											&		R21 								&  \\\cline{2-3} 
+ 											&		R6 								&  \\\cline{2-3}
+ 											&		R22 								&  \\\cline{2-3}\hline
+ 									
+ 	\multirow{2}{*}{GA2.3}	&  	R23 								&  7\\\cline{2-3}
+ 											&  	R24 								&  7\\\cline{2-3} \hline
+ 											
+ 	\multirow{2}{*}{GA2.4}	&  	R25 								&  7\\\cline{2-3}
+ 											&  	R26 								&  7\\\cline{2-3} \hline
+ 											
+ 	\multirow{1}{*}{GA2.5}	&  	R21 								&  5\\\cline{2-3}\hline
 	\end{tabular}
 	\end{table}
+	
+	\newpage
 	
 \subsection{Performance Requirements}
 
@@ -427,11 +458,21 @@ In conclusion, it's evident that SS must be able to scale seamlessly and in an a
 
 \subsection{Design Constraints}
 	\subsubsection{Standard Compliance}
-	The system to be delivered must comply with EU's GDPR (General Data Protection Regulation) and will follow any of its variations in the time to come
+	SS mobile client should respond to the following requirements:
+	\begin{itemize}
+		\item[--] The application saves the current state when it is put in backgound or when the smartphone enter standby mode; it restores all the saved states when is called to the foreground.
+		\item[--] The application works flawlessly in an SD card, provided space is available.
+		\item[--] The application can be used either on landscape or portrait orientations.
+	\end{itemize}
+	The system to be delivered must comply with EU's GDPR (General Data Protection Regulation) and will follow any of its variations in the time to come.
 	\subsubsection{Hardware Limitations}
 	SS will have really different hardware limitations client side and server side:
 	\begin{itemize}
-		\item \textbf{Client side} - the only limitation is a working smartphone featuring a working camera, a GPS location module and an internet connection 
+		\item \textbf{Client side}:
+		\begin{itemize}
+		 \item[--] Mobile Client: the only limitation is a working smartphone featuring a working camera, a GPS location module and an internet connection.
+		 \item[--] WebPage: working device with internet connection.
+		 \end{itemize}
 		\item \textbf{Server side} - SS will need to save huge amounts of data, thus needing huge amounts of reliable storage
 	\end{itemize}
 	 
