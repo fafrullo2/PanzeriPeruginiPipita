@@ -1,9 +1,16 @@
 \subsection{External interface requirements}
  
 	\subsubsection{User Intefaces}
+ 		SS will feature two different mobille clients: one available to ordinary users and another one dedicated to police officers. Each client will feature a dedicated graphical user interface. \newline
+	 In particular the user interface of the police officers client will offer  graphical support for the additional exclusive functions.\newline
+		Finally SS will also provide a webpage which will offer access to advanced feature to acknowledge institution.\newline
+		The following mockups give an idea of the appearance of the application on release.
 	\begin{figure}[h!]
+	
+	\medskip
+	
 		\centering
-		\includegraphics[scale=0.55]{Images/login_mockup}
+		\includegraphics[scale=0.50]{Images/login_mockup}
 		\caption{Mockup of the login page}
 	\end{figure}
 	\newpage
@@ -33,8 +40,10 @@
     \begin{figure}[h!]
     	\centering
     	\includegraphics[width=\textwidth]{Images/MunicipalAuthority_client_Mockup}
-    	\caption{Mockup of the municipal authority client}
+    	\caption{Mockup of the municipal authority dedicated webpage}
     \end{figure}
+    
+    \newpage
     
 	\subsubsection{Hardware Interface}
 	Hardware interfaces are mainly required for the acquisition of the data composing a violation report.
@@ -46,18 +55,17 @@
 						Internet access is vital for the applications since it is entirely based on the comunication between user client and a remote server. So the user client is designed to be installed on a smartphone, assuming that every device will feature an internet module accessible through OS APIs.\newline
 						Internet connection is also exploited to retrieve timestamps of each violation and to increase the GPS location accurancy.
 	\end{itemize}
-	
-\clearpage
 
 	\subsubsection{Software Interfaces}
-	Software interfaces required by SS user client are represented by the APIs offered by the mobile OS for the management of the aformentioned hardware modules. In particular, access permission and OS level APIS are required for:
-\begin{itemize} 
+	Software interfaces required by SS user client are represented by the APIs offered by the mobile OS for the management of the aformentioned hardware modules. In particular, access permission and OS level APIs are required for:
+	\begin{itemize} 
 		\item Camera
 		\item GPS
 		\item Storage
 		\item Internet Connection (full stack)
 	\end{itemize}
-		Considering the server endpoint of SS service the development of an high performance DataBase is reguarded as a main concern for the application scope.
+	Additionally SS client will exploit the APIs of a third party Street Map Service in order to provide to the users feaure like violations statistic per area, maps of violations and so on.\newline
+		Looking at the server endpoint of SS service, the development of an high performance DataBase is reguarded as a main concern for the application scope.\newline
 	Finally considering the involvement of third parties for the development of advanced feature of this application, is worth noting that the interfaces with external services will be defined in collaboration with representatives of the third parties involved.
 	 
 	\subsubsection{Comunication Interfaces}
@@ -372,6 +380,26 @@
 	\subsubsection{Sequence Diagrams}
 	
 	\subsubsection{Mapping on Requirements}
+	
+	\begin{table}[]
+	\begin{tabular}{|l|l|l|}
+	\hline
+ 	\multirow{2}{*}{G1}		&  &  \\\cline{2-3}
+ 	& &\\ \hline
+ 	G2		&  &  \\ \hline
+ 	G3		&  &  \\ \hline
+ 	G4		&  &  \\ \hline
+ 	G5		&  &  \\ \hline
+ 	G6		&  &  \\ \hline
+	GA1.1	&  &  \\ \hline
+ 	GA1.2	&  &  \\ \hline
+ 	GA2.1	&  &  \\ \hline
+ 	GA2.1	&  &  \\ \hline
+ 	GA2.3	&  &  \\ \hline
+ 	GA2.4	&  &  \\ \hline
+ 	GA2.5	&  &  \\ \hline
+	\end{tabular}
+	\end{table}
 	
 \subsection{Performance Requirements}
 
