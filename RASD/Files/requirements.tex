@@ -17,7 +17,7 @@
 	\begin{figure}[h!]
 		\centering
 		\includegraphics[scale=0.90]{Images/Report_Mockup}
-		\caption{Mockup of the form to submit a report}
+		\caption{Mockup of the form for submitting a report}
 	\end{figure}
 	\newpage
 	\begin{figure}[h!]
@@ -62,14 +62,14 @@
 		\item Camera
 		\item GPS
 		\item Storage
-		\item Internet Connection (full stack)
+		\item Internet Connection
 	\end{itemize}
 	Additionally SS client will exploit the APIs of a third party Street Map Service in order to provide to the users feaure like violations statistic per area, maps of violations and so on.\newline
-		Looking at the server endpoint of SS service, the development of an high performance DataBase is reguarded as a main concern for the application scope.\newline
+		Looking at the server endpoint of SS service, the development of an high performance DataBase is reguarded as a main concern for the application scope. Moreover, the distributed architecture of the application makes the connection management central: interfaces for distributed software development will play a primary role. \newline
 	Finally considering the involvement of third parties for the development of advanced feature of this application, is worth noting that the interfaces with external services will be defined in collaboration with representatives of the third parties involved.
 	 
 	\subsubsection{Comunication Interfaces}
-	 The unique (but fundamental) communication interface required for the scope of this application is the internet connection, as pointed out in the previous sections. The system should provide a device agnostic  connection with adeguated performance.\newline
+	 The unique (but fundamental) communication interface required for the scope of this application is the internet connection, as pointed out in the previous sections. The distributed nature of SS service makes this communication between endpoints strictly necessary. Thus, the system should provide a device agnostic  connection with adeguated performance.\newline
 	In order to provide access to  third parties for stored data (mainly for mining purposes), dedicated APIs will be developed and maintained.
 	
 	\clearpage
@@ -163,15 +163,16 @@
 
 \item \textbf{The system must track whether the police has taken care of a certain violation}
 	\begin{itemize}
-	\item(R23) SS policeman client should offer a function to signal that a traffic ticket (related to a previous) has been generated.
+	\item(R23) SS policeman client should offer a function to signal that a traffic ticket (related to a previous report) has been generated.
 	\item(R24) SS stores in its DB traffic ticket emission alongside the corresponding report.
+	\item(R25) SS tracks whether a report has been taken care of.
 	\end{itemize}
 	\bigskip
 	
 \item \textbf{A traffic ticket must involve the same license plate that the report refer to.}
 	\begin{itemize}
-	\item(R25) The system must ensure that the traffic ticket emission signalling (policemen client) is available only for taken care reports.
-	\item(R26) SS will ask the officer the license plate number and will accept to signal ticket emission only if the inserted number match the one contained in the report.
+	\item(R26) The system must ensure that the traffic ticket emission signalling (policemen client) is available only for taken care reports.
+	\item(R27) SS will ask the officer the license plate number and will accept to signal ticket emission only if the inserted number match the one contained in the report.
 	\end{itemize}
 	\bigskip
 	
@@ -194,6 +195,7 @@
 	\item  \textbf{Policeman Intervention}: Anna is a police officer working for Rome municipality. The city administration has recently decide to exploit SS service in order to optimize traffic ticket emission. Anna is patrolling district one and suddenly receive a violation notification from SS client installed on her smartphone. The report is coming from a nearby street so Anna decide to take care of the report, marking that an officer has been dispatched  through the dedicated app function. Once on place, Anna verifies that the violation reported has truly occurred and issues a traffic ticket. She finally marks the report as” taken care” within SS app and gets back to her patrolling activity.
 	\end{enumerate}
 	
+	\medskip
 	
 	\subsubsection{Use Case Description}
 	\medskip
@@ -271,7 +273,7 @@
 					\item The app asks the user to attach a photo of the violation, picturing the vehicle involved with license plate visible, and to manually insert license plate number of the vehicle.
 					\item The user takes a photo of the violation within SS app and insert license plate number of the vehicle.
 					\item The app localy verifies if the license plate pictured and the manually inserted one match and readies the violation report. 
-					\item The app shows a menu displaying a " Send Report" and a "Cancell" options.
+					\item The app shows a menu displaying a " Send Report" and a "Cancel" options.
 					\item The user tap on "Send Report" in order to send the violation report to SS systems.
 					\end{enumerate}\\ \hline
 		Output Conditions &    		The report is sent to SS server and it is stored in a suitable database.\\ \hline
@@ -316,7 +318,7 @@
 		Event Flow        		&          
 				\begin{enumerate}[label=\alph*)]
 					\item The institution specifies a proper query for the data required.
-					\item The system verifies if the query author is an registered acknowledge.
+					\item The system verifies if the query author is a registered institution.
 					\end{enumerate}\\ \hline
 		Output Conditions &    		Requested data is provided to the institution. \\ \hline
 		Exceptions        		&
@@ -329,13 +331,13 @@
 	
 		\clearpage
 	
-	\item \textbf{Providing Institution Intervention Suggestions}
+	\item \textbf{Providing to Institution Intervention Suggestions}
 		\begin{table}[h!]
 		\centering
 		\begin{tabular}{|l|p{12,5cm}|}
 		\hline
 		Actors            			&       	Institution/Authority\\ \hline
-		Goals             			&         	GA1.2\\ \hline
+		Goals             			&         	GA1.1, GA1.2\\ \hline
 		Entry Conditions  	&  		Institution is registetred to SS service and desires to access to "Suggested Intervention" advanced feature\\ \hline
 		Event Flow        		&          
 				\begin{enumerate}[label=\alph*)]
@@ -371,7 +373,7 @@
 					\item The police officer verifies if the signaled violation has truly occurred and in this case emits a traffic ticket.
 					\item The police officer concludes intervention specifying its outcome in SS app, through the options displayed: "Ticket emitted" or "Violation not verified". 
 					\end{enumerate}\\ \hline
-		Output Conditions &    		In case of verified violation, a ticket emission is stored with the corresponding violation. Otherwise, the violation record is removed from SS systems.\\ \hline
+		Output Conditions &    		In case of verified violation, a ticket emission is stored with the corresponding violation. \\ \hline
 		Exceptions        		&       	
 				\begin{enumerate}[label=\alph*)]
 					\item A colleague takes over the violation before the policeman selects "On my way" option. An error message stating that the violation is already under analisys is displayed.
@@ -379,8 +381,9 @@
 	\end{tabular}
 	\end{table}
 	
-	
 	\end{enumerate}
+	
+	\newpage
 	
 	\subsubsection{Use Case Diagram}
 	\begin{figure}[h!]
@@ -401,7 +404,7 @@
 	\subsubsection{Sequence Diagrams}
 	\begin{figure}[h!]
 		\includegraphics[width=\textwidth]{Images/ReportSubmitSequenceDiagram-0-2}
-		\caption{Report submit}
+		\caption{Violation Report submission}
 	\end{figure}
 	\newpage
 	\begin{figure}[h!]
@@ -411,13 +414,12 @@
 	\newpage
 	\begin{figure}[h!]
 		\includegraphics[width=\textwidth]{Images/InterventionRetrivalSequenceDiagram}
-		\caption{Intervertion retrival}
+		\caption{Suggested Intervertion retrival}
 	\end{figure}
 \newpage
 	
 	\subsubsection{Mapping on Requirements}
 	Here we present the traceability matrix, showing relations among goals, requirements and use case of the application.\newline
-	%Note that security requirements are not linked to specific use case since they are related to improper uses of the application
 	\medskip
 	
 	\begin{table}[h!]
@@ -455,17 +457,18 @@
  	
  	\multirow{1}{*}{GA2.1}	&   	R20 								&  7\\\cline{2-3} \hline
  	
- 	\multirow{5}{*}{GA2.2}	&   	R2 								&  \\\cline{2-3} 
- 											& 		R3 								&  \\\cline{2-3} 
- 											&		R21 								&  \\\cline{2-3} 
- 											&		R6 								&  \\\cline{2-3}
- 											&		R22 								&  \\\cline{2-3}\hline
+ 	\multirow{5}{*}{GA2.2}	&   	R2 								&  1\\\cline{2-3} 
+ 											& 		R3 								&  1\\\cline{2-3} 
+ 											&		R21 								&  3\\\cline{2-3} 
+ 											&		R6 								&  3\\\cline{2-3}
+ 											&		R22 								&  3\\\cline{2-3}\hline
  									
  	\multirow{2}{*}{GA2.3}	&  	R23 								&  7\\\cline{2-3}
- 											&  	R24 								&  7\\\cline{2-3} \hline
+ 											&  	R24 								&  7\\\cline{2-3} 
+ 											&  	R25 								&  7\\\cline{2-3} \hline
  											
- 	\multirow{2}{*}{GA2.4}	&  	R25 								&  7\\\cline{2-3}
- 											&  	R26 								&  7\\\cline{2-3} \hline
+ 	\multirow{2}{*}{GA2.4}	&  	R26 								&  7\\\cline{2-3}
+ 											&  	R27 								&  7\\\cline{2-3} \hline
  											
  	\multirow{1}{*}{GA2.5}	&  	R21 								&  5\\\cline{2-3}\hline
 	\end{tabular}
