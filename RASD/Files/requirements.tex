@@ -188,11 +188,11 @@
 	\begin{enumerate}
 	\item \textbf{Bad Parking}: Bob is a commuter and every morning needs to reach the train station by car: the daily struggle to park his car in the surroundings is even worsened by parking violations. One morning, coming across another car occupying two parking slots, Bob decides to start contributing to SafeStreet service and its violation map: he downloads and installs SS app, accepts to grant Camera and GPS authorizations to it and fills a brief form for the registration. Once logged in, he uses the dedicated report feature. He takes a picture of the violation, inserts manually the license plate number and, after the application completes the verification of the inserted data, he sends the violation report, which also includes the GPS location and the current time.
  	\item \textbf{An anxious mother}: every day Laura lets his 12 years old son walk to school by himself. One day she hears about SS, a new app providing information about traffic violation in her city, and thinks that it can be useful to check if her son daily walking route is reasonably safe or not. Using SS violation map, which provides a street level highlight of violation distribution, she finds out that his son usually walks in potentially unsafe streets, with cars parked on sidewalks forcing pedestrians to walk in the middle of the street, and suggests him a new route based on the map provided by SS.
-	\item \textbf{Smart Municipality}: Milan municipality is looking for a large data set regarding traffic monitoring for his metropolitan area. The administration aims to mine useful information from it in order to identify critical areas and plan interventions. They found out SS and its violation DB, so they subscribe to the service as a public institution filling a required form and gain access to the needed data. With high privilege data access granted to public authorities, SS provide them a suitable amount of data for the administration goal.
-	\item \textbf{Traffic Monitoring Service}: Gotham City municipality has just introduced a new traffic plan in one of his main districts and wishes to track in an accurate way the evolution of traffic violations. SS should do the trick: Gotham municipality registers to SS service as public authority and now can have privileged access to the data collected by the application. However, Gotham City has no infrastructure dedicated to large data set mining. No worries: the impact of the new traffic plan can be evaluated exploiting built-in SS violation map and traffic tickets emission trends.
-	\item \textbf{SafeStreet for Safer Cities}: the city of Monza provide a dedicated service offering data about incidents on its territory. SS has exploited its advanced features to cross its own information about traffic in Monza with the data provided, identifying possible unsafe areas and suggesting possible interventions. The administration of the city knows that managing the traffic plan of a vast city is complex and find that SS automated analysis could really lower effort and costs of the operations. Thus, the municipality decides to register to SS services and to exploit its traffic monitoring and intervention suggestion tool. 
-	\item \textbf{Traffic Tickets}: NotSoSafe City is struggling trying to guarantee a decent level of violation control in his vast metropolitan area, considering his personnel available is limited. The municipality come to know that SS provide an efficient violation signalling service and a dedicated police officer client that even tracks ticket emissions. After registration as a public institution, the municipality issue to every policeman the installation of SS client on corporate (or personal) phone. Policemen can now take advantage of the real-time violation notification service of SS app for quick interventions if needed. Moreover, SS violation map offers the municipality a strong tool to simplify territory control: officer patrol activity can be directed to the most unsafe areas reported by the application.
-	\item  \textbf{Policeman Intervention}: Anna is a police officer working for Rome municipality. The city administration has recently decide to exploit SS service in order to optimize traffic ticket emission. Anna is patrolling district one and suddenly receive a violation notification from SS client installed on her smartphone. The report is coming from a nearby street so Anna decide to take care of the report, marking that an officer has been dispatched  through the dedicated app function. Once on place, Anna verifies that the violation reported has truly occurred and issues a traffic ticket. She finally marks the report as” taken care” within SS app and gets back to her patrolling activity.
+	\item \textbf{Smart Municipality}: Milan municipality is looking for a large data set regarding traffic monitoring for his metropolitan area. The administration aims to mine useful information from it in order to identify critical areas and plan interventions. They found out SS and its violation DB, so they subscribe to the service as a public institution filling a required form and gain access to the needed data. With high privilege data access granted to public authorities, SS provides them a suitable amount of data for the administration goal.
+	\item \textbf{Traffic Monitoring Service}: Gotham City municipality has just introduced a new traffic plan in one of his main districts and wishes to track precisely the evolution of traffic violations. SS should do the trick: Gotham municipality registers to SS service as public authority and now can have privileged access to the data collected by the application. However, Gotham City has no infrastructure dedicated to large data set mining. No worries: the impact of the new traffic plan can be evaluated exploiting built-in SS violation map and traffic tickets emission trends.
+	\item \textbf{SafeStreet for Safer Cities}: the city of Monza provides a dedicated service offering data about incidents on its territory. SS has exploited its advanced features to cross its own information about traffic in Monza with the data provided, identifying possible unsafe areas and suggesting possible interventions. The administration of the city knows that managing the traffic plan of a vast city is complex and find that SS automated analysis could really lower effort and costs of the operations. Thus, the municipality decides to register to SS services and to exploit its traffic monitoring and intervention suggestion tool. 
+	\item \textbf{Traffic Tickets}: NotSoSafe City is struggling trying to guarantee a decent level of violation control in his vast metropolitan area, considering his personnel available is limited. The municipality comes to know that SS provides an efficient violation signalling service and a dedicated police officer client that even tracks ticket emissions. After registration as a public institution, the municipality issues to every policeman the installation of SS client on corporate (or personal) phone. Policemen can now take advantage of the real-time violation notification service of SS app for quick interventions if needed. Moreover, SS violation map offers the municipality a strong tool to simplify territory control: officer patrol activity can be directed to the most unsafe areas reported by the application.
+	\item  \textbf{Policeman Intervention}: Anna is a police officer working for Rome municipality. The city administration has recently decided to exploit SS service in order to optimize traffic ticket emission. Anna is patrolling district one and suddenly receives a violation notification from SS client installed on her smartphone. The report is coming from a nearby street so Anna decides to take care of the report, marking that an officer has been dispatched  through the dedicated app function. Once on place, Anna verifies that the violation reported has truly occurred and issues a traffic ticket. She finally marks the report as” taken care” within SS app and gets back to her patrolling activity.
 	\end{enumerate}
 	
 	\medskip
@@ -272,7 +272,7 @@
 					\item The user selects one of the possible violations presented in graphic menu.
 					\item The app asks the user to attach a photo of the violation, picturing the vehicle involved with license plate visible, and to manually insert license plate number of the vehicle.
 					\item The user takes a photo of the violation within SS app and insert license plate number of the vehicle.
-					\item The app localy verifies if the license plate pictured and the manually inserted one match and readies the violation report. 
+					\item The system verifies if the license plate pictured and the manually inserted one match and readies the violation report. 
 					\item The app shows a menu displaying a " Send Report" and a "Cancel" options.
 					\item The user tap on "Send Report" in order to send the violation report to SS systems.
 					\end{enumerate}\\ \hline
@@ -419,58 +419,58 @@
 \newpage
 	
 	\subsubsection{Mapping on Requirements}
-	Here we present the traceability matrix, showing relations among goals, requirements and use case of the application.\newline
+	Here we present the traceability matrix, showing relations among goals, requirements and use case of the application. For each relation, relevant notes can be included in the Comments column. \newline
 	\medskip
 	
 	\begin{table}[h!]
 	\centering
-	\begin{tabular}{|l|l|l|}
+	\begin{tabular}{|l|l|l|l|l|}
 	\hline
-	\textbf{Goals}					& \textbf{Requirements}	& \textbf{Use Cases}\\ \hline
- 	\multirow{4}{*}{G1}		&   	R1 								&  1\\\cline{2-3}
- 											& 		R2								&	 1\\\cline{2-3}
- 											&   	R3 								&  3\\\cline{2-3}
- 											&   	R4 								&  3\\\cline{2-3} \hline
+	\textbf{Row ID}		&	\textbf{Goals}		& \textbf{Requirements}	& \textbf{Use Cases}			&\textbf{Comments}\\ \hline
+ 			r1						&\multirow{4}{*}{G1}			&   	R1 								&  1										&\\\cline{3-5}\cline{0-0}
+ 			r2						&											& 		R2								&	 1										&\\\cline{3-5}\cline{0-0}
+ 			r3						&											&   	R3 								&  3										&\\\cline{3-5}\cline{0-0}
+ 			r4						&											&   	R4 								&  3										&\\\cline{3-5}\cline{0-0} \hline
  											
- 	\multirow{2}{*}{G2}		&   	R5 								&  3\\\cline{2-3}
- 											&   	R6 								&  3\\\cline{2-3} \hline
+ 			r5						&\multirow{2}{*}{G2}			&   	R5 								&  3										&\\\cline{3-5}\cline{0-0}
+ 			r6						&											&   	R6 								&  3										&\\\cline{3-5} \cline{0-0}\hline
  											
- 	\multirow{1}{*}{G3}		&   	R7 								&  3\\\cline{2-3}\hline
+ 			r7						&\multirow{1}{*}{G3}			&	   	R7 								&  3										&\\\cline{3-5}\cline{0-0}\hline
  	
- 	\multirow{2}{*}{G4}		&   	R8 								&  3\\\cline{2-3}
- 											&   	R9 								&  3\\\cline{2-3} \hline
+ 			r8						&\multirow{2}{*}{G4}			&   	R8 								&  3										&\\\cline{3-5}\cline{0-0}
+ 			r9						&											&   	R9 								&  3										&\\\cline{3-5}\cline{0-0} \hline
  											
- 	\multirow{3}{*}{G5}		&   	R10 								&  3\\\cline{2-3}
- 											&   	R11 								&  3\\\cline{2-3}
- 											&   	R12 								&  3\\\cline{2-3}\hline
+ 			r10					&\multirow{3}{*}{G5}			&   	R10 								&  3										&\\\cline{3-5}\cline{0-0}
+ 			r11					&											&   	R11 								&  3										&\\\cline{3-5}\cline{0-0}
+ 			r12					&											&   	R12 								&  3										&\\\cline{3-5}\cline{0-0}\hline
  											
- 	\multirow{4}{*}{G6}		&   	R13 								&  2\\\cline{2-3}
- 											&   	R14 								&  2\\\cline{2-3}
- 											&   	R15 								&  5\\\cline{2-3}
- 											&   	R16 								&  5\\\cline{2-3}\hline
+ 			r13					&\multirow{4}{*}{G6}			&   	R13 								&  2										&\\\cline{3-5}\cline{0-0}
+ 			r14					&											&   	R14 								&  2										&\\\cline{3-5}\cline{0-0}
+ 			r15					&											&   	R15 								&  5										&\\\cline{3-5}\cline{0-0}
+ 			r16					&											&   	R16 								&  5										&\\\cline{3-5}\cline{0-0}\hline
  											
-	\multirow{3}{*}{GA1.1}	&   	R17 								&  6\\\cline{2-3}
-											&   	R18 								&  6\\\cline{2-3}
-											&   	R19 								&  6\\\cline{2-3} \hline
+			r17					&\multirow{3}{*}{GA1.1}	&   	R17 								&  6										&\\\cline{3-5}\cline{0-0}
+			r18					&											&   	R18 								&  6										&\\\cline{3-5}\cline{0-0}
+			r19					&											&   	R19 								&  6										&\\\cline{3-5}\cline{0-0} \hline
 											
- 	\multirow{1}{*}{GA1.2}	&   	R16 								&  6\\\cline{2-3} \hline
+ 			r20					&\multirow{1}{*}{GA1.2}	&   	R16 								&  6										&\\\cline{3-5}\cline{0-0} \hline
  	
- 	\multirow{1}{*}{GA2.1}	&   	R20 								&  7\\\cline{2-3} \hline
+ 			r21					&\multirow{1}{*}{GA2.1}	&   	R20 								&  7										&\\\cline{3-5}\cline{0-0} \hline
  	
- 	\multirow{5}{*}{GA2.2}	&   	R2 								&  1\\\cline{2-3} 
- 											& 		R3 								&  1\\\cline{2-3} 
- 											&		R21 								&  3\\\cline{2-3} 
- 											&		R6 								&  3\\\cline{2-3}
- 											&		R22 								&  3\\\cline{2-3}\hline
+ 			r22					&\multirow{5}{*}{GA2.2}	&   	R2 								&  1										&\\\cline{3-5}\cline{0-0} 
+ 			r23					&											& 		R3 								&  1										&\\\cline{3-5}\cline{0-0} 
+ 			r24					&											&		R21 								&  3										&\\\cline{3-5}\cline{0-0}
+ 			r25					&											&		R6 								&  3										&\\\cline{3-5}\cline{0-0}
+ 			r26					&											&		R22 								&  3										&\\\cline{3-5}\cline{0-0}\hline
  									
- 	\multirow{2}{*}{GA2.3}	&  	R23 								&  7\\\cline{2-3}
- 											&  	R24 								&  7\\\cline{2-3} 
- 											&  	R25 								&  7\\\cline{2-3} \hline
+ 			r27					&\multirow{2}{*}{GA2.3}	&  	R23 								&  7										&\\\cline{3-5}\cline{0-0}
+ 			r28					&											&  	R24 								&  7										&\\\cline{3-5}\cline{0-0} 
+ 			r29					&											&  	R25 								&  7										&\\\cline{3-5}\cline{0-0} \hline
  											
- 	\multirow{2}{*}{GA2.4}	&  	R26 								&  7\\\cline{2-3}
- 											&  	R27 								&  7\\\cline{2-3} \hline
+ 			r30					&\multirow{2}{*}{GA2.4}	&  	R26 								&  7										&\\\cline{3-5}\cline{0-0}
+ 			r31					&											&  	R27 								&  7										&\\\cline{3-5}\cline{0-0} \hline
  											
- 	\multirow{1}{*}{GA2.5}	&  	R21 								&  5\\\cline{2-3}\hline
+ 			r32					&\multirow{1}{*}{GA2.5}	&  	R21 								&  5										&\\\cline{3-5}\cline{0-0}\hline
 	\end{tabular}
 	\end{table}
 	
@@ -513,10 +513,10 @@ In conclusion, it's evident that SS must be able to scale seamlessly and in an a
 	\begin{itemize}
 		\item \textbf{Client side}:
 		\begin{itemize}
-		 \item[--] Mobile Client: the only limitation is a working smartphone featuring a working camera, a GPS location module and an internet connection.
+		 \item[--] Mobile Client: the only limitation is a working smartphone featuring a working camera, a GPS location module and an internet connection. Moreover, the smartphone will need enough memory space for app installation.
 		 \item[--] WebPage: working device with internet connection.
 		 \end{itemize}
-		\item \textbf{Server side} - SS will need to save huge amounts of data, thus needing huge amounts of reliable storage
+		\item \textbf{Server side} - SS will need to save huge amounts of data, thus needing huge amounts of reliable storage. Server dimensioning is central for the scope of the application.
 	\end{itemize}
 	 
 \subsection{Software System Attributes}
