@@ -14,8 +14,8 @@ As shown by the image above, the three layers consist in the presentation tier, 
 \end{itemize}
 \newpage
 \subsection{Component view}
-
-The following diagram represents the interface structure of the system, focusing on both the application server structure. \newline
+\subsubsection{Introduction}
+The following diagram represents the interface structure of the system, focusing on the application server structure. \newline
 \begin{figure}[h!]
 	\centering
 	\includegraphics[width=\textwidth]{Images/component_diagram_beta}
@@ -23,6 +23,7 @@ The following diagram represents the interface structure of the system, focusing
 \end{figure}
 
 As shown above, the application logic is stored on the application server, while the clients just contain what is mandatory in order to contact the application server (thin client).\\
+\subsubsection{Server}
 We will now proceed to give a brief summary of the role of the components listed above:
 \begin{itemize}
 \item QueryOnAnalizedData: allows the RegularUser profiles to access data about the reports in a certain area or other information already analized by the MunicipalAuthorities
@@ -48,6 +49,8 @@ In the next two pictures more information about the system will be provided via 
 	\includegraphics[angle=90, scale=0.28]{Images/component_class_relation}
 	\caption{Relation between components and already specified classes}
 \end{figure}
+\newpage
+\subsubsection{Client}
 \newpage
 \subsection{Deployment view}
 
@@ -78,10 +81,21 @@ Please note that Google servers have not been included, since those servers will
 Other than the relation between PoliceAction and RetriveEquiReports, already explained in section 2.2, it is worth noting that the interfaces don't actually expose all the methods of the objects that implement them. This choiche was made in order to hide the methods that will be colled only from inside the object in which they are defined.
 \newpage 
 \subsection{Architectural and implementative styles and patterns}
-\subsubsection{Architectural style}
+\subsubsection{Architectural styles}
 \begin{itemize}
-	\item Client-server:given the nature of the application, a distibuted system in which data submitted by some users has to be accessible by other users, the figure of a mediator becomes necessary. Therefore a client-server architecture seems is a good solution
+	\item Client-server:given the nature of the application, a distibuted system in which data submitted by some users has to be accessible by other users, the figure of a mediator becomes necessary. Therefore a client-server architecture seems is a good solution. Another alternative could have been cloud computing architecture (SaaS, flex tenacity approach), but we have chosen a client-server architecturesince the workload and scalability issues would not be big enough to justify the increased costs.
 	\item Thin client: in the afromentioned client-server architecturethe role of the server is more than just a message manager. As a matter of fact, the server also takes care of the application logic, allowing a light client
 	\item Three tiers architecture: given the client server with thin client architecture described, the most natural solution is a three tier architecture in which the presentation layer is on the client, the application layer on the application server and the data layer on the database server 
 \end{itemize}
-
+\subsubsection{Design patterns}
+\begin{itemize}
+	\item Model-view-controller:
+	\item Facade
+	\item Factory
+	\item Singleton(clientside)
+\end{itemize}
+\subsection{Other design choiches}
+\begin{itemize}
+	\item Security concerns
+	\item Google maps API
+\end{itemize}
