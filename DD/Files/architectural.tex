@@ -14,39 +14,39 @@ As shown by the image above, the three layers consist in the presentation tier, 
 \end{itemize}
 \newpage
 \subsection{Component view}
-\subsubsection{Introduction}
+
 The following diagram represents the interface structure of the system, focusing on both the application server structure. \newline
 \begin{figure}[h!]
 	\centering
 	\includegraphics[width=\textwidth]{Images/component_diagram_beta}
-	\caption{Schema representing the interfaces}
+	\caption{Component diagram}
 \end{figure}
 
-As shown above, the greatest part of the application logic is stored on the application server, while the clients just contain what is mandatory in order to contact the application server.
-\subsubsection{Interfaces}
+As shown above, the application logic is stored on the application server, while the clients just contain what is mandatory in order to contact the application server (thin client).\\
+We will now proceed to give a brief summary of the role of the components listed above:
 \begin{itemize}
-\item QueryOnAnalizedData: allows the regular users to access data about the reports in a certain area or other information analized by the MunicipalAuthorities
-\item PoliceAction: allows the policemen to take action such as noting themself as dispatched or noting a group of reports as taken care of
-\item RetrieveEquiReports: used by PoliceAction to find all reports that refer to the same violation that a particular report refers to
-\item SendReports: allows the user to submit reports about violations they encounter. Note that this action is the one upon the whole system is based in order to work properly
-\item RegularUserRegistration: allows the registration of new User profiles. Note that Police and MunicipalAuthorities profiles can only be created or deleted by the system administrator
-\item LogOperations: allows all kinds of users to login and logout of the application
-\item QueryOnData: allows MunicipalAuthority profiles to mine the collected data
+\item QueryOnAnalizedData: allows the RegularUser profiles to access data about the reports in a certain area or other information already analized by the MunicipalAuthorities
+\item PoliceAction: allows the policemen to take action on user made reports or to compile reports themself. The actions performed by the police consist in compiling reports (of which they will take care right away), marking themselves as dispatched towards a report, mark a report as wrong or signal that a traffic ticket has been written as a consequence of a reported traffic violation
+\item RetrieveEquiReports: this component is mainly used by PoliceAction in order to retrive all reports that are about the same violation (not just violation type, but also time, plate and location) as a given one
+\item SendReports: this component allows users to submit the reports about traffic violations that they write. The reports are authenticated and then strored inside the application DB
+\item UserRegistration: this component allows the registration of all types iof users. Note that, while RegularUser profiles registration is done by the user themselves, Authority profiles (Policeman and MunicipalAuthority) can only be registered by a system admin
+\item LogOperations: this component takes care of the login and logut operations for all types of User profiles
+\item QueryOnData: allows MunicipalAuthority profiles to perform data-mining activities,  as well as add information from the municipality DB of crashes and cross-analyze them with user-submitted reports
 \end{itemize}
-The logic of the application works based on the afromentioned interfaces: they grant all the functionality needed to satisfy the system's goals.
-In the next two pictures more information about the system will be provided via a more accurate version of the class diagram presented in the RASD and a schema about the relationship between the classes interfaces and implementations of said interfaces. Please note that the "Device" class and the classes that extend it are not reported in the diagram since they are not relevant to the purposes of this description. For any further information about this class refer to the Class diagram in the RASD.
-\newpage
+The logic of the application works based on the afromentioned components: they grant all the functionality needed to satisfy the system's goals (for a more in-depth analysis see chapter 4).
+In the next two pictures more information about the system will be provided via a more accurate version of the class diagram presented in the RASD and a schema about the relationship between the classes interfaces and implementations of said interfaces. Please note that the "Device" class and the classes that extend it are not reported in the diagram since they are not relevant to the purposes of this description. For any further information about these classes refer to the Class diagram in the RASD.
+
 \begin{figure}[h!]
 	\centering
-	\includegraphics[angle=90, scale=0.45]{Images/ADV_class_diagram}
+	\includegraphics[angle=90, scale=0.40]{Images/ADV_class_diagram}
 	\caption{Class diagram}
 \end{figure}
 \newpage
 
 \begin{figure}[h!]
 	\centering
-	\includegraphics[angle=90, scale=0.28]{Images/interface_diagram}
-	\caption{Relation between interfaces and already specified classes}
+	\includegraphics[angle=90, scale=0.28]{Images/component_class_relation}
+	\caption{Relation between components and already specified classes}
 \end{figure}
 \newpage
 \subsection{Deployment view}
@@ -68,4 +68,12 @@ Components:
 Please note that Google servers have not been included, since those servers will not be involved in the system deployment
 \newpage
 \subsection{Runtime view}
+\newpage
+\subsection{Interfaces}
+\begin{figure}[h!]
+	\centering
+	\includegraphics[width=\textwidth]{Images/interface_diagram}
+	\caption{Components' interfaces}
+\end{figure}
+Other than the relation between PoliceAction and RetriveEquiReports, already explained in section 2.2, it is worth noting that the interfaces don't actually expose all the methods of the objects that implement them. This choiche was made in order to hide the methods that will be colled only from inside the object in which they are defined. 
 
