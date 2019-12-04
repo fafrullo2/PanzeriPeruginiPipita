@@ -1,24 +1,63 @@
-This document has been prepared to help you approaching Latex as a formatting tool for your Travlendar+ deliverables. This document suggests you a possible style and format for your deliverables and contains information about basic formatting commands in Latex. A good guide to Latex is available here \href{https://tobi.oetiker.ch/lshort/lshort.pdf}{https://tobi.oetiker.ch/lshort/lshort.pdf}, but you can find many other good references on the web. 
-
-Writing in Latex means writing textual files having a \texttt{.tex} extension and exploiting the Latex markup commands for formatting purposes. Your files then need to be compiled using the Latex compiler. Similarly to programming languages, you can find many editors that help you writing and compiling your latex code. Here \href{https://beebom.com/best-latex-editors/}{https://beebom.com/best-latex-editors/} you have a short oviewview of some of them. Feel free to choose the one you like.  
-
-Include a subsection for each of the following items\footnote{By the way, what follows is the structure of an itemized list in Latex.}:
+\subsection{Purpose}
+The purpose of this document is to provide a more detailed description than the one already given in the RASD document about the SafeStreets system. This document is mainly addressed to developers, as it focuses on the illustration of specific components and design choices. The aim is to guide developers during implementation, integration and testing.\par
+The aspects covered by the design document are:
 \begin{itemize}
-\item
-Purpose: here we include the goals of the project
-\item
-Scope: here we include an analysis of the world and of the shared phenomena
-\item
-Definitions, Acronyms, Abbreviations
-\item
-Revision history
-\item
-Reference Documents 
-\item
-Document Structure
+	\item High level architecture of SafeStreets.
+	\item Structure of the main components and their respective interfaces through which they communicate.
+	\item Expected runtime behaviour.
+	\item How requirements defined in the RASD map to the design elements of this document.
+	\item Implementation, Integration and Testing plan.
 \end{itemize}
-Below you see how to define the header for a subsection.
+
 \subsection{Scope}
-... Here you see a subsubsection
-\subsubsection{World Phenomena}
-%what you write here is a comment that is not shown in the final text
+SafeStreets is a software that aims to collect data coming from registered users in the form of reports and allow either basic users, policemen and municipalities to mine this data with different levels of detail.
+The stakeholders of the system will be:
+\begin{itemize}
+	\item Users: The simple users that want to report a traffic violation or want to see the most unsafe areas of a city.
+	\item Policemen: Members of the police that need to access the data about users' reports. 
+	\item Municipalities: Members of the municipality that need to mine data to strengthen city's safety.
+\end{itemize}
+Data coming from the users is collected by SafeStreets servers that organises reports and build statistics out of them.
+They also collect data coming from municipalities and cross it with informations collected from the users.
+The main functions of SafeStreets are managing request from different users and saving and protecting a large quantity of data.
+A registration is needed to exploit the various functionalities, reducing the possibility of false reports and granting more privacy.
+To ensure an even higher level of privacy, SafeStreets will ask users the permission to access data from the device, such as the geographical position.
+
+\subsection{Definitions, Acronyms, Abbreviations, Conventions}
+\subsubsection{Definitions}
+\subsubsection{Acronyms}
+\begin{itemize}
+	\item RASD: Requirements Analysis and Specification Document
+	\item DD: Design Document
+	\item API: Application Programming Interface
+	\item GPS: Global Positioning System
+	\item MVC: Model View Controller
+	\item GUI: Graphical User Interface
+	\item DB: DataBase
+	\item DBMS: DataBase Management System
+	\item SS: SafeStreets
+	\item HTTP: Hyper Text Transfer Protocol
+	\item 
+\end{itemize}
+\subsubsection{Abbreviations}
+\begin{itemize}
+	\item (Gn) : n-Goal
+	\item (G1.n): n-Goal for advanced function 1
+	\item (G2.n): n-Goal for advanced function 2
+	\item (Rn): n-Requirement
+\end{itemize}
+\subsubsection{Conventions}
+\subsection{Revision History}
+\begin{itemize}
+	\item Version 1.0 - 9/12/2018
+\end{itemize}
+\subsection{Reference documents}
+\subsection{Document Structure}
+\begin{itemize}
+	\item Introduction: this chapter contains the purpose and the scope of the design document. In order to make the document more comprehensible, this chapter contains also an explanation of terms, acronyms and conventions used.
+	\item Architectural Design: this section describes in general the architecture of the system including the three most important views: component, deployment and runtime. in this chapter is also described how the various components of the system interact and the reason behind particular design choices.
+	\item User Interface Design: this chapter presents a reference to the mock-ups previously presented in the RASD document.
+	\item Requirements traceability: this section shows how the components introduced in this document map the requirements given in the RASD.
+	\item Implementation, integration and test plan: describes how to plan the implementation and integration of the various components of the system and how to validate it following the requirements
+	\item Effort spent: shows the number of hours each member of the group spent for every chapter of the document.
+\end{itemize}
