@@ -28,7 +28,7 @@ We will now proceed to give a brief summary of the role of the components listed
 \begin{itemize}
 \item QueryOnAnalizedData: allows the RegularUser profiles to access data about the reports in a certain area or other information already analized by the MunicipalAuthorities
 \item PoliceAction: allows the policemen to take action on user made reports or to compile reports themself. The actions performed by the police consist in compiling reports (of which they will take care right away), marking themselves as dispatched towards a report, mark a report as wrong or signal that a traffic ticket has been written as a consequence of a reported traffic violation
-\item RetrieveEquiReports: this component is mainly used by PoliceAction in order to retrive all reports that are about the same violation (not just violation type, but also time, plate and location) as a given one. 
+\item RetrieveEquiReports: this component is used by PoliceAction and QueryOnData in order to retrive all reports that are about the same violation (not just violation type, but also time, plate and location) as a given one. 
 \item SendReports: this component allows users to submit the reports about traffic violations that they write. The reports are authenticated and then strored inside the application DB
 \item UserRegistration: this component allows the registration of all types iof users. Note that, while RegularUser profiles registration is done by the user themselves, Authority profiles (Policeman and MunicipalAuthority) can only be registered by a system admin
 \item LogOperations: this component takes care of the login and logut operations for all types of User profiles
@@ -46,7 +46,7 @@ In the next two pictures more information about the system will be provided via 
 
 \begin{figure}[h!]
 	\centering
-	\includegraphics[angle=90, scale=0.28]{Images/component_class_relation}
+	\includegraphics[angle=90, scale=0.25]{Images/component_class_relation}
 	\caption{Relation between components and already specified classes}
 \end{figure}
 \newpage
@@ -78,7 +78,7 @@ Please note that Google servers have not been included, since those servers will
 	\includegraphics[width=\textwidth]{Images/interface_diagram}
 	\caption{Components' interfaces}
 \end{figure}
-Other than the relation between PoliceAction and RetriveEquiReports, already explained in section 2.2, it is worth noting that the interfaces don't actually expose all the methods of the objects that implement them. This choiche was made in order to hide the methods that will be colled only from inside the object in which they are defined.
+Other than the relation between PoliceAction, QueryOnData and RetriveEquiReports, already explained in section 2.2, it is worth noting that the interfaces don't actually expose all the methods of the objects that implement them. This choiche was made in order to hide the methods that will be colled only from inside the object in which they are defined.
 \newpage 
 \subsection{Architectural and implementative styles and patterns}
 \subsubsection{Architectural styles}
@@ -89,13 +89,18 @@ Other than the relation between PoliceAction and RetriveEquiReports, already exp
 \end{itemize}
 \subsubsection{Design patterns}
 \begin{itemize}
-	\item Model-view-controller:
-	\item Facade
-	\item Factory
-	\item Singleton(clientside)
+	\item Model-view-controller: given the three-tiered and thin client architecture, using a MVC design pattern is quite easy: the model will be in the database server, the control in the application sserver and the view in the various clients
+	\item Facade: used to hide the application server's components complexity
+	\item Factory: used in RegularUser and Policeman clients to create reports
 \end{itemize}
 \subsection{Other design choiches}
 \begin{itemize}
-	\item Security concerns
-	\item Google maps API
+	\item Security concerns: as expressed in the RASD, there are various measures neede in order to obtain a good level of security:
+	\begin{itemize}
+		\item Fileting and escaping registartion requests of all kinds of user profiles and RegularUser submitted reports (Policeman submitted ones and MunicipalAuthority queries are considered trustwothy) in order to avoid code injections
+		\item escaping and filetring login fields in order to avoid code injections
+		\item all communication must happen over a secure channel (HTTPS)
+		\item an anti cross site request forgery token is needed 
+	\end{itemize}
+	\item Database: for this application a relational database managemant system has been chosen
 \end{itemize}
