@@ -51,6 +51,59 @@ In the next two pictures more information about the system will be provided via 
 \end{figure}
 \newpage
 \subsubsection{Client}
+In this section, we will give a description of the three clients functions showed in the introduction:
+\begin{itemize}
+	\item RegularUserClient: allows regular users to register and login to the service, to send reports about traffic violations and visualize on a map the most unsafe areas around him.
+	\item PolicemenClient: allows policemen login to the service, to retrieve reports sent by the regular users and to communicate that they are working to resolve a specific report.
+	\item MunicipalAuthoritiesClient: allows municipal authorities login to the service, to mine data about their municipality from the DataBase and to cross data about accidents with the informations collected by SafeStreets.
+\end{itemize}
+In the following pictures we will provided more detailed informations about the three clients' components, focusing on one at a time.
+
+\begin{figure}[h!]
+	\centering
+	\includegraphics[scale=0.7]{Images/RegularUserClient}
+	\caption{Relation between components inside regular user client}
+\end{figure}
+The components represented in this diagram are:
+\begin{itemize}
+	\item SendLogData: Allows users to send their log data to the server in order to login or logout from the system.
+	\item SendRegistrationData: Allows users to send  their registration data to the server in order to register a new account.
+	\item SendReport: Allows users to send a report about traffic violations and all the required data to the server.
+	this component also uses Google maps API in order to recover informations about the area around user's geographical position.
+	\item MapRequest: Allows the user to visualize a geographical map from Google maps API enriched by data about unsafe areas, statistics and traffic violations coming from the server.
+\end{itemize}
+
+\begin{figure}[h!]
+	\centering
+	\includegraphics[scale=0.7]{Images/PolicemenClient}
+	\caption{Relation between components inside policemen client}
+\end{figure}
+The components represented in this diagram are:
+\begin{itemize}
+	\item SendLogData: It has the same function as in the regular user client.
+	\item SendReport: Allows Policeman to send a report about traffic violations and all the required data to the server.
+	this component also uses Google maps API in order to recover informations about the area around user's geographical position.
+	As seen in the diagram, the connection between SendReport and SendReportChosen means that, if a policeman sends a report about a violation, he is automatically assigned to solving it.
+	\item ReportListRequest: Allows a policeman to request the list of the various pending reports around the municipality  he is in assigned.
+	The location of the various reports will be shown on a map provided through Google maps API.
+	\item SendReportChosen: Allows a policemen to send informations about the report he is going to solve.
+	\item SendReportSolved: Allows a policeman to send informations about the report he just solved.
+\end{itemize}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.7]{Images/MunicipalAuthoritiesClient}
+	\caption{Relation between components inside municipal authorities client}
+\end{figure}
+The components represented in this diagram are:
+\begin{itemize}
+	\item SendLogData: It has the same function as in the regular user client.
+	\item DataRequest: Allows the municipality to request data about Reports(solved or not) from the server.
+	The location of the various reports will be shown on a map provided through Google maps API.
+	\item SendCrashData: Allows the municipal authority to send Data about car crashes around the municipality to the server in order to be crossed with data already collected.
+	\item MineData: Allows the municipality to mine data collected by the server.
+\end{itemize}
+
 \newpage
 \subsection{Deployment view}
 
