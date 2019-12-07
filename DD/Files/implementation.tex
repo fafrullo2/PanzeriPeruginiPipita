@@ -72,7 +72,7 @@ Some client Components will also need an integration with Google maps API to ope
 The specific integrations are:
 \begin{itemize}
 	\item SendRegistrationData - UserRegistration
-	\item SendLogData - LogOperation
+	\item SendLogData - LogOperations
 	\item SendReport(Client) - SendReport(Server)
 	\item SendReport(Client) - GoogleMapsAPI
 	\item MapRequest - QueryOnAnalyzedData
@@ -83,20 +83,20 @@ The specific integrations are:
 As already said for the regular user client, also policemen and authorities client will have components that need an integration with Google maps API. \\ \par
 for policemen client, the specific integrations are:
 \begin{itemize}
-	\item SendLogData - LogOperation	
+	\item SendLogData - LogOperations	
 	\item ReportListRequest - RetrieveEquiReports
 	\item ReportListRequest - GoogleMapsAPI
-	\item SendReportChosen - PoliceAction
+	\item SendReportChosen - PoliceActionHandler
 	\item SendReport(Client) - SendReport(Server)
 	\item SendReport(Client) - GoogleMapsAPI
 	\item SendReport(Client) - SendReportChosen
-	\item SendReportSolved - PoliceAction
+	\item SendReportSolved - PoliceActionHandler
 \end{itemize}
 On the other end, for municipal authorities, the specific integrations are:
 \begin{itemize}
-	\item SendLogData - LogOperation
-	\item SendCrashData - 	
+	\item SendLogData - LogOperations
+	\item SendCrashData - DataFilter	
 	\item DataRequest - QueryOnAnalyzedData
 	\item DataRequest - GoogleMapsAPI
-	\item MineData - QueryOnData
+	\item MineData - DataFilter
 \end{itemize}
