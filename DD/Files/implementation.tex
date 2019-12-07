@@ -1,4 +1,5 @@
-In this Section SafeStreets implementation, integration and testing will be discussed
+In this Section SafeStreets implementation, integration and testing will be discussed.
+\\
 
 \subsection{Implementation Plan}
 SafeStreets implementation wil start from the data tier moving towards presentation tier. This was chosen in order to be able to both unit-test every component implemented and test all that has been implemented to that time. This is possible due to the flow of information that derives from the proposed client-server structure.\newline
@@ -44,3 +45,58 @@ SafeStreets implementation will thus follow this order:
 				\end{itemize} 
 			\end{itemize}
 	\end{itemize} 
+
+\subsection{Integration Plan}
+\subsubsection{Basic conditions}
+Integration is the process through which the various implemented components are connected and start interacting with each other.
+In order to achieve a meaningful integration, there are some basic condition that must be fulfilled. \par
+First of all, the most important condition is that every single component must be working correctly and their functionalities must be tested. In this case, if during integration a problem arises, this must be related only to the integration phase. \par
+Another important requirement is that is not necessary for every single component's functionality to be implemented, but at least the main ones and those needed to interact with other components must be tested and correctly operating.
+
+\subsubsection{Integration Database - Application server}
+Since Database and Application Server will be the first parts to be implemented, integration between them is of primary importance to ensure the proper conduct of the following operations.
+The specific integrations are:
+\begin{itemize}
+	\item UserRegistration - Database
+	\item LogOperation - Database
+	\item SendReport - Database
+	\item RetrieveEquiReport - Database
+	\item PoliceAction - Database
+	\item QueryOnData - Database
+	\item QueryOnAnalyzedData - Database
+\end{itemize}
+
+\subsubsection{Integration Application server - RegularUser Client}
+Regular user client will be the first one to be integrated with the application server in order for the application to work in its basic functions.
+Some client Components will also need an integration with Google maps API to operate correctly.
+The specific integrations are:
+\begin{itemize}
+	\item SendRegistrationData - UserRegistration
+	\item SendLogData - LogOperation
+	\item SendReport(Client) - SendReport(Server)
+	\item SendReport(Client) - GoogleMapsAPI
+	\item MapRequest - QueryOnAnalyzedData
+	\item MapRequest - GoogleMapsAPI
+\end{itemize}
+
+\subsubsection{Integration Application server - Policemen Client/MunicipalAuthority client}
+As already said for the regular user client, also policemen and authorities client will have components that need an integration with Google maps API. \\ \par
+for policemen client, the specific integrations are:
+\begin{itemize}
+	\item SendLogData - LogOperation	
+	\item ReportListRequest - RetrieveEquiReports
+	\item ReportListRequest - GoogleMapsAPI
+	\item SendReportChosen - PoliceAction
+	\item SendReport(Client) - SendReport(Server)
+	\item SendReport(Client) - GoogleMapsAPI
+	\item SendReport(Client) - SendReportChosen
+	\item SendReportSolved - PoliceAction
+\end{itemize}
+On the other end, for municipal authorities, the specific integrations are:
+\begin{itemize}
+	\item SendLogData - LogOperation
+	\item SendCrashData - 	
+	\item DataRequest - QueryOnAnalyzedData
+	\item DataRequest - GoogleMapsAPI
+	\item MineData - QueryOnData
+\end{itemize}
