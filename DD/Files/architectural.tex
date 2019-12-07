@@ -125,32 +125,66 @@ Components:
 \end{itemize}
 Please note that Google servers have not been included, since those servers will not be involved in the system deployment
 \newpage
+
 \subsection{Runtime view}
-\newpage
+In this section the main functionalities of the system are analyzed through the use of sequnce diagrams. The participants involved in the diagrams are either system componets (from client and server side) or external services APIs (e.g. Google Maps API) previuosly specified in this document.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=\textwidth]{Images/seqDiag_userReg}
+	\caption{User registration process}
+\end{figure}
+	\newpage
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=\textwidth]{Images/seqDiag_ReportSignal}
+	\caption{Report signaling procedure}
+\end{figure}
+	\newpage	
+	
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=\textwidth]{Images/seqDiag_Interventions}
+	\caption{Municipality query for possible intervention in its metropolitan area}
+\end{figure}
+	\newpage
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=\textwidth]{Images/seqDiag_PolicemanAct}
+	\caption{Policeman takes care of a signaled report}
+\end{figure}
+
+
 \subsection{Interfaces}
-\begin{figure}[h!]
+\begin{figure}[H]
 	\centering
 	\includegraphics[width=\textwidth]{Images/interface_diagram}
 	\caption{Components' interfaces}
 \end{figure}
-Other than the relation between PoliceAction, QueryOnData and RetriveEquiReports, already explained in section 2.2, it is worth noting that the interfaces don't actually expose all the methods of the objects that implement them. This choiche was made in order to hide the methods that will be colled only from inside the object in which they are defined.
+Other than the relation between PoliceAction, QueryOnData and RetriveEquiReports, already explained in section 2.2, it is worth noting that the interfaces don't actually expose all the methods of the objects that implement them. This choiche was made in order to hide the methods that will be called only from inside the object in which they are defined.
 \newpage 
+
 \subsection{Architectural and implementative styles and patterns}
+
 \subsubsection{Architectural styles}
 \begin{itemize}
-	\item Client-server:given the nature of the application, a distibuted system in which data submitted by some users has to be accessible by other users, the figure of a mediator becomes necessary. Therefore a client-server architecture seems is a good solution. Another alternative could have been cloud computing architecture (SaaS, flex tenacity approach), but we have chosen a client-server architecturesince the workload and scalability issues would not be big enough to justify the increased costs.
+	\item Client-server: given the nature of the application, a distibuted system in which data submitted by some users has to be accessible by other users, the figure of a mediator becomes necessary. Therefore a client-server architecture seems is a good solution. Another alternative could have been cloud computing architecture (SaaS, flex tenacity approach), but we have chosen a client-server architecturesince the workload and scalability issues would not be big enough to justify the increased costs.
 	\item Thin client: in the afromentioned client-server architecturethe role of the server is more than just a message manager. As a matter of fact, the server also takes care of the application logic, allowing a light client
 	\item Three tiers architecture: given the client server with thin client architecture described, the most natural solution is a three tier architecture in which the presentation layer is on the client, the application layer on the application server and the data layer on the database server 
 \end{itemize}
+
 \subsubsection{Design patterns}
 \begin{itemize}
 	\item Model-view-controller: given the three-tiered and thin client architecture, using a MVC design pattern is quite easy: the model will be in the database server, the control in the application sserver and the view in the various clients
 	\item Facade: used to hide the application server's components complexity
 	\item Factory: used in RegularUser and Policeman clients to create reports
 \end{itemize}
+
 \subsection{Other design choiches}
 \begin{itemize}
-	\item Security concerns: as expressed in the RASD, there are various measures neede in order to obtain a good level of security:
+	\item Security concerns: as expressed in the RASD, there are various measures needed in order to obtain a good level of security:
 	\begin{itemize}
 		\item Fileting and escaping registartion requests of all kinds of user profiles and RegularUser submitted reports (Policeman submitted ones and MunicipalAuthority queries are considered trustwothy) in order to avoid code injections
 		\item escaping and filetring login fields in order to avoid code injections
