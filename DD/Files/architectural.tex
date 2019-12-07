@@ -50,6 +50,8 @@ In the next two pictures more information about the system will be provided via 
 	\caption{Relation between components and already specified classes}
 \end{figure}
 \newpage
+\subsubsection{LoadBalancer}
+In order to achieve better flexibility and scalability we have chosen to use a load balancer. A CISCO off-the-shelf solution is to be considered.
 \subsubsection{Client}
 In this section, we will give a description of the three clients functions showed in the introduction:
 \begin{itemize}
@@ -156,4 +158,5 @@ Other than the relation between PoliceAction, QueryOnData and RetriveEquiReports
 		\item an anti cross site request forgery token is needed 
 	\end{itemize}
 	\item Database: for this application a relational database managemant system has been chosen
+	\item all exchanged data are in xml format (all the photos are hahsed via base 64 and embedded in the document)
 \end{itemize}
