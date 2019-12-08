@@ -2,7 +2,7 @@ In this Section SafeStreets implementation, integration and testing will be disc
 \\
 
 \subsection{Implementation Plan}
-SafeStreets implementation wil start from the data tier moving towards presentation tier. The decision of this development order aims to semplify  the unit-test of every component and to garantee testing for all component implemented at a given time. This implementation plan follows the flow of information that derives from the proposed client-server structure.\newline
+SafeStreets implementation wil start from the data tier moving towards presentation tier. The decision of this development order aims to semplify  the unit-test of every component and to guarantee testing for all component implemented at a given time. This implementation plan follows the flow of information that derives from the proposed client-server structure.\newline
 Thus, SafeStreets implementation will follow this order:
 \begin{itemize}
 	\item Database server: the database server will be the first part to be implemented, since all of its functions (ranging from submitting reports to even allow users to log in and out of the app) depend on it. A relational database management system has been chosen
@@ -14,7 +14,7 @@ Thus, SafeStreets implementation will follow this order:
 		\item ReportHandler
 		\item ReportRetriever
 		\item PoliceActionHandler
-		\item DatFilter
+		\item DataFilter
 		\item QueryOnAnalyzedData
 	\end{itemize}
 	This sequence is necessary because, in order to be able to perform any kind of action, there must be registered users (UserRegistration) and said users need to be able to log in their accounts(LogOperations) and submit reports(ReportHandler). Also, police has to be able to take action on said reports (ReportRetriever, then PoliceActionHandler) and municipal authorities must be able to mine data and cross database informations (ReportRetriver, then DataFilter). Last but not least, users need to query data mined by the authorities (QueryOnAnalizedData).
