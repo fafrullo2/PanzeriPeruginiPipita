@@ -22,20 +22,21 @@ The following diagram represents the interface structure of the system, focusing
 	\caption{Component diagram}
 \end{figure}
 
-As shown above, the application logic is stored on the application server, while the clients just contain what is mandatory in order to contact the application server (thin client).\\
+As shown above, the application logic is stored on the application server, while the clients just contain what is mandatory in order to contact the application server and to carry on basic operations  (thin client).\\
 \subsubsection{Server}
 We will now proceed to give a brief summary of the role of the components listed above:
 \begin{itemize}
 \item QueryOnAnalizedData: allows the RegularUser profiles to access data about the reports in a certain area or other information already analized by the MunicipalAuthorities
-\item PoliceAction: allows the policemen to take action on user made reports or to compile reports themself. The actions performed by the police consist in compiling reports (of which they will take care right away), marking themselves as dispatched towards a report, mark a report as wrong or signal that a traffic ticket has been written as a consequence of a reported traffic violation
-\item RetrieveEquiReports: this component is used by PoliceAction and QueryOnData in order to retrive all reports that are about the same violation (not just violation type, but also time, plate and location) as a given one. 
-\item SendReports: this component allows users to submit the reports about traffic violations that they write. The reports are authenticated and then strored inside the application DB
+\item PoliceActionHandler: allows the policemen to take action on user made reports or to compile reports themself. The actions performed by the police consist in compiling reports (of which they will take care right away), marking themselves as dispatched towards a report, mark a report as wrong or signal that a traffic ticket has been written as a consequence of a reported traffic violation
+\item ReportRetriever: this component is used by PoliceActionHandler and DataFilter in order to retrieve all the reports regarding the same violation (not just violation type, but also time, plate and location) as a given one. 
+\item ReportHandler: this component manages users' submissions of reports about traffic violations. The reports are analyzed, authenticated and then strored inside the application DB
 \item UserRegistration: this component allows the registration of all types of users. Note that, while RegularUser profiles registration is done by the user themselves, Authority profiles (Policeman and MunicipalAuthority) can only be registered by a system admin
-\item LogOperations: this component takes care of the login and logut operations for all types of User profiles
-\item QueryOnData: allows MunicipalAuthority profiles to perform data-mining activities,  as well as add information from the municipality DB of crashes and cross-analyze them with user-submitted reports
+\item LogOperations: this component takes care of the login and logout operations for all types of User profiles
+\item DataFilter: allows MunicipalAuthority profiles to perform data-mining activities,  as well as cross-analyze external information (such as data about crashes in an area provided by a municipality ) with user-submitted reports
 \end{itemize}
 The logic of the application works based on the afromentioned components: they grant all the functionality needed to satisfy the system's goals (for a more in-depth analysis see chapter 4).
-In the next two pictures more information about the system will be provided via a more accurate version of the class diagram presented in the RASD and a schema about the relationship between the classes interfaces and implementations of said interfaces. Please note that the "Device" class and the classes that extend it are not reported in the diagram since they are not relevant to the purposes of this description. For any further information about these classes refer to the Class diagram in the RASD.
+In the next two pictures more information about the system will be provided: the first represents a more accurate version of the class diagram presented in the RASD; the second includes a schema of the relationship between the classes interfaces and implementations of said interfaces. \newline
+Please note that the "Device" class and the classes that extend it are not reported in the diagram, since they are not relevant to the purposes of this description. For any further information about these classes refer to the Class diagram in the RASD.
 
 \begin{figure}[h!]
 	\centering
@@ -50,14 +51,17 @@ In the next two pictures more information about the system will be provided via 
 	\caption{Relation between components and already specified classes}
 \end{figure}
 \newpage
+
 \subsubsection{LoadBalancer}
-In order to achieve better flexibility and scalability we have chosen to use a load balancer. A CISCO off-the-shelf solution is to be considered.
+The proprietary server approach chosen for the system may limit its scalability, since the available resources cannot be increased on the demand as in a cloud-based environment. Even though an high level of scalability is not a strict requirement for the application, we decided to insert a load balancer in order to achive better flexibility and scalability. This component should allow the system availability and funcionality even in case of heavy load, granting enough room to plan server expantions and simplifying these operations at the same time. \newline
+A CISCO off-the-shelf solution is to be considered.
+
 \subsubsection{Client}
 In this section, we will give a description of the three clients functions showed in the introduction:
 \begin{itemize}
 	\item RegularUserClient: allows regular users to register and login to the service, to send reports about traffic violations and visualize on a map the most unsafe areas around him.
-	\item PolicemenClient: allows policemen login to the service, to retrieve reports sent by the regular users and to communicate that they are working to resolve a specific report.
-	\item MunicipalAuthoritiesClient: allows municipal authorities login to the service, to mine data about their municipality from the DataBase and to cross data about accidents with the informations collected by SafeStreets.
+	\item PolicemenClient: allows policemen login to the service, to retrieve reports sent by the regular users (visualized in a map format) and to communicate that they are working to resolve a specific report.
+	\item MunicipalAuthoritiesClient: allows municipal authorities to login to the service, to mine data about their municipality from the DataBase and to visualize violation maps, suggested interventions, advanced informations based on crossing SS data and accidents informations (if provided by the municipality).
 \end{itemize}
 In the following pictures we will provided more detailed informations about the three clients' components, focusing on one at a time.
 
@@ -68,28 +72,28 @@ In the following pictures we will provided more detailed informations about the 
 \end{figure}
 The components represented in this diagram are:
 \begin{itemize}
-	\item SendLogData: Allows users to send their log data to the server in order to login or logout from the system.
-	\item SendRegistrationData: Allows users to send  their registration data to the server in order to register a new account.
-	\item SendReport: Allows users to send a report about traffic violations and all the required data to the server.
-	this component also uses Google maps API in order to recover informations about the area around user's geographical position.
-	\item MapRequest: Allows the user to visualize a geographical map from Google maps API enriched by data about unsafe areas, statistics and traffic violations coming from the server.
+	\item LoginManager: Allows users to send their log data to the server in order to login or logout from the system.
+	\item RegistrationManager: Allows users to send  their registration data to the server in order to create a new account.
+	\item ReportSender: Allows users to send a report about traffic violations, packing all the required data in a suitable format to be sent to the server. This component also uses Google maps API in order to recover informations about the area around user's geographical position.
+	\item MapViewer: Allows the user to visualize a geographical map from Google maps API enriched by data about unsafe areas, statistics and traffic violations coming from the server.
 \end{itemize}
-\newpage
+
 \begin{figure}[h!]
 	\centering
 	\includegraphics[scale=0.7]{Images/PolicemenClient}
 	\caption{Relation between components inside policemen client}
 \end{figure}
+
 The components represented in this diagram are:
 \begin{itemize}
-	\item SendLogData: It has the same function as in the regular user client.
-	\item SendReport: Allows Policeman to send a report about traffic violations and all the required data to the server.
-	this component also uses Google maps API in order to recover informations about the area around user's geographical position.
-	As seen in the diagram, the connection between SendReport and SendReportChosen means that, if a policeman sends a report about a violation, he is automatically assigned to solving it.
-	\item ReportListRequest: Allows a policeman to request the list of the various pending reports around the municipality  he is in assigned.
-	The location of the various reports will be shown on a map provided through Google maps API.
-	\item SendReportChosen: Allows a policemen to send informations about the report he is going to solve.
-	\item SendReportSolved: Allows a policeman to send informations about the report he just solved.
+	\item LoginManager: It has the same function as in the regular user client.
+	\item ReportSender: Allows Policeman to send a traffic violation report with all the required data, packed in a correct format, to the server.
+	This component also uses Google maps API in order to recover informations about the area around user's geographical position.\newline
+	It's worth noting that if a policeman sends a report about a violation, he is automatically assigned to solving it.
+	\item ViolationMapViewer: Allows a policeman to visualize the list of the various pending reportsfor his municipality.
+	The locations of theeports will be shown on a map provided through Google maps API.
+	\item PoliceActionManager: Allows a policeman to signal that his intention to take care of a report. This component will send a suitable message to server which will update its data accordingly, marking the considered report as under analisys.
+	
 \end{itemize}
 \newpage
 \begin{figure}[H]
@@ -99,11 +103,11 @@ The components represented in this diagram are:
 \end{figure}
 The components represented in this diagram are:
 \begin{itemize}
-	\item SendLogData: It has the same function as in the regular user client.
-	\item DataRequest: Allows the municipality to request data about Reports(solved or not) from the server.
-	The location of the various reports will be shown on a map provided through Google maps API.
-	\item SendCrashData: Allows the municipal authority to send Data about car crashes around the municipality to the server in order to be crossed with data already collected.
-	\item MineData: Allows the municipality to mine data collected by the server.
+	\item LoginManager: It has the same function as in the regular user client.
+	\item RequestManager: Allows the municipality to request data about Reports (solved or not) from the server. This componet uses MapViewer in order to provide violation data in a map format.
+	\item MapViewer: Allows the visualization of the mined data in a map format. This component exploit Google Maps API to provide a representation of the local map.
+	\item CrashDataSender: Allows the municipal authority to send Data about car crashes around the municipality to the server in order to be crossed with data already collected.
+	\item MiningService: Provides an interface to simplify the acess of collected data to the municipality.
 \end{itemize}
 
 \newpage
