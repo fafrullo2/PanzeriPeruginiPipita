@@ -7,7 +7,7 @@ Thus, SafeStreets implementation will follow this order:
 \begin{itemize}
 	\item Database server: the database server will be the first part to be implemented, since all of its functions (ranging from submitting reports to even allow users to log in and out of the app) depend on it. A relational database management system has been chosen
 	\item Database server - application server connection
-	\item Application server: the application server components will be implemented in order of relevance, while still paying attention to any relation between the components. The order will be the following one:
+	\item Application server: the application server components will be implemented in order of relevance, while still paying attention to any relation between the components. The order will be the following:
 	\begin{itemize}
 		\item UserRegistration
 		\item LogOperation
@@ -17,7 +17,7 @@ Thus, SafeStreets implementation will follow this order:
 		\item DatFilter
 		\item QueryOnAnalyzedData
 	\end{itemize}
-	This sequence is necessary because, in order to be able to perform any kind of action, there must be registered users (UserRegistration) and said users need to be able to log in their accounts(LogOperations) and submit reports(ReportHandler). Also, police has to be able to take action on said reports (ReportRetriever, then PoliceActionHandler)  and municipal authorities must be able to mine data and cross database informations (ReportRetriver, then DataFilter). Last but not least, users need to query data mined by the authorities (QueryOnAnalizedData).
+	This sequence is necessary because, in order to be able to perform any kind of action, there must be registered users (UserRegistration) and said users need to be able to log in their accounts(LogOperations) and submit reports(ReportHandler). Also, police has to be able to take action on said reports (ReportRetriever, then PoliceActionHandler) and municipal authorities must be able to mine data and cross database informations (ReportRetriver, then DataFilter). Last but not least, users need to query data mined by the authorities (QueryOnAnalizedData).
 	\item Load balancer: off-the-shelf CISCO solution
 	\item clients - application server connection
 	\item clients: in order for the application to work in its basic functions RegularUser client will be implemented first, Policemen and MunicipalAuthority clients will follow.\newline
@@ -30,6 +30,7 @@ Thus, SafeStreets implementation will follow this order:
 				\item ReportSender
 				\item MapRequest
 			\end{itemize}
+			\newpage
 			\item Policeman client:
 			\begin{itemize}
 				\item PoliceActionManager (LoginManager has already been implemented)
@@ -38,7 +39,7 @@ Thus, SafeStreets implementation will follow this order:
 			\end{itemize}
 			\item MunicipalAuthoritiesClient:
 				\begin{itemize}
-					\item Requestmanger (LoginManager has already been implemented)
+					\item RequestManager (LoginManager has already been implemented)
 					\item MapViewer
 					\item CrashDataSender
 					\item MiningService
@@ -59,10 +60,10 @@ The specific integrations are:
 \begin{itemize}
 	\item UserRegistration - Database
 	\item LogOperation - Database
-	\item SendReport - Database
-	\item RetrieveEquiReport - Database
-	\item PoliceAction - Database
-	\item QueryOnData - Database
+	\item ReportHandler - Database
+	\item ReportRertiever - Database
+	\item PoliceActionHandler - Database
+	\item DataFilter - Database
 	\item QueryOnAnalyzedData - Database
 \end{itemize}
 
@@ -71,33 +72,34 @@ Regular user client will be the first one to be integrated with the application 
 Some client Components will also need an integration with Google maps API to operate correctly.
 The specific integrations are:
 \begin{itemize}
-	\item SendRegistrationData - UserRegistration
-	\item SendLogData - LogOperations
-	\item SendReport(Client) - SendReport(Server)
-	\item SendReport(Client) - GoogleMapsAPI
+	\item RegistrationManager - UserRegistration
+	\item LoginManager - LogOperations
+	\item ReportSender - ReportHandler
+	\item ReportSender - GoogleMapsAPI
 	\item MapRequest - QueryOnAnalyzedData
 	\item MapRequest - GoogleMapsAPI
 \end{itemize}
 
 \subsubsection{Integration Application server - Policemen Client/MunicipalAuthority client}
 As already said for the regular user client, also policemen and authorities client will have components that need an integration with Google maps API. \\ \par
-for policemen client, the specific integrations are:
+For policemen client, the specific integrations are:
 \begin{itemize}
-	\item SendLogData - LogOperations	
-	\item ReportListRequest - RetrieveEquiReports
+	\item LoginManager - LogOperations	
+	\item ReportListRequest - ReportRetriever
 	\item ReportListRequest - GoogleMapsAPI
 	\item SendReportChosen - PoliceActionHandler
-	\item SendReport(Client) - SendReport(Server)
+	\item SendReport(Client) - ReportHandler
 	\item SendReport(Client) - GoogleMapsAPI
 	\item SendReport(Client) - SendReportChosen
 	\item SendReportSolved - PoliceActionHandler
 \end{itemize}
 On the other end, for municipal authorities, the specific integrations are:
 \begin{itemize}
-	\item SendLogData - LogOperations
-	\item SendCrashData - DataFilter	
-	\item DataRequest - QueryOnAnalyzedData
-	\item DataRequest - GoogleMapsAPI
+	\item LoginManager - LogOperations
+	\item RequestManager - DataFilter
+	\item RequestManager - QueryOnAnalyzedData
+	\item CrashDataSender - DataFilter	
+	\item MapViewer - GoogleMapsAPI
 	\item MineData - DataFilter
 \end{itemize}
 
