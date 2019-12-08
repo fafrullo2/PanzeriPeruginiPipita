@@ -175,14 +175,15 @@ Other than the relation between PoliceActionHandler, DataFilter and ReportRetrie
 
 \subsubsection{Architectural styles}
 \begin{itemize}
-	\item Client-server: given the nature of the application, a distibuted system in which data submitted by some users has to be accessible by other users, the figure of a mediator becomes necessary. Therefore a client-server architecture seems is a good solution. Another alternative could have been cloud computing architecture (SaaS, flex tenacity approach), but we have chosen a client-server architecturesince the workload and scalability issues would not be big enough to justify the increased costs.
-	\item Thin client: in the afromentioned client-server architecturethe role of the server is more than just a message manager. As a matter of fact, the server also takes care of the application logic, allowing a light client
-	\item Three tiers architecture: given the client server with thin client architecture described, the most natural solution is a three tier architecture in which the presentation layer is on the client, the application layer on the application server and the data layer on the database server 
+	\item Client-server: given the nature of the application, a distibuted system in which data submitted by some users has to be accessible by other users, the figure of a mediator becomes necessary. Therefore a client-server architecture seems to be a good solution. Another alternative could have been a cloud computing architecture (SaaS, flex tenacity approach), but we opted for a client-server architecture since the workload and scalability issues would not be big enough to justify the increased costs.
+	\item Thin client: in the aformentioned client-server architecture, the role of the server is more than just a message manager. As a matter of fact, the server also takes care of the application logic, allowing a light client with limited functionalities.
+	\item Three tiers architecture: given the client-server with thin client architecture described, the most natural solution is a three tier architecture in which the presentation layer is on the client, the application layer on the application server and the data layer on the database server. 
 \end{itemize}
 
 \subsubsection{Design patterns}
 \begin{itemize}
-	\item Model-view-controller: given the three-tiered and thin client architecture, using a MVC design pattern is quite easy: the model will be in the database server, the control in the application sserver and the view in the various clients
+	\item Model-view-controller: given the three-tiers and thin client architecture, using a MVC design pattern is quite easy: the model will be represented by the database server, the control by the application server and the view will be managed by the client. \newline
+	The development of a different view for each type of user will be necessary, considering the different privileges and functions offered. Thus, in this section of the system modularity of the application will be central: sharing of common modules will simplify the development. 
 	\item Facade: used to hide the application server's components complexity
 	\item Factory: used in RegularUser and Policeman clients to create reports
 \end{itemize}
@@ -191,11 +192,11 @@ Other than the relation between PoliceActionHandler, DataFilter and ReportRetrie
 \begin{itemize}
 	\item Security concerns: as expressed in the RASD, there are various measures needed in order to obtain a good level of security:
 	\begin{itemize}
-		\item Filtering and escaping registartion requests of all kinds of user profiles and RegularUser submitted reports (Policeman submitted ones and MunicipalAuthority queries are considered trustwothy) in order to avoid code injections
-		\item escaping and filetring login fields in order to avoid code injections
-		\item all communication must happen over a secure channel (HTTPS)
-		\item an anti cross site request forgery token is needed 
+		\item Fileting and escaping registartion requests of all kinds of user profiles and RegularUser submitted reports (Policeman submitted ones and MunicipalAuthority queries are considered trustwothy) in order to avoid code injections
+		\item Escaping and filetring login fields in order to avoid code injections
+		\item All communication must happen over a secure channel (HTTPS)
+		\item An anti cross site request forgery token is needed 
 	\end{itemize}
 	\item Database: for this application a relational database managemant system has been chosen
-	\item all exchanged data are in xml format (all the photos are hahsed via base 64 and embedded in the document)
+	\item All exchanged data are in xml format (all the photos are hahsed via base 64 and embedded in the document)
 \end{itemize}

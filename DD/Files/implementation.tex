@@ -2,8 +2,8 @@ In this Section SafeStreets implementation, integration and testing will be disc
 \\
 
 \subsection{Implementation Plan}
-SafeStreets implementation wil start from the data tier moving towards presentation tier. This was chosen in order to be able to both unit-test every component implemented and test all that has been implemented to that time. This is possible due to the flow of information that derives from the proposed client-server structure.\newline
-SafeStreets implementation will thus follow this order:
+SafeStreets implementation wil start from the data tier moving towards presentation tier. The decision of this development order aims to semplify  the unit-test of every component and to garantee testing for all component implemented at a given time. This implementation plan follows the flow of information that derives from the proposed client-server structure.\newline
+Thus, SafeStreets implementation will follow this order:
 \begin{itemize}
 	\item Database server: the database server will be the first part to be implemented, since all of its functions (ranging from submitting reports to even allow users to log in and out of the app) depend on it. A relational database management system has been chosen
 	\item Database server - application server connection
@@ -11,13 +11,13 @@ SafeStreets implementation will thus follow this order:
 	\begin{itemize}
 		\item UserRegistration
 		\item LogOperation
-		\item SendReport
-		\item RetriveEquiReport
-		\item PoliceAction
-		\item QueryOnData
+		\item ReportHandler
+		\item ReportRetriever
+		\item PoliceActionHandler
+		\item DatFilter
 		\item QueryOnAnalyzedData
 	\end{itemize}
-	This is so because in order to be able to perform any kind of action there must be registered users (UserRegistration) and said users need to be able to log in their accounts(LogOperations) and submit reports(SendReport). Also, police has to be able to take action on said reports (RetriveEquiReports, then PoliceAction)  and municipal authorities must be able to mine data and cross database informations (RetriveEquiReports, then QueryOnData). Last but not least, users need to query data mined by the authorities (QueryOnAnalizedData).
+	This sequence is necessary because, in order to be able to perform any kind of action, there must be registered users (UserRegistration) and said users need to be able to log in their accounts(LogOperations) and submit reports(ReportHandler). Also, police has to be able to take action on said reports (ReportRetriever, then PoliceActionHandler)  and municipal authorities must be able to mine data and cross database informations (ReportRetriver, then DataFilter). Last but not least, users need to query data mined by the authorities (QueryOnAnalizedData).
 	\item Load balancer: off-the-shelf CISCO solution
 	\item clients - application server connection
 	\item clients: in order for the application to work in its basic functions RegularUser client will be implemented first, Policemen and MunicipalAuthority clients will follow.\newline
@@ -25,23 +25,23 @@ SafeStreets implementation will thus follow this order:
 		\begin{itemize}
 			\item RegularUser client:
 			\begin{itemize}
-				\item SendRegistrationData
-				\item SendLogData
-				\item SendReport
+				\item RegistrationManager
+				\item LoginManager
+				\item ReportSender
 				\item MapRequest
 			\end{itemize}
 			\item Policeman client:
 			\begin{itemize}
-				\item ReportListRequest ( SendLogData has already been implemented)
-				\item SendReportChosen
-				\item SendReport (different from RegularUser omonimous component)
-				\item SendReportSolved
+				\item PoliceActionManager (LoginManager has already been implemented)
+				\item ViolationMapViewer
+				\item ReportSender (almost equal to the RegularUser client one, but it packs ViolationReport with "dispactchedOfficer" field already compiled)
 			\end{itemize}
 			\item MunicipalAuthoritiesClient:
 				\begin{itemize}
-					\item DataRequest (SendLogData has already been implemented)
-					\item SendCrashData
-					\item MineData
+					\item Requestmanger (LoginManager has already been implemented)
+					\item MapViewer
+					\item CrashDataSender
+					\item MiningService
 				\end{itemize} 
 			\end{itemize}
 	\end{itemize} 
