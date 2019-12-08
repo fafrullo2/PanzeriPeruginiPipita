@@ -168,7 +168,7 @@ In this section the main functionalities of the system are analyzed through the 
 	\includegraphics[width=\textwidth]{Images/interface_diagram}
 	\caption{Components' interfaces}
 \end{figure}
-Other than the relation between PoliceAction, QueryOnData and RetriveEquiReports, already explained in section 2.2, it is worth noting that the interfaces don't actually expose all the methods of the objects that implement them. This choiche was made in order to hide the methods that will be called only from inside the object in which they are defined.
+Other than the relation between PoliceActionHandler, DataFilter and ReportRetriever, already explained in section 2.2, it is worth noting that the interfaces don't actually expose all the methods of the objects that implement them. This choiche was made in order to hide the methods that will be called only from inside the object in which they are defined.
 \newpage 
 
 \subsection{Architectural and implementative styles and patterns}
@@ -191,7 +191,7 @@ Other than the relation between PoliceAction, QueryOnData and RetriveEquiReports
 \begin{itemize}
 	\item Security concerns: as expressed in the RASD, there are various measures needed in order to obtain a good level of security:
 	\begin{itemize}
-		\item Fileting and escaping registartion requests of all kinds of user profiles and RegularUser submitted reports (Policeman submitted ones and MunicipalAuthority queries are considered trustwothy) in order to avoid code injections
+		\item Filtering and escaping registartion requests of all kinds of user profiles and RegularUser submitted reports (Policeman submitted ones and MunicipalAuthority queries are considered trustwothy) in order to avoid code injections
 		\item escaping and filetring login fields in order to avoid code injections
 		\item all communication must happen over a secure channel (HTTPS)
 		\item an anti cross site request forgery token is needed 
