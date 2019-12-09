@@ -68,20 +68,31 @@ The specific integrations are:
 	\item DataFilter - Database
 	\item QueryOnAnalyzedData - Database
 \end{itemize}
-
+\subsubsection{Integration within the Application Server}
+The integration within the application server will be as follows:
+\begin{itemize}
+	\item Router - LogOperations
+	\item Router - ReportHandler
+	\item Router - QueryOnAnalyzedData
+	\item Router - UserRegistration
+	\item Router - DataFilter
+	\item Router - PoliceActionHandler
+	\item PoliceActionHandler - ReportRetriever
+	\item DataFilter - ReportRetriever
+\end{itemize}
 \subsubsection{Integration: Application server - RegularUser Client}
 Regular user client will be the first one to be integrated with the application server in order for the application to work in its basic functions.
 Some client Components will also need an integration with Google maps API to operate correctly.
 The specific integrations are:
 \begin{itemize}
-	\item RegistrationManager - UserRegistration
-	\item LoginManager - LogOperations
-	\item ReportManager - ReportHandler
+	\item RegistrationManager - Router
+	\item LoginManager - Router
+	\item ReportManager - Router
 	\item ReportManager - PlateRecognizer
 	\item ReportManager - mobile OS camera API
 	\item ReportManager - mobile OS GPS API
 	\item ReportManager - GoogleMapsAPI
-	\item MapViewer - QueryOnAnalyzedData
+	\item MapViewer - Router
 	\item MapViewer - GoogleMapsAPI
 \end{itemize}
 
@@ -89,9 +100,9 @@ The specific integrations are:
 As already said for the regular user client, also policemen client will have components that need an integration with Google maps API and mobile OS APIs. \\ \par
 For policemen client, the specific integrations are:
 \begin{itemize}
-	\item LoginManager - LogOperations	
-	\item PoliceActionManager - PoliceActionHandler
-	\item ReportManager - ReportHandler
+	\item LoginManager - Router	
+	\item PoliceActionManager - Router
+	\item ReportManager - Router
 	\item ReportManager - PlateRecognizer
 	\item ReportManager - mobile OS camera API
 	\item ReportManager - mobile OS GPS API
@@ -102,13 +113,13 @@ For policemen client, the specific integrations are:
 \subsubsection{Integration: Application Server - MunicipalAuthority Client}
 For municipal authorities, the specific integrations are:
 \begin{itemize}
-	\item LoginManager - LogOperations
-	\item RequestManager - DataFilter
-	\item RequestManager - QueryOnAnalyzedData
+	\item LoginManager - Router
+	\item RequestManager - Router
+	\item RequestManager - Router
 	\item RequestManager - MapViewer 
 	\item MapViewer - GoogleMapsAPI
-	\item CrashDataSender - DataFilter	
-	\item MiningService - DataFilter
+	\item CrashDataSender - Router	
+	\item MiningService - Router
 \end{itemize}
 
 \subsubsection{Integration: load balancer}
