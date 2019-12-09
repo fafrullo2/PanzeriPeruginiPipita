@@ -194,15 +194,31 @@ Other than the relation between PoliceActionHandler, DataFilter and ReportRetrie
 	\item Factory: used in clients to create reports and in general messages and requests.
 \end{itemize}
 
-\subsection{Other design choices}
+\subsection{Other design choiches}
+This sections explores many meaningfull design decisions that deserve further specification.
+
 \begin{itemize}
+	\item Plate Recognition Procedure: Here we present a brief description of the steps of the photo analysis routine, contextualizing it in the report signaling flow.
+	\begin{itemize}
+		\item Entry conditions: during a standard report procedure (the whole procedure is handled by ReportManager component), the user is propted to take a photo of the violation.
+		\item  Procedure steps:
+	\begin{enumerate}
+		\item Image acquisition: the ReportManager client component, interfacing with OS camera API, presents the user a in-app camera interface. The user takes a photo of the violation.
+		\item Image cropping: the user is asked to crop the image, in order to obtain a picture representing only the plate involved in the violation. This step is necessary to avoid possibile problems with pictures including more than a plate. In addiction, the image cropping reduces a lot the computation resources needed for a plate recognition algorithm.\\
+		The GUI has to offer a basic tool for image cropping, such as a floating selection rectangle.
+		\item Plate number recognition:  the client runs locally an image recognition algorithm. \\
+		A classification machine learning algorithm has been chosen for this task. Given the small set of possible simbols involved and the standardization of this simbols, the neural net required will be easly developed and trained. Moreover, virtually every smartphone can easly run a net of this kind. Thus, we opted to integrate the net into a client component, the PlateRecognizer.\\
+		Note that the performance consideration presented apply exclusively to an image representing only a plate: so the image cropping step is vital.
+	\end{enumerate}
+	\item Output conditions: the recognition algorithm return a plate number that will be compared to the number manually inserted by the user.
+	\end{itemize}
 	\item Security concerns: as expressed in the RASD, there are various measures needed in order to obtain a good level of security:
 	\begin{itemize}
 		\item Filtering and escaping registartion requests of all kinds of user profiles and RegularUser submitted reports (Policeman submitted ones and MunicipalAuthority queries are considered trustwothy) in order to avoid code injections
 		\item Escaping and filtering login fields in order to avoid code injections
 		\item All communication must happen over a secure channel (HTTPS)
-		\item An anti cross site request forgery token is needed 
+		\item An anti cross site request forgery token is needed, in particular for Municipal Authority web interface
 	\end{itemize}
 	\item Database: for this application a relational database has been chosen, since involving any other kind of solution would be a waste of resources for no sensible inprovement on the system
-	\item All exchanged data are in xml format (all the photos are hahsed via base 64 and embedded in the document)
+	\item All exchanged data are in xml format (all the photos are hashed via base 64 and embedded in the document)
 \end{itemize}
