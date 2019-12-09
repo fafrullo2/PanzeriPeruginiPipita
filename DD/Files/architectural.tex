@@ -1,6 +1,6 @@
 \subsection{Overview}
-During the definition of this architecture both the top-down and bottom-up approach were used: at first we defined the main somponents of the system (top-down) treating them as black boxes, then we studied how to connect and use the aformentioned modules in order to make the system satisfy its requirements and reach its goals(bottom-up).\\
-The application architecture will be a service-oriented one, thus it will be self contained and its components will be trated with a black box mentality; also the coupling between its components will be kept low, their reusability high and they will be stateless.\\
+During the definition of this architecture both the top-down and bottom-up approach were used: at first we defined the main somponents of the system (top-down) considering them as black boxes, then we studied how to connect and use the aformentioned modules in order to make the system satisfy its requirements and reach its goals (bottom-up).\\
+The application architecture will be a service-oriented (SOA) one, thus it will be self contained and its components will be treated with a black box mentality; also the coupling between its components will be kept low, their reusability high and they will be stateless.\\
 Given the nature of the application, a three layer approach has been chosen.\newline
 \begin{figure}[h!]
 	\centering
@@ -230,7 +230,7 @@ This sections explores many meaningfull design decisions that deserve further sp
 		\item Escaping and filtering login fields in order to avoid code injections
 		\item All communication must happen over a secure channel (HTTPS)
 		\item An anti cross site request forgery token is needed, in particular for Municipal Authority web interface
-		\item firewalls at every point of connection between separate components
+		\item Firewall use for components expoliting an internet connection in order to guarantee (at least) a basic malitious data filter.
 	\end{itemize}
 	
 	\item Database: for this application a relational database has been chosen, since involving any other kind of solution would be a waste of resources for no sensible inprovement on the system
