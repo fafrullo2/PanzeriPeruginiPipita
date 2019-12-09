@@ -1,7 +1,8 @@
 In this section the reations between Requirements, Goals and Components will be highlighted.\\
 
 \begin{itemize}
-	\item Goal G1, Requirements R1, R2, R3, R4: \\ ApplicationServer:
+	\item Goal G1, Requirements R1, R2, R3, R4: \\ 
+	ApplicationServer:
 	\begin{itemize}
 		\item ReportHandler
 		\item LogOperations
@@ -9,7 +10,8 @@ In this section the reations between Requirements, Goals and Components will be 
 	\end{itemize}
 	Client:
 	\begin{itemize}
-		\item RegularUser:ReportSender
+		\item RegularUser: ReportManager
+		\item RegularUser: RegistrationManager
 	\end{itemize}
 	\item Goal G2, Requirements R5, R6:\\
 	ApplicationServer:
@@ -18,9 +20,10 @@ In this section the reations between Requirements, Goals and Components will be 
 	\end{itemize}
 	Client:	
 	\begin{itemize}
-		\item RegularUser:ReportSender
+		\item RegularUser: ReportManager
 	\end{itemize}
-	\item Goal G3, Requirement R7:\\ApplicationServer:
+	\item Goal G3, Requirement R7:\\
+	ApplicationServer:
 	\begin{itemize}
 		\item ReportHandler
 		\item ReportRetriever
@@ -29,9 +32,10 @@ In this section the reations between Requirements, Goals and Components will be 
 	\end{itemize}
 	Client:
 	\begin{itemize}
-		\item RegularUser:ReportSender
+		\item RegularUser: ReportManager
 	\end{itemize}
-	\item Goal G4, Requirements R8, R9:\\ApplicationServer:
+	\item Goal G4, Requirements R8, R9:\\
+	ApplicationServer:
 	\begin{itemize}
 		\item ReportHandler
 	\end{itemize}
@@ -45,58 +49,64 @@ In this section the reations between Requirements, Goals and Components will be 
 		\item QueryOnAnalyzedData
 		\item ReportRetriever
 	\end{itemize}
+	\newpage
 	Client:
 	\begin{itemize}
-		\item RegularUser:MapRequest
-		\item Policeman:ViolationMapViewer
-		\item MunicipalAuthority:MapViewer
-		\item MunicipalAuthority:RequestManager
-		\item MunicipalAuthority:MiningService
+		\item RegularUser/Policeman/MunicipalAuthority: MapViewer
+		\item MunicipalAuthority: RequestManager
+		\item MunicipalAuthority: MiningService
 	\end{itemize}
-	\item Goal GA1.1, Requirements R17, R18, R19:\\ApplicationServer:
+	\item Goal GA1.1, Requirements R17, R18, R19:\\
+	ApplicationServer:
 	\begin{itemize}
 		\item DataFilter
 		\item ReportRetriever
 	\end{itemize}
 	Client:
 	\begin{itemize}
-		\item MunicipalAuthority:CrashDataSender
+		\item MunicipalAuthority: CrashDataSender
 	\end{itemize}
-	\item Goal GA1.2, Requirement R16:\\ApplicationServer:
+	\item Goal GA1.2, Requirement R16:\\
+	ApplicationServer:
 	\begin{itemize}
 		\item DataFilter
 		\item ReportRetriever
 	\end{itemize}
 	Client:
 	\begin{itemize}
-		\item MunicipalAuthority:MiningService
+		\item MunicipalAuthority: MiningService
 	\end{itemize}
-	\item GA2.1, Requirement R20:\\ApplicationServer:
+	\item GA2.1, Requirement R20:\\
+	ApplicationServer:
 	\begin{itemize}
 		\item PoliceActionHandler
 		\item ReportRetriever
 	\end{itemize}
 	Client:
 	\begin{itemize}
-		\item Policeman:ReportSender
-		\item Policeman:ViolationMapViewer
-		\item Policeman:PoliceActionManager
+		\item Policeman: ReportManager
+		\item Policeman: MapViewer
+		\item Policeman: PoliceActionManager
 	\end{itemize}
-	\item GA2.2, Requirements R2, R3, R21, R6, R22:\\ApplicationServer:
+	\item GA2.2, Requirements R2, R3, R21, R6, R22:\\
+	ApplicationServer:
 	\begin{itemize}
 		\item ReportHandler
 		\item PoliceActionHandler
 	\end{itemize}
-	\item GA2.3, Requirements R23, R24, R25:\\ApplicationServer:
+	\item GA2.3, Requirements R23, R24, R25:\\
+	ApplicationServer:
 	\begin{itemize}
 		\item PoliceActionHandler
 		\item ReportRetriever
 	\end{itemize}
-	\item GA2.4, Requirement R26, R27:\\ApplicationServer:
+	\item GA2.4, Requirement R26, R27:\\
+	ApplicationServer:
 	\begin{itemize}
 		\item PoliceActionHandler
 	\end{itemize}
-	\item GA2.5, Requirement R21:\\ApplicationServer:
+	\item GA2.5, Requirement R21:\\
+	ApplicationServer:
 	\begin{itemize}
 		\item DataFilter
 	\end{itemize}

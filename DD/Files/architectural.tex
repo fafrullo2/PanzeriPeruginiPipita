@@ -75,7 +75,7 @@ The components represented in this diagram are:
 	\item LoginManager: Allows users to send their log data to the server in order to login or logout from the system.
 	\item RegistrationManager: Allows users to send  their registration data to the server in order to create a new account.
 	\item ReportManager: Allows users to send a report about traffic violations, packing all the required data in a suitable format to be sent to the server. This component also uses Google maps API in order to recover informations about the area around user's geographical position.
-	\item PlateRecognizer:
+	\item PlateRecognizer: Allows plate number recognition exploiting a classification Machine Learning algorithm. This component will be used by ReportManager during the process of building a report.
 	\item MapViewer: Allows the user to visualize a geographical map from Google maps API enriched by data about unsafe areas, statistics and traffic violations coming from the server.
 \end{itemize}
 
@@ -91,7 +91,7 @@ The components represented in this diagram are:
 	\item ReportManager: Allows Policeman to send a traffic violation report with all the required data, packed in a correct format, to the server.
 	This component also uses Google maps API in order to recover informations about the area around user's geographical position.\newline
 	It's worth noting that if a policeman sends a report about a violation, he is automatically assigned to solving it.
-	\item PlateRecognizer: 
+	\item PlateRecognizer: Allows plate number recognition exploiting a classification Machine Learning algorithm. This component will be used by ReportManager during the process of building a report.
 	\item MapViewer: Allows a policeman to visualize the list of the various pending reportsfor his municipality.
 	The locations of theeports will be shown on a map provided through Google maps API.
 	\item PoliceActionManager: Allows a policeman to signal that his intention to take care of a report. This component will send a suitable message to server which will update its data accordingly, marking the considered report as under analisys.
@@ -189,8 +189,9 @@ Other than the relation between PoliceActionHandler, DataFilter and ReportRetrie
 \begin{itemize}
 	\item Model-view-controller: given the three-tiers and thin client architecture, using a MVC design pattern is quite easy: the model will be represented by the database server, the control by the application server and the view will be managed by the client. \newline
 	The development of a different view for each type of user will be necessary, considering the different privileges and functions offered. Thus, in this section of the system modularity of the application will be central: sharing of common modules will simplify the development. 
-	\item Facade: used to hide the application server's components complexity
-	\item Factory: used in RegularUser and Policeman clients to create reports
+	\item Facade: used to hide components complexity; useful to isolate functionality, improve portability and maintainability. In particular this will ease clients development since the 3 client proposed share many modules.
+	\item Oberserver-Oberservable: considering the message-driven architecture of the system, this pattern can be used to model components comunication.
+	\item Factory: used in clients to create reports and in general messages and requests.
 \end{itemize}
 
 \subsection{Other design choiches}
