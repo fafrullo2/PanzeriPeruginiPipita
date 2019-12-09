@@ -33,18 +33,17 @@ Thus, SafeStreets implementation will follow this order:
 			\newpage
 			\item Policeman client:
 			\begin{itemize}
-				\item PoliceActionManager (LoginManager has already been implemented)
-				\item MapViewer
+				\item PoliceActionManager 
 				\item ReportManager (almost equal to the RegularUser client one, but it packs ViolationReport with "dispactchedOfficer" field already compiled)
 			\end{itemize}
-			\item PlateRecognizer (same component of RegularUser client)
+			Please note that LoginManager, PlateRecogniser and MapViewer have already been implemented
 			\item MunicipalAuthoritiesClient:
 				\begin{itemize}
-					\item RequestManager (LoginManager has already been implemented)
-					\item MapViewer
+					\item RequestManager
 					\item CrashDataSender
 					\item MiningService
-				\end{itemize} 
+				\end{itemize}
+			Please note that LoginManager and MapViewer have already been implemented 
 			\end{itemize}
 	\item Load balancer: off-the-shelf CISCO solution (for reference, not a mandatory solution)
 	\end{itemize} 
