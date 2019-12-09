@@ -38,14 +38,14 @@ The logic of the application works based on the afromentioned components: they g
 In the next two pictures more information about the system will be provided: the first represents a more accurate version of the class diagram presented in the RASD; the second includes a schema of the relationship between the classes interfaces and implementations of said interfaces. \newline
 Please note that the "Device" class and the classes that extend it are not reported in the diagram, since they are not relevant to the purposes of this description. For any further information about these classes refer to the Class diagram in the RASD.
 
-\begin{figure}[h!]
+\begin{figure}[H]
 	\centering
-	\includegraphics[angle=90, scale=0.40]{Images/ADV_class_diagram}
+	\includegraphics[angle=90, scale=0.35]{Images/ADV_class_diagram}
 	\caption{Class diagram}
 \end{figure}
 \newpage
 
-\begin{figure}[h!]
+\begin{figure}[H]
 	\centering
 	\includegraphics[angle=90, scale=0.25]{Images/component_class_relation}
 	\caption{Relation between components and already specified classes}
@@ -202,6 +202,6 @@ Other than the relation between PoliceActionHandler, DataFilter and ReportRetrie
 		\item All communication must happen over a secure channel (HTTPS)
 		\item An anti cross site request forgery token is needed 
 	\end{itemize}
-	\item Database: for this application a relational database managemant system has been chosen
+	\item Database: for this application a relational database has been chosen, since involving any other kind of solution would be a waste of resources for no sensible inprovement on the system
 	\item All exchanged data are in xml format (all the photos are hahsed via base 64 and embedded in the document)
 \end{itemize}
