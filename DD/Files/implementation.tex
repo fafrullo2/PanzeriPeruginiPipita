@@ -123,3 +123,14 @@ For municipal authorities, the specific integrations are:
 
 \subsubsection{Integration: load balancer}
 The load balancer component will be integrated when the application server development will be complete. The integration of this component may require a remarkable ammount of effort, considering the choice of a third party component. However, we opted for this option considering that the costs of the development of an in-house solution would not be sustainable.
+
+\subsection{Testing Plan}
+The system will be tested following a bottom-up strategy.
+This means that every single component will be tested individually, followed by the testing of every integration, and finally a general testing of the system.	\par
+Individual component testing can take place as soon as the first components' implementation is completed.
+This process makes easier to find errors and reduces the possibilities to discover flaws in the following testing phases.
+It is important for the component testing to be finished before starting with the implementation phase in order to avoid errors due to the latest changes in the components' algorithms. \par
+Individual component testing will be followed by individual Integration testing.
+This phase, as the previous one, can be started even if not all the integrations between components are deployed, in order to speed up the process.
+Integration will comprehend also connections with external services (such as Google maps API) or device's services (such as mobile OS camera API). These integrations must be tested as well before moving on to the next phase since the most important functionalities are linked to these services. \par
+The last step is the system testing, that consists in testing all the functionalities provided by the application altogether, in order to find the errors not resolved by individual testing.
