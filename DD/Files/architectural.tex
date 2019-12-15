@@ -238,4 +238,11 @@ This sections explores many meaningfull design decisions that deserve further sp
 	\item Database: for this application a relational database has been chosen, since involving any other kind of solution would be a waste of resources for no sensible inprovement on the system
 	
 	\item All exchanged data are in xml format (all the photos are hashed via base 64 and embedded in the document)
+	
+	\item Data visibility:
+		\begin{itemize}
+			\item RegularUser: regular users will be able to send report about infractions in any city that has adopted SS. They will also be able to retrieve data about any area of any city that has adopted SS.
+			\item Policeman: policemen will be able to view reports and act on them only if the city field matches the city in which they work. The reports will be filtered at database level based on their field "city" and policemen's AUID (that caontains data about the city teh policemen work for)
+			\item MunicipalAuthority: municipal authorities will be able to access and manipulate data only if said data was generated in the city whose municipality they work for. The filtering happens tha same way it happens for policeman
+		\end{itemize}
 \end{itemize}
