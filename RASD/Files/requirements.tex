@@ -238,24 +238,26 @@
 		\centering
 		\begin{tabular}{|l|p{12,5cm}|}
 		\hline
-		Actors            			&       	Institution/Authority\\ \hline
+		Actors            			&       	Institution/Authority, SysAdmin\\ \hline
 		Goals             			&         	G6, GA2.1\\ \hline
 		Entry Conditions  	&  		No entry condition\\ \hline
 		Event Flow        		&          
 				\begin{enumerate}[label=\alph*)]
 					\item The institution connects to SS website.
-					\item In the website institution dedicated area, the authority finds a mandatory registration form. A certificate for institution acknowledgement must be provided as part of the form.
+					\item In the website institution dedicated area, the authority finds a mandatory registration form. 
 					\item The institution fills all the mandatory fields and accepts privacy policy.
+					\item A SS SysAdmin takes care of the registration request, verifying the data and creating a corresponding Municipal Authority profile.
 					\end{enumerate}\\ \hline
 		Output Conditions &    		Registration successfull: the institution can access advanced SS features.\\ \hline
-		Exceptions        		&
+		Exceptions        		& 
 				\begin{enumerate}[label=\alph*)]
 					\item The institution is already registered.
-					\item Mandatory fileds are incomplete.
-					\item Certificate is missing.
+					\item Mandatory fields are incomplete.
 					\item The institution does not accept Privacy policy.
+					\item SS SyAdmin raises doubts regarding submitted data.
 				\end{enumerate}
-				All exceptions raise an error asking to complete the unfulfilled operations. \\ \hline
+				All exceptions raise an error asking to complete the unfulfilled operations. \\ 
+				\hline
 	\end{tabular}
 	\end{table}
 	
@@ -275,12 +277,12 @@
 					\item The user takes a photo of the violation within SS app and insert license plate number of the vehicle.
 					\item The system verifies if the license plate pictured and the manually inserted one match and readies the violation report. 
 					\item The app shows a menu displaying a " Send Report" and a "Cancel" options.
-					\item The user tap on "Send Report" in order to send the violation report to SS systems.
+					\item The user taps on "Send Report" and the report is sent to SS systems.
 					\end{enumerate}\\ \hline
 		Output Conditions &    		The report is sent to SS server and it is stored in a suitable database.\\ \hline
 		Exceptions        		&       	
 				\begin{enumerate}[label=\alph*)]
-					\item License plate number recognized by the app and the one manually inserted do not match. In this case, an error message is raised and SS asks the user to retake the photo.
+					\item License plate number recognized by SS and the user inserted one don't match. An error message is raised and SS asks the user to retake the photo.
 				\end{enumerate}\\ \hline
 	\end{tabular}
 	\end{table}
@@ -313,7 +315,7 @@
 		\centering
 		\begin{tabular}{|l|p{12,5cm}|}
 		\hline
-		Actors            			&       	Institution/authority\\ \hline
+		Actors            			&       	Institution/Authority\\ \hline
 		Goals             			&         	G6\\ \hline
 		Entry Conditions  	&  		Institution is registered to SS service and desires to access to data it collects\\ \hline
 		Event Flow        		&          
@@ -367,7 +369,7 @@
 													The police officers finds in the SS client dedicated section an available violation report and decides to take care of it \\ \hline
 		Event Flow        		&          
 				\begin{enumerate}[label=\alph*)]
-					\item The police officer taps on the notification (selects a violation report).
+					\item The police officer selects a violation report among the ones displayed on the map.
 					\item The app shows the report and two option: "On my Way", to take over the violaton report; "Back to Reports", to come back to violations map.
 					\item The police officer selects "On my way" option.
 					\item The police officer reaches the location indicated in the violation reports.
