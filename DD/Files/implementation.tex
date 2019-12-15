@@ -39,6 +39,7 @@ Thus, SafeStreets implementation will follow this order:
 			Please note that LoginManager, PlateRecogniser and MapViewer have already been implemented
 			\item MunicipalAuthoritiesClient:
 				\begin{itemize}
+					\item SubscriptionManager
 					\item RequestManager
 					\item CrashDataSender
 					\item MiningService
@@ -112,6 +113,7 @@ For policemen client, the specific integrations are:
 \subsubsection{Integration: Application Server - MunicipalAuthority Client}
 For municipal authorities, the specific integrations are:
 \begin{itemize}
+	\item SubscriptionManager - Router
 	\item LoginManager - Router
 	\item RequestManager - Router
 	\item RequestManager - Router

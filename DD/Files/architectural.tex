@@ -115,6 +115,7 @@ The components represented in this diagram are:
 	\item MapViewer: Allows the visualization of the mined data in a map format. This component exploit Google Maps API to provide a representation of the local map.
 	\item CrashDataSender: Allows the municipal authority to send Data about car crashes around the municipality to the server in order to be crossed with data already collected.
 	\item MiningService: Provides an interface to simplify the acess of collected data to the municipality.
+	\item SubscriptionManager: This component is responsible of the subscription of Policemen and MunicipalAuthorities profiles. Once a subscription request is sent a SysAdmin will take care of it and proceed with the actual subscription of the profile. 
 \end{itemize}
 \subsubsection{SysAdmin}
 The system administrator will have access to all of the application tiers and components, as well as direct access to data.
