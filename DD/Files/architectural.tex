@@ -115,7 +115,7 @@ The components represented in this diagram are:
 	\item MapViewer: Allows the visualization of the mined data in a map format. This component exploit Google Maps API to provide a representation of the local map.
 	\item CrashDataSender: Allows the municipal authority to send Data about car crashes around the municipality to the server in order to be crossed with data already collected.
 	\item MiningService: Provides an interface to simplify the acess of collected data to the municipality.
-	\item SubscriptionManager: This component is responsible of the subscription of Policemen and MunicipalAuthorities profiles. Once a subscription request is sent a SysAdmin will take care of it and proceed with the actual subscription of the profile. 
+	\item SubscriptionManager: This component is responsible of the subscription of Policemen and MunicipalAuthorities profiles. Once a subscription request is sent a SysAdmin will take care of it and proceed with the actual subscription of the profile. Note that it is not necessary to be logged or subscribed to access this function. 
 \end{itemize}
 \subsubsection{SysAdmin}
 The system administrator will have access to all of the application tiers and components, as well as direct access to data.
@@ -132,10 +132,13 @@ The image above shows the system's architecture from a physical standpoint.
 Components:
 \begin{itemize}
 \item Smartphone: Device used by both RegularUser and Policeman users to interact with the application. Two different clients will be developed: one for regular users, that will allow them to look at already analyzed data and submit reports; an adavanced one for policemen, that will allow the officers make reports (upon which they will take actions right away) and take actions on reports.\\
-The RegularUser mobile client should be distributed as an apk/ipa, available through mobile OSes applications repositories/markets. The Policeman client will be directly delivered to Municipal Authorities subscribed to our ticket generation service.
+The RegularUser mobile client should be distributed as an apk/ipa, available through mobile OSes applications repositories/markets. The Policeman client will be directly delivered to municipalities subscribed to our ticket generation service. Policeman user credentials will be delivered to the user once the profile has been created.\\
+Smartphones can also be used by Municipal authorities to access SafeStreets' services.
 
 \item Computer: device used by MunicipalAuthorities users. They will interact with the application via a web page, accessible through a web browser. SS webpage will allow them to interact in various ways with the Reports submitted by the other users and will offer advanced analysis on data collected. \\
-Subscription to advanced feature, such as suggested intervention and traffic ticket generation, is accesible through this service. Moreover, a section with useful information is present: it will include an in-dept description of SS APIs for authorities that desire to access our data.
+Subscription to advanced feature, such as suggested intervention and traffic ticket generation, and account creation for MunicipalAuthorities and policeman is accesible through this service. Moreover, a section with useful information is present: it will include an in-depth description of SS APIs for authorities that desire to access our data.\\
+Note that, as stated in the Smartphone section, MunicipalAuthorities can also use a smartphone in order to access the offered services.\\
+Last but not least, MunicipalAuthority user credentials will be delivered to the subscribed municipalities once the profiles have been created.
 \item Load Balancer: CISCO off-the-shelf load balancer. Note that we provided a possible load balancer solution, but an equivalent one from a different vendor (providing the same features) can be used. 
 \item Application server: this server contains the application logic and will interact with the different clients in a client-server way.
 \item DatabaseServer: this server contains the actual data, both about the registered users and related to the user submitted reports, the actions taken by the police and the results of the data mining operations.
